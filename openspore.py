@@ -53,6 +53,9 @@ mapmode = SourceFileLoader('mapmode', 'data/mapmode/'+cfg['mapmode']+'.py').load
 # load system module
 systemclass = SourceFileLoader('systemclass', 'data/'+cfg['systemclass']+'.py').load_module()
 
+# load constants module
+common = SourceFileLoader('common', 'data/constants.py').load_module()
+
 
 def starinfo(coords: (int, int), system):
 	darkColor = 8, 42, 54
@@ -73,7 +76,7 @@ def starinfo(coords: (int, int), system):
 	for _, planet in system.bodies:
 		text.append(' '*8+planet.name)
 	# distance from home
-	text.append('Distance: '+str(round(galaxy.dist(focus, site), 2))+' ly')
+	text.append('Distance: '+str(round(common.dist(focus, site), 2))+' ly')
 	# draw highlight circle
 	pygame.draw.circle(screen, lightColor, (ul[0]-20, ul[1]-25), 8, 1)
 	# draw main rectangle
@@ -125,7 +128,7 @@ while 1:
 		mousePos = pygame.mouse.get_pos()
 		focus = focusNew
 	for star in displaylist:
-		if galaxy.dist(pygame.mouse.get_pos(), star[0]) < starRadius*4:
+		if common.dist(pygame.mouse.get_pos(), star[0]) < starRadius*4:
 			starinfo(star[0], star[1])
 			break
 	refresh()

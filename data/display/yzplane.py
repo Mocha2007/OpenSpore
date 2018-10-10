@@ -1,12 +1,7 @@
 import sys
 sys.path.append('./data')
 from galaxy import Galaxy
-
-
-def delta(a: tuple, b: tuple) -> tuple:
-	temp = tuple(zip(a, b))
-	temp = tuple(map(lambda x: x[0]-x[1], temp))
-	return temp
+from constants import delta
 
 
 def main(size: (int, int), galaxy: Galaxy, center: (float, float, float), zoom: float) -> list:
