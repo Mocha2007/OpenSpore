@@ -1,4 +1,7 @@
 from random import choice
+import sys
+sys.path.append('./data')
+from constants import greek
 
 constellations = (
 	"Andromedae",
@@ -90,7 +93,6 @@ constellations = (
 	"Volantis",
 	"Vulpeculae"
 )
-greek = 'αβγδεζηθικλμνξοπρστυφχψω'
 
 
 def main() -> str:

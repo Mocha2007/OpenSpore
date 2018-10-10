@@ -58,15 +58,15 @@ def starinfo(coords: (int, int), system):
 	darkColor = 8, 42, 54
 	lightColor = 40, 72, 95
 	width = 175
-	star = system.star
+	sysstar = system.star
 	# upper left of box
 	ul = coords[0]+20, coords[1]+25
 	# name
-	text = [star.name]
+	text = [sysstar.name]
 	# find star
 	site = focus
 	for s in g.stars:
-		if s[1].star.id == star.id:
+		if s[1].star.id == sysstar.id:
 			site = s[0]
 			break
 	# list planets
@@ -87,10 +87,9 @@ def starinfo(coords: (int, int), system):
 
 
 # main
-g = galaxy.Galaxy(stargen.main, starnamegen.main, planetnamegen.main, moonnamegen.main) # todo replace namegens
+g = galaxy.Galaxy(stargen.main, starnamegen.main, planetnamegen.main, moonnamegen.main)
 refresh()
 
-# todo add click + drag
 mousePos = 0, 0
 mousePosNew = 0, 0
 while 1:

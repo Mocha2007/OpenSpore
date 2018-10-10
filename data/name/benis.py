@@ -1,2 +1,2 @@
-def main(*unused) -> str:
+def main(*_) -> str:
 	return 'Benis'

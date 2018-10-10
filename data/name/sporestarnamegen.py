@@ -1,7 +1,7 @@
 from random import choice
-
-alphabet = 'abcdefghijklmnopqrstuvwxyz'
-digits = '0123456789'
+import sys
+sys.path.append('./data')
+from constants import alphabet, digits
 
 
 def main() -> str:
