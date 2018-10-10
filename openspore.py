@@ -55,6 +55,8 @@ benis = SourceFileLoader('benis', 'data/name/benis.py').load_module()
 
 
 def starinfo(coords: (int, int), system):
+	darkColor = 8, 42, 54
+	lightColor = 40, 72, 95
 	width = 175
 	star = system.star
 	# upper left of box
@@ -72,14 +74,16 @@ def starinfo(coords: (int, int), system):
 		text.append(' '*8+planet.name)
 	# distance from home
 	text.append('Distance: '+str(round(galaxy.dist(focus, site), 2))+' ly')
+	# draw highlight circle
+	pygame.draw.circle(screen, lightColor, (ul[0]-20, ul[1]-25), 8, 1)
 	# draw main rectangle
-	pygame.draw.rect(screen, (8, 42, 54), (ul[0], ul[1], width, 20 * len(text)))
+	pygame.draw.rect(screen, darkColor, (ul[0], ul[1], width, 20 * len(text)))
 	# display label
 	for i in range(len(text)):
 		label = font.render(text[i], 1, (255, 255, 255))
 		screen.blit(label, (ul[0]+5, ul[1]+20*i))
 		if i: # draw line above
-			pygame.draw.line(screen, (40, 72, 95), (ul[0]+5, ul[1]+20*i), (ul[0]+width-5, ul[1]+20*i))
+			pygame.draw.line(screen, lightColor, (ul[0]+5, ul[1]+20*i), (ul[0]+width-5, ul[1]+20*i))
 
 
 # main
