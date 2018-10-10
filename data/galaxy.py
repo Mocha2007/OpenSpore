@@ -6,7 +6,7 @@ from system import System
 from constants import dist
 
 # constants
-galaxyRadius = 50
+galaxyRadius = 30
 minDistance = 3 # ly
 maxDistance = 10 # ly
 tries = 10

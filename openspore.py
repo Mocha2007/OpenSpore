@@ -15,6 +15,9 @@ size = 1280, 720
 screen = pygame.display.set_mode(size)
 refresh = pygame.display.flip
 font = pygame.font.SysFont("trebuchetms", 15)
+icon = pygame.image.load('img/icon.png')
+pygame.display.set_icon(icon)
+pygame.display.set_caption('OpenSpore')
 
 
 # setup
