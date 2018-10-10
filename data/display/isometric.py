@@ -12,8 +12,10 @@ from constants import delta
 #    \+X
 
 
-def main(size: (int, int), galaxy: Galaxy, center: (float, float, float), zoom: float) -> list:
+def main(size: (int, int), galaxy: Galaxy, screendelta: (int, int), zoom: float) -> list:
 	# main
+	center = 0, 0, 0
+	screendelta = tuple(map(lambda x: int(x*zoom), screendelta))
 	starList = galaxy.stars
 	screen_center = size[0]//2, size[1]//2
 
@@ -32,7 +34,7 @@ def main(size: (int, int), galaxy: Galaxy, center: (float, float, float), zoom: 
 		# todo factor in dz
 		sy += d[2] * 3**-.5
 		# finalize
-		coords = int(sx), int(sy)
+		coords = int(sx) + screendelta[0], int(sy) + screendelta[1]
 		if not (0 <= coords[0] <= size[0] and 0 <= coords[1] <= size[1]):
 			continue
 		starList2.append(

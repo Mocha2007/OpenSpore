@@ -95,10 +95,12 @@ refresh()
 
 mousePos = 0, 0
 mousePosNew = 0, 0
+delta = 0, 0
+deltaNew = 0, 0
 while 1:
 	screen.fill((0, 0, 0))
 	# stars
-	displaylist = display.main(size, g, focusNew, zoom)
+	displaylist = display.main(size, g, tuple(map(sum, zip(delta, deltaNew))), zoom)
 	for element in displaylist:
 		colorOfStar = mapmode.main(element[1])
 		c = colorOfStar.r, colorOfStar.g, colorOfStar.b
@@ -118,15 +120,15 @@ while 1:
 	# mousedown?
 	if pygame.mouse.get_pressed()[0]: # left click enabled
 		mousePosNew = pygame.mouse.get_pos()
-		focusNew = tuple(map(lambda x: (x[1]-x[0])/zoom, zip(mousePos, mousePosNew)))
-		# shift focus
-		focusDelta = focusNew[0], focusNew[1], 0
-		focusNew = tuple(map(sum, zip(focus, focusDelta)))
+		deltaNew = tuple(map(lambda x: (x[1]-x[0])/zoom, zip(mousePos, mousePosNew)))
 	else:
 		# reset
-		mousePosNew = pygame.mouse.get_pos()
 		mousePos = pygame.mouse.get_pos()
-		focus = focusNew
+		delta = tuple(map(sum, zip(delta, deltaNew)))
+		# reset
+		mousePosNew = pygame.mouse.get_pos()
+		deltaNew = 0, 0
+
 	for star in displaylist:
 		if common.dist(pygame.mouse.get_pos(), star[0]) < starRadius*4:
 			starinfo(star[0], star[1])
