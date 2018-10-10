@@ -5,7 +5,7 @@ from starcalc import Star
 from system import System
 
 # constants
-galaxyRadius = 25 # fixme works for now, until 100 works
+galaxyRadius = 100
 minDistance = 3 # ly
 maxDistance = 10 # ly
 tries = 10
