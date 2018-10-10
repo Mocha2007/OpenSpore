@@ -50,8 +50,8 @@ display = SourceFileLoader('display', 'data/display/'+cfg['displaymode']+'.py').
 # load mapmode module
 mapmode = SourceFileLoader('mapmode', 'data/mapmode/'+cfg['mapmode']+'.py').load_module()
 
-# load benis module (for test names)
-benis = SourceFileLoader('benis', 'data/name/benis.py').load_module()
+# load system module
+systemclass = SourceFileLoader('systemclass', 'data/'+cfg['systemclass']+'.py').load_module()
 
 
 def starinfo(coords: (int, int), system):
@@ -87,7 +87,7 @@ def starinfo(coords: (int, int), system):
 
 
 # main
-g = galaxy.Galaxy(stargen.main, starnamegen.main, planetnamegen.main, moonnamegen.main)
+g = galaxy.Galaxy(stargen.main, starnamegen.main, planetnamegen.main, moonnamegen.main, systemclass.System)
 refresh()
 
 mousePos = 0, 0

@@ -5,7 +5,7 @@ from starcalc import Star
 from system import System
 
 # constants
-galaxyRadius = 100
+galaxyRadius = 50
 minDistance = 3 # ly
 maxDistance = 10 # ly
 tries = 10
@@ -20,9 +20,9 @@ def dist(a: tuple, b: tuple) -> float:
 
 
 class Galaxy: # no type annotation since function can't be annotated
-	def __init__(self, stargen, starnamegen, planetnamegen, moonnamegen):
+	def __init__(self, stargen, starnamegen, planetnamegen, moonnamegen, SystemClass):
 		# generate home star
-		home = (0, 0, 0), System(Star(1, 'Home'), planetnamegen, moonnamegen)
+		home = (0, 0, 0), SystemClass(Star(1, 'Home'), planetnamegen, moonnamegen)
 		starList = [home]
 		# generate stars until ten failed placements in a row
 		failures = 0
@@ -46,7 +46,7 @@ class Galaxy: # no type annotation since function can't be annotated
 					continue
 			newStar = Star(stargen(), starnamegen())
 			starList.append(
-				(site, System(newStar, planetnamegen, moonnamegen))
+				(site, SystemClass(newStar, planetnamegen, moonnamegen))
 			)
 			failures = 0
 		self.stars = starList
