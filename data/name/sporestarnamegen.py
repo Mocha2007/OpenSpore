@@ -1,7 +1,4 @@
 from random import choice
-import sys
-sys.path.append('./data')
-from starcalc import Star
 
 alphabet = 'abcdefghijklmnopqrstuvwxyz'
 digits = '0123456789'

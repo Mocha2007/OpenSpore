@@ -46,10 +46,10 @@ mapmode = SourceFileLoader('mapmode', 'data/mapmode/'+cfg['mapmode']+'.py').load
 
 def starinfo(coords: (int, int), star):
 	# draw main rectangle
-	pygame.draw.rect(screen, (8, 42, 54), (coords[0], coords[1]+5, 125, 50))
+	pygame.draw.rect(screen, (8, 42, 54), (coords[0]+20, coords[1]+25, 150, 50))
 	# name
 	label = font.render(star.name, 1, (255, 255, 255))
-	screen.blit(label, (coords[0]+5, coords[1]+5))
+	screen.blit(label, (coords[0]+25, coords[1]+25))
 	# find star
 	site = focus
 	for s in g.stars:
@@ -58,7 +58,7 @@ def starinfo(coords: (int, int), star):
 			break
 	# distance from home
 	label = font.render('Distance: '+str(round(galaxy.dist(focus, site), 2))+' ly', 1, (255, 255, 255)) # todo replace 69 with
-	screen.blit(label, (coords[0]+5, coords[1]+25))
+	screen.blit(label, (coords[0]+25, coords[1]+45))
 
 
 # main
