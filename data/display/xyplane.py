@@ -2,14 +2,6 @@ import sys
 sys.path.append('./data')
 from galaxy import Galaxy
 
-# inputs:
-# what is the screen targeting?
-# what is the screen size?
-# galaxy variable
-# RETURN a list of points AND their colors
-
-zoom = 15 # pixels per light year
-
 
 def delta(a: tuple, b: tuple) -> tuple:
 	temp = tuple(zip(a, b))
@@ -17,7 +9,7 @@ def delta(a: tuple, b: tuple) -> tuple:
 	return temp
 
 
-def main(size: (int, int), galaxy: Galaxy, center: (float, float, float)) -> list:
+def main(size: (int, int), galaxy: Galaxy, center: (float, float, float), zoom: float) -> list:
 	# main
 	starList = galaxy.stars
 	screen_center = size[0]//2, size[1]//2

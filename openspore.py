@@ -6,6 +6,7 @@ import pygame
 # constants
 starRadius = 2 # px
 focus = 0, 0, 0 # may change later on as user does things
+zoom = 15
 focusNew = focus
 
 # pygame setup
@@ -91,7 +92,7 @@ mousePosNew = 0, 0
 while 1:
 	screen.fill((0, 0, 0))
 	# stars
-	displaylist = display.main(size, g, focusNew)
+	displaylist = display.main(size, g, focusNew, zoom)
 	for element in displaylist:
 		colorOfStar = mapmode.main(element[1])
 		c = colorOfStar.r, colorOfStar.g, colorOfStar.b
@@ -103,6 +104,11 @@ while 1:
 			pygame.display.quit()
 			pygame.quit()
 			exit()
+		elif event.type == pygame.MOUSEBUTTONDOWN:
+			if event.button == 4:
+				zoom *= 2
+			else:
+				zoom /= 2
 	# mousedown?
 	if pygame.mouse.get_pressed()[0]: # left click enabled
 		mousePosNew = pygame.mouse.get_pos()
