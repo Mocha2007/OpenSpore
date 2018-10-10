@@ -2,6 +2,7 @@ from random import random, choice
 import sys
 sys.path.append('./data')
 from starcalc import Star
+from system import System
 
 # constants
 galaxyRadius = 25 # fixme works for now, until 100 works
@@ -18,11 +19,11 @@ def dist(a: tuple, b: tuple) -> float:
 	return s**.5
 
 
-class Galaxy:
-	def __init__(self, stargen, starnamegen): # no type annotation since function can't be annotated
+class Galaxy: # no type annotation since function can't be annotated
+	def __init__(self, stargen, starnamegen, planetnamegen, moonnamegen):
 		# generate home star
-		home = Star(1, 'Home')
-		starList = [((0, 0, 0), home)]
+		home = (0, 0, 0), System(Star(1, 'Home'), planetnamegen, moonnamegen)
+		starList = [home]
 		# generate stars until ten failed placements in a row
 		failures = 0
 		while failures < tries:
@@ -43,8 +44,9 @@ class Galaxy:
 			for star in starList:
 				if dist(star[0], site) < minDistance:
 					continue
+			newStar = Star(stargen(), starnamegen())
 			starList.append(
-				(site, Star(stargen(), starnamegen()))
+				(site, System(newStar, planetnamegen, moonnamegen))
 			)
 			failures = 0
 		self.stars = starList

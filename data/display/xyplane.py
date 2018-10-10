@@ -19,7 +19,7 @@ def delta(a: tuple, b: tuple) -> tuple:
 
 
 def main(size: (int, int), galaxy: Galaxy, center: (float, float, float)) -> list:
-	#main
+	# main
 	starList = galaxy.stars
 	screen_center = size[0]//2, size[1]//2
 

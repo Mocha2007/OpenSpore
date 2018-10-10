@@ -37,32 +37,52 @@ stargen = SourceFileLoader('stargen', 'data/'+cfg['stargen']+'.py').load_module(
 # load starnamegen module
 starnamegen = SourceFileLoader('starnamegen', 'data/name/'+cfg['starnamegen']+'.py').load_module()
 
+# load planetnamegen module
+planetnamegen = SourceFileLoader('planetnamegen', 'data/name/'+cfg['planetnamegen']+'.py').load_module()
+
+# load moonnamegen module
+moonnamegen = SourceFileLoader('moonnamegen', 'data/name/'+cfg['moonnamegen']+'.py').load_module()
+
 # load display module
 display = SourceFileLoader('display', 'data/display/'+cfg['displaymode']+'.py').load_module()
 
 # load mapmode module
 mapmode = SourceFileLoader('mapmode', 'data/mapmode/'+cfg['mapmode']+'.py').load_module()
 
+# load benis module (for test names)
+benis = SourceFileLoader('benis', 'data/name/benis.py').load_module()
 
-def starinfo(coords: (int, int), star):
-	# draw main rectangle
-	pygame.draw.rect(screen, (8, 42, 54), (coords[0]+20, coords[1]+25, 150, 50))
+
+def starinfo(coords: (int, int), system):
+	width = 175
+	star = system.star
+	# upper left of box
+	ul = coords[0]+20, coords[1]+25
 	# name
-	label = font.render(star.name, 1, (255, 255, 255))
-	screen.blit(label, (coords[0]+25, coords[1]+25))
+	text = [star.name]
 	# find star
 	site = focus
 	for s in g.stars:
-		if s[1].id == star.id:
+		if s[1].star.id == star.id:
 			site = s[0]
 			break
+	# list planets
+	for _, planet in system.bodies:
+		text.append(' '*8+planet.name)
 	# distance from home
-	label = font.render('Distance: '+str(round(galaxy.dist(focus, site), 2))+' ly', 1, (255, 255, 255)) # todo replace 69 with
-	screen.blit(label, (coords[0]+25, coords[1]+45))
+	text.append('Distance: '+str(round(galaxy.dist(focus, site), 2))+' ly')
+	# draw main rectangle
+	pygame.draw.rect(screen, (8, 42, 54), (ul[0], ul[1], width, 20 * len(text)))
+	# display label
+	for i in range(len(text)):
+		label = font.render(text[i], 1, (255, 255, 255))
+		screen.blit(label, (ul[0]+5, ul[1]+20*i))
+		if i: # draw line above
+			pygame.draw.line(screen, (40, 72, 95), (ul[0]+5, ul[1]+20*i), (ul[0]+width-5, ul[1]+20*i))
 
 
 # main
-g = galaxy.Galaxy(stargen.main, starnamegen.main)
+g = galaxy.Galaxy(stargen.main, starnamegen.main, planetnamegen.main, moonnamegen.main) # todo replace namegens
 refresh()
 
 # todo add click + drag
@@ -73,7 +93,7 @@ while 1:
 	# stars
 	displaylist = display.main(size, g, focusNew)
 	for element in displaylist:
-		colorOfStar = mapmode.main(element[1])
+		colorOfStar = mapmode.main(element[1].star)
 		c = colorOfStar.r, colorOfStar.g, colorOfStar.b
 		pygame.draw.circle(screen, c, element[0], starRadius)
 	# window
@@ -100,4 +120,4 @@ while 1:
 			starinfo(star[0], star[1])
 			break
 	refresh()
-	sleep(1/20) # reduce cpu consumption
+	sleep(1/30) # reduce cpu consumption
