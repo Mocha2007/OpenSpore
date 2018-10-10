@@ -107,12 +107,12 @@ while 1:
 		elif event.type == pygame.MOUSEBUTTONDOWN:
 			if event.button == 4:
 				zoom *= 2
-			else:
+			elif event.button == 5:
 				zoom /= 2
 	# mousedown?
 	if pygame.mouse.get_pressed()[0]: # left click enabled
 		mousePosNew = pygame.mouse.get_pos()
-		focusNew = tuple(map(lambda x: (x[1]-x[0])/display.zoom, zip(mousePos, mousePosNew)))
+		focusNew = tuple(map(lambda x: (x[1]-x[0])/zoom, zip(mousePos, mousePosNew)))
 		# shift focus
 		focusDelta = focusNew[0], focusNew[1], 0
 		focusNew = tuple(map(sum, zip(focus, focusDelta)))
