@@ -93,7 +93,7 @@ while 1:
 	# stars
 	displaylist = display.main(size, g, focusNew)
 	for element in displaylist:
-		colorOfStar = mapmode.main(element[1].star)
+		colorOfStar = mapmode.main(element[1])
 		c = colorOfStar.r, colorOfStar.g, colorOfStar.b
 		pygame.draw.circle(screen, c, element[0], starRadius)
 	# window

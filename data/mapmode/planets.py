@@ -15,4 +15,4 @@ colorMap = {
 
 
 def main(system: System) -> Color:
-	return colorMap[system.star.type]
+	return Color(128, int(len(system.bodies)*255/9), 128)
