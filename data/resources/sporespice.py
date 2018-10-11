@@ -2,7 +2,7 @@ from random import choice
 import sys
 sys.path.append('./data')
 from resource import Resource
-from constants import spore_ishab
+# from constants import spore_ishab
 from color import Color
 
 redspice = Resource({
@@ -39,7 +39,8 @@ purplespice = Resource({
 
 def spice(**data):
 	t = data['system'].star.type
-	h = spore_ishab(data['body'], data['system'].star)
+	# h = spore_ishab(data['body'], data['system'].star)
+	h = 273 < data['body'].temp < 373
 	if t in 'MK':
 		if h:
 			return choice([redspice]*96 + [bluespice]*2 + [pinkspice]*2)

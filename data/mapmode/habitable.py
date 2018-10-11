@@ -10,7 +10,10 @@ colorMap = {
 
 
 def main(system: System) -> Color:
-	return colorMap[.45 < system.star.mass < 1.4]
+	for _, p in system.bodies:
+		if 273 < p.temp < 373:
+			return colorMap[True]
+	return colorMap[False]
 
 
 def planet(p: Planet) -> Color:

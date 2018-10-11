@@ -4,13 +4,13 @@ from constants import temp2
 
 
 class Planet:
-	def __init__(self, system, planetnamegen, moonnamegen, resourcegen):
+	def __init__(self, system, sma: float, planetnamegen, moonnamegen, resourcegen):
 		attempt = 1e28
 		while attempt > 1.8982e27:
 			attempt = 3.3011e23 / random()
 		self.mass = attempt
 		self.name = planetnamegen()
-		self.sma = 1 # todo
+		self.sma = sma
 		self.temp = temp2(system.star, self)
 		contents = []
 		hasmoon = False
@@ -35,5 +35,6 @@ class System:
 		self.star = star
 		contents = []
 		for i in range(randint(1, 5)):
-			contents.append((i, Planet(self, lambda: planetnamegen(star.name, i), moonnamegen, resourcegen)))
+			sma = 2**i * star.mass**2 / 3 # todo
+			contents.append((i, Planet(self, sma, lambda: planetnamegen(star.name, i), moonnamegen, resourcegen)))
 		self.bodies = contents
