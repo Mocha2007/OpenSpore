@@ -215,6 +215,11 @@ while 1:
 			break
 	# scale
 	middleRadius = scale()
+	# mapmode/proj disp
+	label = font.render('Mapmode: '+cfg['mapmode'][currentmapmode], 1, lighterColor)
+	screen.blit(label, (0, size[1]-40))
+	label = font.render('Projection: '+cfg['displaymode'][currentprojmode], 1, lighterColor)
+	screen.blit(label, (0, size[1]-20))
 	# finish
 	refresh()
 	sleep(1/30) # reduce cpu consumption
