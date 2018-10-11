@@ -98,6 +98,15 @@ def starinfo(coords: (int, int), system):
 		screen.blit(label, (ul[0]+5, ul[1]+20*i))
 		if i: # draw line above
 			pygame.draw.line(screen, lightColor, (ul[0]+5, ul[1]+20*i), (ul[0]+width-5, ul[1]+20*i))
+	# planet mapmode
+	for i, planet in system.bodies:
+		coords = ul[0]+35, ul[1]+20*(i+1)+10
+		try:
+			colorOfPlanet = mapmode.planet(planet)
+		except AttributeError:
+			colorOfPlanet = common.grey
+		c = colorOfPlanet.r, colorOfPlanet.g, colorOfPlanet.b
+		pygame.draw.circle(screen, c, coords, 6)
 
 
 def scale() -> float:

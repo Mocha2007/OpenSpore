@@ -1,3 +1,7 @@
+import sys
+sys.path.append('./data')
+from color import Color
+
 # characters
 alphabet = 'abcdefghijklmnopqrstuvwxyz'
 digits = '0123456789'
@@ -6,6 +10,9 @@ greek = 'αβγδεζηθικλμνξοπρστυφχψω'
 # sun
 r_sun = 6.957e8
 t_sun = 5772
+
+# colors
+grey = Color(128, 128, 128)
 
 
 # functions
