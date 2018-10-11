@@ -1,7 +1,7 @@
 import sys
 sys.path.append('./data')
 from color import Color
-from system import System
+from system import System, Planet
 
 colorMap = {
 	True: Color(0, 192, 0),
@@ -11,8 +11,15 @@ colorMap = {
 
 def main(system: System) -> Color:
 	hasmoon = False
-	for _, planet in system.bodies:
-		if planet.bodies:
+	for _, p in system.bodies:
+		if p.bodies:
 			hasmoon = True
 			break
+	return colorMap[hasmoon]
+
+
+def planet(p: Planet) -> Color:
+	hasmoon = False
+	if p.bodies:
+		hasmoon = True
 	return colorMap[hasmoon]

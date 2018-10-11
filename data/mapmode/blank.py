@@ -5,3 +5,6 @@ from color import Color
 
 def main(*_) -> Color:
 	return Color(128, 128, 128)
+
+
+planet = main

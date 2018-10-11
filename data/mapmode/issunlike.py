@@ -11,3 +11,7 @@ colorMap = {
 
 def main(system: System) -> Color:
 	return colorMap[.45 < system.star.mass < 1.4]
+
+
+def planet(*_) -> Color:
+	return Color(128, 128, 128)
