@@ -6,12 +6,15 @@ import pygame
 
 # constants
 starRadius = 2 # px
-focus = 0, 0, 0 # may change later on as user does things
-zoom = 15
-focusNew = focus
 darkColor = 8, 42, 54
 lightColor = 40, 72, 95
 lighterColor = 80, 144, 190
+# may change later on as user does things
+focus = 0, 0, 0
+zoom = 15
+focusNew = focus
+currentmapmode = 0
+currentprojmode = 0
 
 # pygame setup
 pygame.init()
@@ -30,35 +33,35 @@ def cfg2dict(loc: str) -> dict:
 	d = {}
 	for line in f.split('\n'):
 		ll = line.split(' ')
-		d[ll[0]] = ll[1]
+		d[ll[0]] = tuple(ll[1:])
 	return d
 
 
 cfg = cfg2dict('settings.cfg')
 
 # load galaxy module
-galaxy = SourceFileLoader('galaxy', 'data/'+cfg['galaxygen']+'.py').load_module()
+galaxy = SourceFileLoader('galaxy', 'data/'+cfg['galaxygen'][0]+'.py').load_module()
 
 # load stargen module
-stargen = SourceFileLoader('stargen', 'data/'+cfg['stargen']+'.py').load_module()
+stargen = SourceFileLoader('stargen', 'data/'+cfg['stargen'][0]+'.py').load_module()
 
 # load starnamegen module
-starnamegen = SourceFileLoader('starnamegen', 'data/name/'+cfg['starnamegen']+'.py').load_module()
+starnamegen = SourceFileLoader('starnamegen', 'data/name/'+cfg['starnamegen'][0]+'.py').load_module()
 
 # load planetnamegen module
-planetnamegen = SourceFileLoader('planetnamegen', 'data/name/'+cfg['planetnamegen']+'.py').load_module()
+planetnamegen = SourceFileLoader('planetnamegen', 'data/name/'+cfg['planetnamegen'][0]+'.py').load_module()
 
 # load moonnamegen module
-moonnamegen = SourceFileLoader('moonnamegen', 'data/name/'+cfg['moonnamegen']+'.py').load_module()
+moonnamegen = SourceFileLoader('moonnamegen', 'data/name/'+cfg['moonnamegen'][0]+'.py').load_module()
 
 # load display module
-display = SourceFileLoader('display', 'data/display/'+cfg['displaymode']+'.py').load_module()
+display = SourceFileLoader('display', 'data/display/'+cfg['displaymode'][0]+'.py').load_module()
 
 # load mapmode module
-mapmode = SourceFileLoader('mapmode', 'data/mapmode/'+cfg['mapmode']+'.py').load_module()
+mapmode = SourceFileLoader('mapmode', 'data/mapmode/'+cfg['mapmode'][0]+'.py').load_module()
 
 # load system module
-systemclass = SourceFileLoader('systemclass', 'data/'+cfg['systemclass']+'.py').load_module()
+systemclass = SourceFileLoader('systemclass', 'data/'+cfg['systemclass'][0]+'.py').load_module()
 
 # load constants module
 common = SourceFileLoader('common', 'data/constants.py').load_module()
@@ -117,6 +120,22 @@ def drawradius(desired: float):
 	screen.blit(label, (center[0]-dz+5, center[1]-10))
 
 
+def changemap():
+	global currentmapmode
+	global mapmode
+	currentmapmode += 1
+	currentmapmode %= len(cfg['mapmode'])
+	mapmode = SourceFileLoader('mapmode', 'data/mapmode/'+cfg['mapmode'][currentmapmode]+'.py').load_module()
+
+
+def changeproj():
+	global currentprojmode
+	global display
+	currentprojmode += 1
+	currentprojmode %= len(cfg['displaymode'])
+	display = SourceFileLoader('display', 'data/display/'+cfg['displaymode'][currentprojmode]+'.py').load_module()
+
+
 # main
 g = galaxy.Galaxy(stargen.main, starnamegen.main, planetnamegen.main, moonnamegen.main, systemclass.System)
 refresh()
@@ -162,6 +181,10 @@ while 1:
 				g = g.vrotate(1)
 			elif event.key == pygame.K_DOWN: # fixme - code runs as if -1 were 2... no idea why
 				pass # g = g.vrotate(-1)
+			elif event.key == pygame.K_m: # mapmode
+				changemap()
+			elif event.key == pygame.K_p: # projection
+				changeproj()
 	# mousedown?
 	if pygame.mouse.get_pressed()[0]: # left click enabled
 		mousePosNew = pygame.mouse.get_pos()

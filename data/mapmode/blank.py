@@ -4,4 +4,4 @@ from color import Color
 
 
 def main(*_) -> Color:
-	return color.Color(128, 128, 128)
+	return Color(128, 128, 128)
