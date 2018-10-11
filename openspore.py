@@ -192,13 +192,17 @@ while 1:
 	# pressed keys
 	pressed = pygame.key.get_pressed()
 	if pressed[pygame.K_DOWN]:
-		g.anyrotatev(pi/45)
+		g.anyrotatey(-pi/45)
 	if pressed[pygame.K_LEFT]:
-		g.anyrotate(pi/45)
+		g.anyrotatez(pi/45)
 	if pressed[pygame.K_RIGHT]:
-		g.anyrotate(-pi/45)
+		g.anyrotatez(-pi/45)
 	if pressed[pygame.K_UP]:
-		g.anyrotatev(-pi/45)
+		g.anyrotatey(pi/45)
+	if pressed[pygame.K_KP4]:
+		g.anyrotatex(pi/45)
+	if pressed[pygame.K_KP6]:
+		g.anyrotatex(-pi/45)
 	# mousedown?
 	if pygame.mouse.get_pressed()[0]: # left click enabled
 		mousePosNew = pygame.mouse.get_pos()

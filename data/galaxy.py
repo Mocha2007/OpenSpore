@@ -10,7 +10,7 @@ galaxyRadius = 30
 minDistance = 3 # ly
 maxDistance = 10 # ly
 tries = 10
-maxZ = 5
+maxZ = 30
 
 
 class Galaxy: # no type annotation since function can't be annotated
@@ -20,7 +20,7 @@ class Galaxy: # no type annotation since function can't be annotated
 		starList = [home]
 		# generate stars until ten failed placements in a row
 		failures = 0
-		while failures < tries:
+		while (failures < tries or len(starList) < 100) and len(starList) < 1000:
 			failures += 1 # if successful, this'll get reset at the end
 			# choose random star
 			head = choice(starList)
@@ -77,7 +77,7 @@ class Galaxy: # no type annotation since function can't be annotated
 		self.stars = starList
 		return self.rotate(times-1)
 
-	def anyrotate(self, theta: float):
+	def anyrotatez(self, theta: float):
 		"""Rotate an image theta radians"""
 		# rotate
 		starList = []
@@ -92,7 +92,7 @@ class Galaxy: # no type annotation since function can't be annotated
 		self.stars = starList
 		return self
 
-	def anyrotatev(self, theta: float):
+	def anyrotatex(self, theta: float):
 		"""Rotate an image theta radians"""
 		# rotate
 		starList = []
@@ -101,6 +101,21 @@ class Galaxy: # no type annotation since function can't be annotated
 			r, t = (y**2+z**2)**.5, atan2(z, y)
 			t += theta
 			site = x, cos(t)*r, sin(t)*r
+			starList.append(
+				(site, star[1])
+			)
+		self.stars = starList
+		return self
+
+	def anyrotatey(self, theta: float):
+		"""Rotate an image theta radians"""
+		# rotate
+		starList = []
+		for star in self.stars:
+			x, y, z = star[0]
+			r, t = (z**2+x**2)**.5, atan2(x, z)
+			t += theta
+			site = sin(t)*r, y, cos(t)*r
 			starList.append(
 				(site, star[1])
 			)
