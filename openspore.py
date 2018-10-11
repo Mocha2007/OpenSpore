@@ -120,6 +120,11 @@ while 1:
 				zoom *= 2
 			elif event.button == 5:
 				zoom /= 2
+		elif event.type == pygame.KEYDOWN:
+			if event.key == pygame.K_LEFT:
+				g = g.rotate(-1)
+			elif event.key == pygame.K_RIGHT:
+				g = g.rotate(1)
 	# mousedown?
 	if pygame.mouse.get_pressed()[0]: # left click enabled
 		mousePosNew = pygame.mouse.get_pos()
