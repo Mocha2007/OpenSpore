@@ -94,10 +94,21 @@ def starinfo(coords: (int, int), system):
 			pygame.draw.line(screen, lightColor, (ul[0]+5, ul[1]+20*i), (ul[0]+width-5, ul[1]+20*i))
 
 
-def scale():
+def scale() -> float:
 	# get desired power of ten
 	desired = 10**round(log10(100/zoom))
 	pygame.draw.line(screen, lighterColor, (10, 10), (10 + zoom*desired, 10), 2)
+	label = font.render(str(desired)+' ly', 1, lighterColor)
+	screen.blit(label, (10, 10))
+	return desired
+
+
+def drawradius(desired: float):
+	# rect = (size[0]//2, size[1]//2) (for pygame.draw.circle)
+	center = (size[0]//2, size[1]//2)
+	dz = desired*zoom
+	rect = center[0]-dz, center[1]-dz/3**.5, dz*2, dz*2/3**.5
+	pygame.draw.ellipse(screen, lighterColor, rect, 4)
 	label = font.render(str(desired)+' ly', 1, lighterColor)
 	screen.blit(label, (10, 10))
 
@@ -155,8 +166,8 @@ while 1:
 		if common.dist(pygame.mouse.get_pos(), star[0]) < starRadius*4:
 			starinfo(star[0], star[1])
 			break
-	# scale
-	scale()
+	# scale & draw radius
+	drawradius(scale())
 	# finish
 	refresh()
 	sleep(1/30) # reduce cpu consumption
