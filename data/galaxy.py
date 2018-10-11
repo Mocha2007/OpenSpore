@@ -46,12 +46,26 @@ class Galaxy: # no type annotation since function can't be annotated
 
 	def rotate(self, times: int):
 		times %= 4
-		if not times:
+		if times == 0:
 			return self
 		# rotate once and decrement times
 		starList = []
 		for star in self.stars:
 			site = -star[0][1], star[0][0], star[0][2]
+			starList.append(
+				(site, star[1])
+			)
+		self.stars = starList
+		return self.rotate(times-1)
+
+	def vrotate(self, times: int):
+		times %= 4
+		if times == 0:
+			return self
+		# rotate once and decrement times
+		starList = []
+		for star in self.stars:
+			site = -star[0][2], star[0][1], star[0][0]
 			starList.append(
 				(site, star[1])
 			)
