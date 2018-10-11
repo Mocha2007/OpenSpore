@@ -8,6 +8,8 @@ starRadius = 2 # px
 focus = 0, 0, 0 # may change later on as user does things
 zoom = 15
 focusNew = focus
+darkColor = 8, 42, 54
+lightColor = 40, 72, 95
 
 # pygame setup
 pygame.init()
@@ -61,8 +63,6 @@ common = SourceFileLoader('common', 'data/constants.py').load_module()
 
 
 def starinfo(coords: (int, int), system):
-	darkColor = 8, 42, 54
-	lightColor = 40, 72, 95
 	width = 175
 	sysstar = system.star
 	# upper left of box
@@ -90,6 +90,12 @@ def starinfo(coords: (int, int), system):
 		screen.blit(label, (ul[0]+5, ul[1]+20*i))
 		if i: # draw line above
 			pygame.draw.line(screen, lightColor, (ul[0]+5, ul[1]+20*i), (ul[0]+width-5, ul[1]+20*i))
+
+
+def scale():
+	pygame.draw.line(screen, lightColor, (10, 10), (110, 10), 2)
+	label = font.render(str(100/zoom)+' ly', 1, lightColor)
+	screen.blit(label, (10, 10))
 
 
 # main
@@ -140,10 +146,13 @@ while 1:
 		# reset
 		mousePosNew = pygame.mouse.get_pos()
 		deltaNew = 0, 0
-
+	# infobox
 	for star in displaylist:
 		if common.dist(pygame.mouse.get_pos(), star[0]) < starRadius*4:
 			starinfo(star[0], star[1])
 			break
+	# scale
+	scale()
+	# finish
 	refresh()
 	sleep(1/30) # reduce cpu consumption

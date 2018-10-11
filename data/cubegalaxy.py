@@ -2,7 +2,6 @@ from random import random, choice
 import sys
 sys.path.append('./data')
 from starcalc import Star
-from system import System
 
 # constants
 galaxyWidth = 15
