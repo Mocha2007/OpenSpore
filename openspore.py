@@ -199,7 +199,7 @@ while 1:
 	# infobox
 	for star in displaylist:
 		if common.dist(pygame.mouse.get_pos(), star[0]) < starRadius*4:
-			starinfo(star[0], star[1])
+			starinfo(*star)
 			break
 	# scale
 	middleRadius = scale()
