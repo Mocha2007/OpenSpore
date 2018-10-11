@@ -1,4 +1,4 @@
-from math import atan2, pi
+from math import atan2, cos, pi
 import sys
 sys.path.append('./data')
 from galaxy import Galaxy
@@ -22,6 +22,8 @@ def main(size: (int, int), galaxy: Galaxy, screendelta: (int, int), zoom: float)
 		# plane angles
 		phi = atan2(y, x)/pi # from -1 to 1
 		theta = atan2(z, (x**2+y**2)**.5)/pi # from -1 to 1
+		# sinusoidal conversion for x
+		phi *= cos(theta*pi)
 		# convert from -1:1 to screen size
 		phi *= size[0]//2 * zoom/defaultzoom
 		theta *= size[1] * zoom/defaultzoom
