@@ -5,8 +5,11 @@ from system import System
 
 
 def main(system: System) -> Color:
+	maxvalue = [0, Color(128, 128, 128)]
 	if system.bodies:
 		for _, planet in system.bodies:
 			if planet.resources:
-				return planet.resources[0].data['color']
-	return Color(128, 128, 128)
+				for r in planet.resources:
+					if r.value > maxvalue[0]:
+						maxvalue[1] = r.data['color']
+	return maxvalue[1]

@@ -7,27 +7,33 @@ from color import Color
 
 redspice = Resource({
 	'name': 'Red Spice',
-	'color': Color(255, 0, 0)
+	'color': Color(255, 0, 0),
+	'value': 281
 })
 yellowspice = Resource({
 	'name': 'Yellow Spice',
-	'color': Color(255, 255, 0)
+	'color': Color(255, 255, 0),
+	'value': 375
 })
 bluespice = Resource({
 	'name': 'Blue Spice',
-	'color': Color(0, 0, 255)
+	'color': Color(0, 0, 255),
+	'value': 436
 })
 greenspice = Resource({
 	'name': 'Green Spice',
-	'color': Color(0, 255, 0)
+	'color': Color(0, 255, 0),
+	'value': 843
 })
 pinkspice = Resource({
 	'name': 'Pink Spice',
-	'color': Color(255, 128, 128)
+	'color': Color(255, 128, 128),
+	'value': 936
 })
 purplespice = Resource({
 	'name': 'Purple Spice',
-	'color': Color(128, 0, 128)
+	'color': Color(128, 0, 128),
+	'value': 1218
 })
 
 
