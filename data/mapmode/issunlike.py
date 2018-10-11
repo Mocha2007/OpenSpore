@@ -1,7 +1,7 @@
 import sys
 sys.path.append('./data')
 from color import Color
-from system import System
+from system import System, Planet
 
 colorMap = {
 	True: Color(0, 192, 0),
@@ -13,5 +13,5 @@ def main(system: System) -> Color:
 	return colorMap[.45 < system.star.mass < 1.4]
 
 
-def planet(*_) -> Color:
-	return Color(128, 128, 128)
+def planet(p: Planet) -> Color:
+	return colorMap[273 < p.temp < 373]

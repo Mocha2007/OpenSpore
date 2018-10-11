@@ -7,7 +7,8 @@ alphabet = 'abcdefghijklmnopqrstuvwxyz'
 digits = '0123456789'
 greek = 'αβγδεζηθικλμνξοπρστυφχψω'
 
-# sun
+# astro
+au = 149597870700
 r_sun = 6.957e8
 t_sun = 5772
 
@@ -17,9 +18,9 @@ grey = Color(128, 128, 128)
 
 # functions
 def delta(a: tuple, b: tuple) -> tuple:
-	temp = tuple(zip(a, b))
-	temp = tuple(map(lambda x: x[0]-x[1], temp))
-	return temp
+	temporary = tuple(zip(a, b))
+	temporary = tuple(map(lambda x: x[0]-x[1], temporary))
+	return temporary
 
 
 def dist(a: tuple, b: tuple) -> float:
@@ -32,3 +33,13 @@ def dist(a: tuple, b: tuple) -> float:
 def spore_ishab(planet, star): # todo make actually spore
 	inner, outer = star.mass*.95, star.mass*1.05
 	return inner < planet.sma < outer
+
+
+def temp(t: float, r: float, sma: float, a: float) -> float:
+	'''Temperature of the star (K), Radius of the star (m), Semimajor axis (m), Albedo\n->
+	Temperature of the body (K)\nFormula from https://en.wikipedia.org/wiki/Planetary_equilibrium_temperature#Theoretical_model'''
+	return t*(1-a)**.25*(r/2/sma)**.5
+
+
+def temp2(star, planet) -> float:
+	return temp(star.temperature, star.radius, planet.sma*au, 0)

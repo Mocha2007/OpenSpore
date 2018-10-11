@@ -1,8 +1,9 @@
 from random import random, randint
+from constants import temp2
 
 
 class Moon:
-	def __init__(self, system, moonnamegen, resourcegen): # no type annotation since function can't be annotated
+	def __init__(self, planet, system, moonnamegen, resourcegen): # no type annotation since function can't be annotated
 		attempt = 1e24
 		while attempt > 1.4819e23:
 			attempt = 3.7493e19 / random()
@@ -10,6 +11,7 @@ class Moon:
 		self.name = moonnamegen()
 		self.resources = []
 		self.sma = 1 # todo
+		self.temp = planet.temp
 		data = {
 			'system': system,
 			'body': self
@@ -24,11 +26,12 @@ class Planet:
 			attempt = 3.3011e23 / random()
 		self.mass = attempt
 		self.name = planetnamegen()
+		self.sma = 1 # todo
+		self.temp = temp2(system.star, self)
 		contents = []
 		for i in range(randint(0, 1)):
-			contents.append((i, Moon(system, lambda: moonnamegen(self.name, i), resourcegen)))
+			contents.append((i, Moon(self, system, lambda: moonnamegen(self.name, i), resourcegen)))
 		self.bodies = contents
-		self.sma = 1 # todo
 		data = {
 			'system': system,
 			'body': self

@@ -12,7 +12,20 @@ colorMap = {
 	'K': Color(255, 128, 0),
 	'M': Color(255, 0, 0)
 }
+planetMap = (
+	Color(255, 0, 0),
+	Color(0, 255, 0),
+	Color(0, 0, 255)
+)
 
 
 def main(system: System) -> Color:
 	return colorMap[system.star.type]
+
+
+def planet(p: Planet) -> Color:
+	if 273 < p.temp:
+		if p.temp < 373:
+			return planetMap[1]
+		return planetMap[0]
+	return planetMap[2]

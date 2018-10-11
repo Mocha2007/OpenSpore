@@ -1,22 +1,27 @@
 from random import random, randint
 from system import Moon
+from constants import temp2
 
 
 class Planet:
-	def __init__(self, system, planetnamegen, moonnamegen, resourcegen): # no type annotation since function can't be annotated
+	def __init__(self, system, planetnamegen, moonnamegen, resourcegen):
 		attempt = 1e28
 		while attempt > 1.8982e27:
 			attempt = 3.3011e23 / random()
 		self.mass = attempt
 		self.name = planetnamegen()
+		self.sma = 1 # todo
+		self.temp = temp2(system.star, self)
 		contents = []
+		hasmoon = False
 		if self.mass > 6e25: # gas giant; 60% chance of moon
 			if random() < .6:
-				contents.append((1, Moon(system, lambda: moonnamegen(self.name, 1), resourcegen)))
+				hasmoon = True
 		elif random() < .01: # 1% chance terrestrial has moon
-				contents.append((1, Moon(system, lambda: moonnamegen(self.name, 1), resourcegen)))
+				hasmoon = True
+		if hasmoon:
+			contents.append((1, Moon(self, system, lambda: moonnamegen(self.name, 1), resourcegen)))
 		self.bodies = contents
-		self.sma = 1 # todo
 		data = {
 			'system': system,
 			'body': self
@@ -25,7 +30,7 @@ class Planet:
 
 
 class System:
-	def __init__(self, star, planetnamegen, moonnamegen, resourcegen): # no type annotation since function can't be annotated
+	def __init__(self, star, planetnamegen, moonnamegen, resourcegen):
 		self.name = star.name
 		self.star = star
 		contents = []
