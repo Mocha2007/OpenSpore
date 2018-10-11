@@ -1,4 +1,5 @@
 from random import random, choice
+from math import atan2, cos, sin
 import sys
 sys.path.append('./data')
 from starcalc import Star
@@ -75,3 +76,33 @@ class Galaxy: # no type annotation since function can't be annotated
 			)
 		self.stars = starList
 		return self.rotate(times-1)
+
+	def anyrotate(self, theta: float):
+		"""Rotate an image theta radians"""
+		# rotate
+		starList = []
+		for star in self.stars:
+			x, y, z = star[0]
+			r, t = (x**2+y**2)**.5, atan2(y, x)
+			t += theta
+			site = cos(t)*r, sin(t)*r, z
+			starList.append(
+				(site, star[1])
+			)
+		self.stars = starList
+		return self
+
+	def anyrotatev(self, theta: float):
+		"""Rotate an image theta radians"""
+		# rotate
+		starList = []
+		for star in self.stars:
+			x, y, z = star[0]
+			r, t = (y**2+z**2)**.5, atan2(z, y)
+			t += theta
+			site = x, cos(t)*r, sin(t)*r
+			starList.append(
+				(site, star[1])
+			)
+		self.stars = starList
+		return self

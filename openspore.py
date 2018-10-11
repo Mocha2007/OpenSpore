@@ -1,7 +1,7 @@
 from sys import exit
 from time import sleep
 from importlib.machinery import SourceFileLoader
-from math import log10
+from math import log10, pi
 import pygame
 
 # constants
@@ -185,18 +185,20 @@ while 1:
 			elif event.button == 5:
 				zoom /= 2
 		elif event.type == pygame.KEYDOWN:
-			if event.key == pygame.K_LEFT:
-				g = g.rotate(1)
-			elif event.key == pygame.K_RIGHT:
-				g = g.rotate(-1)
-			elif event.key == pygame.K_UP:
-				g = g.vrotate(1)
-			elif event.key == pygame.K_DOWN: # fixme - code runs as if -1 were 2... no idea why
-				pass # g = g.vrotate(-1)
-			elif event.key == pygame.K_m: # mapmode
+			if event.key == pygame.K_m: # mapmode
 				changemap()
 			elif event.key == pygame.K_p: # projection
 				changeproj()
+	# pressed keys
+	pressed = pygame.key.get_pressed()
+	if pressed[pygame.K_DOWN]:
+		g.anyrotatev(pi/45)
+	if pressed[pygame.K_LEFT]:
+		g.anyrotate(pi/45)
+	if pressed[pygame.K_RIGHT]:
+		g.anyrotate(-pi/45)
+	if pressed[pygame.K_UP]:
+		g.anyrotatev(-pi/45)
 	# mousedown?
 	if pygame.mouse.get_pressed()[0]: # left click enabled
 		mousePosNew = pygame.mouse.get_pos()
