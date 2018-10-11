@@ -95,6 +95,8 @@ def starinfo(coords: (int, int), system):
 
 
 def scale() -> float:
+	if not display.showscale:
+		return 1
 	# get desired power of ten
 	desired = 10**round(log10(100/zoom))
 	pygame.draw.line(screen, lighterColor, (10, 10), (10 + zoom*desired, 10), 4)
@@ -104,6 +106,8 @@ def scale() -> float:
 
 
 def drawradius(desired: float):
+	if not display.showscale:
+		return 1
 	# rect = (size[0]//2, size[1]//2) (for pygame.draw.circle)
 	center = (size[0]//2, size[1]//2)
 	dz = desired*zoom

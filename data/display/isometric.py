@@ -10,6 +10,7 @@ from constants import delta
 #  \
 #   \
 #    \+X
+showscale = True
 
 
 def main(size: (int, int), galaxy: Galaxy, screendelta: (int, int), zoom: float) -> list:

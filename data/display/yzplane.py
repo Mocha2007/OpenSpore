@@ -2,6 +2,7 @@ import sys
 sys.path.append('./data')
 from galaxy import Galaxy
 from constants import delta
+showscale = False
 
 
 def main(size: (int, int), galaxy: Galaxy, screendelta: (int, int), zoom: float) -> list:
