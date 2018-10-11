@@ -20,3 +20,8 @@ def dist(a: tuple, b: tuple) -> float:
 	for i in range(len(a)):
 		s += (a[i]-b[i])**2
 	return s**.5
+
+
+def spore_ishab(planet, star): # todo make actually spore
+	inner, outer = star.mass*.95, star.mass*1.05
+	return inner < planet.sma < outer

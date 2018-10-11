@@ -1,0 +1,52 @@
+from random import choice
+import sys
+sys.path.append('./data')
+from resource import Resource
+from constants import spore_ishab
+from color import Color
+
+redspice = Resource({
+	'name': 'Red Spice',
+	'color': Color(255, 0, 0)
+})
+yellowspice = Resource({
+	'name': 'Yellow Spice',
+	'color': Color(255, 255, 0)
+})
+bluespice = Resource({
+	'name': 'Blue Spice',
+	'color': Color(0, 0, 255)
+})
+greenspice = Resource({
+	'name': 'Green Spice',
+	'color': Color(0, 255, 0)
+})
+pinkspice = Resource({
+	'name': 'Pink Spice',
+	'color': Color(255, 128, 128)
+})
+purplespice = Resource({
+	'name': 'Purple Spice',
+	'color': Color(128, 0, 128)
+})
+
+
+def spice(**data):
+	t = data['system'].star.type
+	h = spore_ishab(data['body'], data['system'].star)
+	if t in 'MK':
+		if h:
+			return choice([redspice]*96 + [bluespice]*2 + [pinkspice]*2)
+		return choice([redspice]*50 + [yellowspice]*44 + [greenspice]*2 + [pinkspice]*2 + [purplespice]*2)
+	if t in 'GF':
+		if h:
+			return choice([yellowspice]*94 + [greenspice]*2 + [pinkspice]*2 + [purplespice]*2)
+		return choice([yellowspice]*74 + [greenspice]*22 + [pinkspice]*2 + [purplespice]*2)
+	# else OBA
+	if h:
+		return bluespice
+	return choice([bluespice]*20 + [greenspice]*30 + [pinkspice]*35 + [purplespice]*15)
+
+
+def main(**data):
+	return [spice(**data)]

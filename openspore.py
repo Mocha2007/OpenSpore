@@ -66,6 +66,9 @@ systemclass = SourceFileLoader('systemclass', 'data/'+cfg['systemclass'][0]+'.py
 # load constants module
 common = SourceFileLoader('common', 'data/constants.py').load_module()
 
+# load resource module
+resgen = SourceFileLoader('resgen', 'data/resources/'+cfg['resourcegen'][0]+'.py').load_module()
+
 
 def starinfo(coords: (int, int), system):
 	width = 175
@@ -137,7 +140,7 @@ def changeproj():
 
 
 # main
-g = galaxy.Galaxy(stargen.main, starnamegen.main, planetnamegen.main, moonnamegen.main, systemclass.System)
+g = galaxy.Galaxy(stargen.main, starnamegen.main, planetnamegen.main, moonnamegen.main, systemclass.System, resgen.main)
 refresh()
 
 mousePos = 0, 0
