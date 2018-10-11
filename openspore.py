@@ -1,6 +1,7 @@
 from sys import exit
 from time import sleep
 from importlib.machinery import SourceFileLoader
+from math import log10
 import pygame
 
 # constants
@@ -10,6 +11,7 @@ zoom = 15
 focusNew = focus
 darkColor = 8, 42, 54
 lightColor = 40, 72, 95
+lighterColor = 80, 144, 190
 
 # pygame setup
 pygame.init()
@@ -93,8 +95,10 @@ def starinfo(coords: (int, int), system):
 
 
 def scale():
-	pygame.draw.line(screen, lightColor, (10, 10), (110, 10), 2)
-	label = font.render(str(100/zoom)+' ly', 1, lightColor)
+	# get desired power of ten
+	desired = 10**round(log10(100/zoom))
+	pygame.draw.line(screen, lighterColor, (10, 10), (10 + zoom*desired, 10), 2)
+	label = font.render(str(desired)+' ly', 1, lighterColor)
 	screen.blit(label, (10, 10))
 
 
