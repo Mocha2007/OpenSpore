@@ -20,7 +20,10 @@ planetMap = (
 
 
 def main(system: System) -> Color:
-	return colorMap[system.star.type]
+	try:
+		return colorMap[system.star.type]
+	except KeyError:
+		return Color(128, 128, 128)
 
 
 def planet(p: Planet) -> Color:
