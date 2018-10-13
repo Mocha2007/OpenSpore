@@ -94,19 +94,19 @@ def starinfo(coords: (int, int), system):
 	pygame.draw.rect(screen, darkColor, (ul[0], ul[1], width, 20 * len(text)))
 	# display label
 	for i in range(len(text)):
-		label = font.render(text[i], 1, (255, 255, 255))
-		screen.blit(label, (ul[0]+5, ul[1]+20*i))
+		tlabel = font.render(text[i], 1, (255, 255, 255))
+		screen.blit(tlabel, (ul[0]+5, ul[1]+20*i))
 		if i: # draw line above
 			pygame.draw.line(screen, lightColor, (ul[0]+5, ul[1]+20*i), (ul[0]+width-5, ul[1]+20*i))
 	# planet mapmode
 	for i, planet in system.bodies:
 		coords = ul[0]+35, ul[1]+20*(i+1)+10
 		try:
-			colorOfPlanet = mapmode.planet(planet)
+			planetcolor = mapmode.planet(planet)
 		except AttributeError:
-			colorOfPlanet = common.grey
-		c = colorOfPlanet.r, colorOfPlanet.g, colorOfPlanet.b
-		pygame.draw.circle(screen, c, coords, 6)
+			planetcolor = common.grey
+		col = planetcolor.r, planetcolor.g, planetcolor.b
+		pygame.draw.circle(screen, col, coords, 6)
 
 
 def scale() -> float:
@@ -115,8 +115,8 @@ def scale() -> float:
 	# get desired power of ten
 	desired = 10**round(log10(100/zoom))
 	pygame.draw.line(screen, lighterColor, (10, 10), (10 + zoom*desired, 10), 4)
-	label = font.render(str(desired)+' ly', 1, lighterColor)
-	screen.blit(label, (10, 10))
+	distlabel = font.render(str(desired)+' ly', 1, lighterColor)
+	screen.blit(distlabel, (10, 10))
 	return desired
 
 
@@ -128,8 +128,8 @@ def drawradius(desired: float):
 	dz = desired*zoom
 	rect = center[0]-dz, center[1]-dz/3**.5, dz*2, dz*2/3**.5
 	pygame.draw.ellipse(screen, lighterColor, rect, 4)
-	label = font.render(str(desired)+' ly', 1, lighterColor)
-	screen.blit(label, (center[0]-dz+5, center[1]-10))
+	distlabel = font.render(str(desired)+' ly', 1, lighterColor)
+	screen.blit(distlabel, (center[0]-dz+5, center[1]-10))
 
 
 def changemap():
