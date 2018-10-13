@@ -18,7 +18,7 @@ currentprojmode = 0
 
 # pygame setup
 pygame.init()
-size = 1280, 720
+size = 1280, 640
 screen = pygame.display.set_mode(size)
 refresh = pygame.display.flip
 font = pygame.font.SysFont("trebuchetms", 15)
