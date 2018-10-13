@@ -1,4 +1,4 @@
-from math import atan2, cos, pi
+from math import cos, pi
 import sys
 sys.path.append('./data')
 from galaxy import Galaxy
@@ -18,14 +18,12 @@ def main(size: (int, int), galaxy: Galaxy, screendelta: (int, int), zoom: float)
 	# make list
 	starList2 = []
 	for star in starList:
-		x, y, z = star[0]
 		# plane angles
-		phi = atan2(y, x)/pi # from -1 to 1
-		theta = atan2(z, (x**2+y**2)**.5) # from -1 to 1
+		phi, theta = xyz2phitheta(star[0])
 		# sinusoidal conversion for x
 		phi *= cos(theta)
 		# convert from -1:1 to screen size
-		phi *= size[0]//2 * zoom/defaultzoom
+		phi *= size[0]/2/pi * zoom/defaultzoom
 		theta *= size[1]/pi * zoom/defaultzoom
 		# center
 		phi += screen_center[0]

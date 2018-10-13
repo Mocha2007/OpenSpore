@@ -1,3 +1,4 @@
+from math import atan2
 import sys
 sys.path.append('./data')
 from color import Color
@@ -43,3 +44,11 @@ def temp(t: float, r: float, sma: float, a: float) -> float:
 
 def temp2(star, planet) -> float:
 	return temp(star.temperature, star.radius, planet.sma*au, 0)
+
+
+# from -pi to pi
+def xyz2phitheta(xyz: (float, float, float)) -> (float, float):
+	x, y, z = xyz
+	phi = atan2(y, x)
+	theta = atan2(z, (x ** 2 + y ** 2) ** .5)
+	return phi, theta
