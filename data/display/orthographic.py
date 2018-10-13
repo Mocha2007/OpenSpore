@@ -29,13 +29,12 @@ def main(size: (int, int), galaxy: Galaxy, screendelta: (int, int), zoom: float)
 		phi = xx
 		theta = yy
 		if cosc < 0:
-			print(cosc)
-			continue
+			phi += 2 # separate map
 		# convert from -1:1 to screen size
 		phi *= size[1]/2 * zoom/defaultzoom
 		theta *= size[1]/2 * zoom/defaultzoom
 		# center
-		phi += screen_center[0]
+		phi += screen_center[0]/2
 		theta += screen_center[1]
 		# finalize
 		coords = int(phi) + screendelta[0], int(theta) + screendelta[1]
