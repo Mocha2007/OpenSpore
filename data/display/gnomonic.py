@@ -1,4 +1,4 @@
-from math import atan2, cos, sin
+from math import acos, atan2, cos, sin
 import sys
 sys.path.append('./data')
 from galaxy import Galaxy
@@ -22,18 +22,15 @@ def main(size: (int, int), galaxy: Galaxy, screendelta: (int, int), zoom: float)
 		# plane angles
 		phi = atan2(y, x) # from -pi to pi
 		theta = atan2(z, (x**2+y**2)**.5) # from -pi to pi
-		# orthographic transform
-		xx = cos(theta)*sin(phi)
-		yy = sin(theta)
-		cosc = cos(phi)*cos(theta)
+		# gnomonic transform
+		c = acos(cos(theta)*cos(phi))
+		xx = cos(theta)*sin(phi)/cos(c)
+		yy = sin(theta)/cos(c)
 		phi = xx
 		theta = yy
-		if cosc < 0:
-			print(cosc)
-			continue
 		# convert from -1:1 to screen size
-		phi *= size[1]/2 * zoom/defaultzoom
-		theta *= size[1]/2 * zoom/defaultzoom
+		phi *= size[1] * zoom/defaultzoom
+		theta *= size[1] * zoom/defaultzoom
 		# center
 		phi += screen_center[0]
 		theta += screen_center[1]
