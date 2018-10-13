@@ -1,4 +1,4 @@
-from math import atan2, cos, sin
+from math import atan2, cos, tan
 import sys
 sys.path.append('./data')
 from galaxy import Galaxy
@@ -23,9 +23,8 @@ def main(size: (int, int), galaxy: Galaxy, screendelta: (int, int), zoom: float)
 		phi = atan2(y, x) # from -pi to pi
 		theta = atan2(z, (x**2+y**2)**.5) # from -pi to pi
 		# gnomonic transform
-		cosc = cos(theta)*cos(phi)
-		xx = cos(theta)*sin(phi)/cosc
-		yy = sin(theta)/cosc
+		xx = tan(phi)
+		yy = tan(theta)/cos(phi)
 		phi = xx
 		theta = yy
 		# convert from -1:1 to screen size
