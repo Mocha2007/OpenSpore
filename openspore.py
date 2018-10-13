@@ -16,16 +16,6 @@ focusNew = focus
 currentmapmode = 0
 currentprojmode = 0
 
-# pygame setup
-pygame.init()
-size = 1280, 640
-screen = pygame.display.set_mode(size)
-refresh = pygame.display.flip
-font = pygame.font.SysFont("trebuchetms", 15)
-icon = pygame.image.load('img/icon.png')
-pygame.display.set_icon(icon)
-pygame.display.set_caption('OpenSpore')
-
 
 # setup
 def cfg2dict(loc: str) -> dict:
@@ -38,6 +28,17 @@ def cfg2dict(loc: str) -> dict:
 
 
 cfg = cfg2dict('settings.cfg')
+
+# pygame setup
+pygame.init()
+# size = 1280, 640
+size = int(cfg['size'][0]), int(cfg['size'][1])
+screen = pygame.display.set_mode(size)
+refresh = pygame.display.flip
+font = pygame.font.SysFont("trebuchetms", 15)
+icon = pygame.image.load('img/icon.png')
+pygame.display.set_icon(icon)
+pygame.display.set_caption('OpenSpore')
 
 # load galaxy module
 galaxy = SourceFileLoader('galaxy', 'data/'+cfg['galaxygen'][0]+'.py').load_module()
