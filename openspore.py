@@ -132,18 +132,18 @@ def drawradius(desired: float):
 	screen.blit(distlabel, (center[0]-dz+5, center[1]-10))
 
 
-def changemap():
+def changemap(n: int):
 	global currentmapmode
 	global mapmode
-	currentmapmode += 1
+	currentmapmode += n
 	currentmapmode %= len(cfg['mapmode'])
 	mapmode = SourceFileLoader('mapmode', 'data/mapmode/'+cfg['mapmode'][currentmapmode]+'.py').load_module()
 
 
-def changeproj():
+def changeproj(n: int):
 	global currentprojmode
 	global display
-	currentprojmode += 1
+	currentprojmode += n
 	currentprojmode %= len(cfg['displaymode'])
 	display = SourceFileLoader('display', 'data/display/'+cfg['displaymode'][currentprojmode]+'.py').load_module()
 
@@ -185,10 +185,12 @@ while 1:
 			elif event.button == 5:
 				zoom /= 2
 		elif event.type == pygame.KEYDOWN:
+			shift = pygame.key.get_pressed()[pygame.K_LSHIFT] or pygame.key.get_pressed()[pygame.K_RSHIFT]
+			direction = 1 if shift else -1
 			if event.key == pygame.K_m: # mapmode
-				changemap()
+				changemap(direction)
 			elif event.key == pygame.K_p: # projection
-				changeproj()
+				changeproj(direction)
 	# pressed keys
 	pressed = pygame.key.get_pressed()
 	if pressed[pygame.K_DOWN]:

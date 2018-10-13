@@ -21,12 +21,12 @@ def main(size: (int, int), galaxy: Galaxy, screendelta: (int, int), zoom: float)
 		x, y, z = star[0]
 		# plane angles
 		phi = atan2(y, x)/pi # from -1 to 1
-		theta = atan2(z, (x**2+y**2)**.5) # from -1 to 1
+		theta = atan2(z, (x**2+y**2)**.5)/pi # from -1 to 1
 		# sinusoidal conversion for x
-		phi *= cos(theta)
+		phi *= .25-theta**2
 		# convert from -1:1 to screen size
-		phi *= size[0]//2 * zoom/defaultzoom
-		theta *= size[1]/pi * zoom/defaultzoom
+		phi *= size[0]*2 * zoom/defaultzoom
+		theta *= size[1] * zoom/defaultzoom
 		# center
 		phi += screen_center[0]
 		theta += screen_center[1]
