@@ -13,6 +13,7 @@ class Color:
 		self.r = r
 		self.g = g
 		self.b = b
+		self.rgb = r, g, b
 		# hsv
 		ri = r/255
 		gi = g/255
