@@ -123,7 +123,7 @@ def showsystem():
 	except AttributeError:
 		starcolor = common.grey
 	col = starcolor.r, starcolor.g, starcolor.b
-	pygame.draw.circle(screen, col, (ul[0]+space, centerh), 12)
+	pygame.draw.circle(screen, col, (ul[0]+space, centerh), 18)
 	# planet mapmode
 	for i, planet in ss.bodies:
 		coords = ul[0] + (i+2)*space, centerh
@@ -131,7 +131,7 @@ def showsystem():
 			planetcolor = mapmode.planet(planet)
 		except AttributeError:
 			planetcolor = common.grey
-		radius = 6
+		radius = round(planet.mass**(1/6) / 2e3)
 		col = planetcolor.r, planetcolor.g, planetcolor.b
 		pygame.draw.circle(screen, col, coords, radius)
 		# label
