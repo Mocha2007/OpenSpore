@@ -211,7 +211,6 @@ while 1:
 			pygame.quit()
 			exit()
 		elif event.type == pygame.MOUSEBUTTONDOWN:
-			print(event.button)
 			if event.button == 1:
 				for star in displaylist:
 					if common.dist(pygame.mouse.get_pos(), star[0]) < starRadius * 4:
