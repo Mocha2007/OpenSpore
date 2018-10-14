@@ -22,9 +22,9 @@ class Moon:
 
 class Planet: # no type annotation since function can't be annotated
 	def __init__(self, system, sma: float, planetnamegen, moonnamegen, resourcegen):
-		attempt = 1e28
-		while attempt > 1.8982e27:
-			attempt = 3.3011e23 / random()
+		attempt = 1e29
+		while attempt > 1.8982e27*13:
+			attempt = 3.3011e23 / random()**3
 		self.mass = attempt
 		self.radius = m2r(attempt, 4e3) # rocky density
 		self.name = planetnamegen()

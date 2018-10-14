@@ -2,7 +2,7 @@ from random import choice
 import sys
 sys.path.append('./data')
 from resource import Resource
-# from constants import spore_ishab
+from constants import m_earth
 from color import Color
 
 redspice = Resource({
@@ -37,23 +37,21 @@ purplespice = Resource({
 })
 
 
-def spice(**data):
+def main(**data):
+	if data['body'].mass > m_earth*10:
+		return []
 	t = data['system'].star.type
 	# h = spore_ishab(data['body'], data['system'].star)
 	h = 273 < data['body'].temp < 373
 	if t in 'MK':
 		if h:
-			return choice([redspice]*96 + [bluespice]*2 + [pinkspice]*2)
-		return choice([redspice]*50 + [yellowspice]*44 + [greenspice]*2 + [pinkspice]*2 + [purplespice]*2)
+			return [choice([redspice]*96 + [bluespice]*2 + [pinkspice]*2)]
+		return [choice([redspice]*50 + [yellowspice]*44 + [greenspice]*2 + [pinkspice]*2 + [purplespice]*2)]
 	if t in 'GF':
 		if h:
-			return choice([yellowspice]*94 + [greenspice]*2 + [pinkspice]*2 + [purplespice]*2)
-		return choice([yellowspice]*74 + [greenspice]*22 + [pinkspice]*2 + [purplespice]*2)
+			return [choice([yellowspice]*94 + [greenspice]*2 + [pinkspice]*2 + [purplespice]*2)]
+		return [choice([yellowspice]*74 + [greenspice]*22 + [pinkspice]*2 + [purplespice]*2)]
 	# else OBA
 	if h:
-		return bluespice
-	return choice([bluespice]*20 + [greenspice]*30 + [pinkspice]*35 + [purplespice]*15)
-
-
-def main(**data):
-	return [spice(**data)]
+		return [bluespice]
+	return [choice([bluespice]*20 + [greenspice]*30 + [pinkspice]*35 + [purplespice]*15)]
