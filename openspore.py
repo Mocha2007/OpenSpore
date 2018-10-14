@@ -104,6 +104,37 @@ def starinfo(coords: (int, int), system):
 		pygame.draw.circle(screen, col, coords, 6)
 
 
+def showsystem():
+	ss = focusSystem
+	# display size
+	w = size[0]//4
+	h = w//2
+	ul = size[0]-w, size[1]-h # aligned to bottom right
+	centerh = h//2 + ul[1]
+	# name, for upper left corner
+	# text = s.name
+	# evenly space planets
+	space = w//(len(ss.bodies)+2)
+	# draw rect
+	pygame.draw.rect(screen, darkColor, (ul[0], ul[1], w, h))
+	# place sun
+	try:
+		starcolor = mapmode.main(ss)
+	except AttributeError:
+		starcolor = common.grey
+	col = starcolor.r, starcolor.g, starcolor.b
+	pygame.draw.circle(screen, col, (ul[0]+space, centerh), 12)
+	# planet mapmode
+	for i, planet in ss.bodies:
+		coords = ul[0] + (i+2)*space, centerh
+		try:
+			planetcolor = mapmode.planet(planet)
+		except AttributeError:
+			planetcolor = common.grey
+		col = planetcolor.r, planetcolor.g, planetcolor.b
+		pygame.draw.circle(screen, col, coords, 6)
+
+
 def scale() -> float:
 	if not display.showscale:
 		return 1
@@ -152,6 +183,7 @@ mousePosNew = 0, 0
 delta = 0, 0
 deltaNew = 0, 0
 middleRadius = 1
+focusSystem = g.stars[0][1]
 while 1:
 	screen.fill((0, 0, 0))
 	# draw radii
@@ -182,7 +214,7 @@ while 1:
 						starid = star[1].star.id
 						for s in g.stars:
 							if s[1].star.id == starid:
-								focus = s[0]
+								focus, focusSystem = s
 								break
 						break
 			elif event.button == 4:
@@ -221,11 +253,14 @@ while 1:
 		# reset
 		mousePosNew = pygame.mouse.get_pos()
 		deltaNew = 0, 0
+	# focusSystem is of type System
+	showsystem()
 	# infobox
 	for star in displaylist:
 		if common.dist(pygame.mouse.get_pos(), star[0]) < starRadius*4:
 			starinfo(*star)
 			break
+	# display system info
 	# scale
 	middleRadius = scale()
 	# mapmode/proj disp
