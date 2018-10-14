@@ -12,7 +12,6 @@ lighterColor = 80, 144, 190
 # may change later on as user does things
 focus = 0, 0, 0
 zoom = 15
-focusNew = focus
 currentmapmode = 0
 currentprojmode = 0
 
@@ -176,7 +175,17 @@ while 1:
 			pygame.quit()
 			exit()
 		elif event.type == pygame.MOUSEBUTTONDOWN:
-			if event.button == 4:
+			print(event.button)
+			if event.button == 1:
+				for star in displaylist:
+					if common.dist(pygame.mouse.get_pos(), star[0]) < starRadius * 4:
+						starid = star[1].star.id
+						for s in g.stars:
+							if s[1].star.id == starid:
+								focus = s[0]
+								break
+						break
+			elif event.button == 4:
 				zoom *= 2
 			elif event.button == 5:
 				zoom /= 2
