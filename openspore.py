@@ -2,6 +2,7 @@ from sys import exit
 from time import sleep
 from importlib.machinery import SourceFileLoader
 from math import log10, pi
+from time import time
 import pygame
 
 # constants
@@ -21,6 +22,7 @@ planetkeys = (
 	pygame.K_9,
 	pygame.K_0
 )
+globeperiod = 15 # s
 # may change later on as user does things
 focus = 0, 0, 0
 zoom = 15
@@ -69,6 +71,12 @@ moonnamegen = SourceFileLoader('moonnamegen', 'data/name/'+cfg['moonnamegen'][0]
 # load display module
 display = SourceFileLoader('display', 'data/display/'+cfg['displaymode'][0]+'.py').load_module()
 
+# load planetmap module
+planetmap = SourceFileLoader('planetmap', 'data/display/planet.py').load_module()
+
+# load surface module
+surface = SourceFileLoader('surface', 'data/surface/'+cfg['surface'][0]+'.py').load_module()
+
 # load mapmode module
 mapmode = SourceFileLoader('mapmode', 'data/mapmode/'+cfg['mapmode'][0]+'.py').load_module()
 
@@ -92,9 +100,9 @@ def starinfo(coords: (int, int), system):
 	text = sysstar.name
 	# find star
 	site = focus
-	for s in g.stars:
-		if s[1].star.id == sysstar.id:
-			site = s[0]
+	for ss in g.stars:
+		if ss[1].star.id == sysstar.id:
+			site = ss[0]
 			break
 	# list planets
 	for _, planet in system.bodies:
@@ -175,17 +183,24 @@ def showsystem():
 			# label
 			common.text(planet.name, screen, (ful[0], ful[1]+5, ful[0]+1, 0), darkColor, lightColor)
 			# circle
-			try:
-				planetcolor = mapmode.planet(planet)
-			except AttributeError:
-				planetcolor = common.grey
-			col = planetcolor.r, planetcolor.g, planetcolor.b
-			pygame.draw.circle(screen, col, fcenter, 40)
+			# try:
+			# 	planetcolor = mapmode.planet(planet)
+			# except AttributeError:
+			# 	planetcolor = common.grey
+			# col = planetcolor.r, planetcolor.g, planetcolor.b
+			# pygame.draw.circle(screen, col, fcenter, 40)
 			# info text
 			t = 'Mass: '+str(round(planet.mass/common.m_earth, 3))+' M_E'
 			t += '\nRadius: '+str(round(planet.radius/1000))+' km'
 			t += '\nGravity: '+str(round(common.grav(planet.mass, planet.radius)/common.g_earth, 3))+' g'
 			common.text(t, screen, (ful[0], ful[1]+150, size[0], 0), darkColor, lightColor)
+			# spinny globe
+			globe = surface.main(planet)
+			globe.rot((time() % globeperiod)/globeperiod)
+			globe.shade()
+			borders = planetmap.main(50, globe, fcenter)
+			for b in borders:
+				pygame.draw.circle(screen, b[1].rgb, b[0], 5)
 
 
 def scale() -> float:
