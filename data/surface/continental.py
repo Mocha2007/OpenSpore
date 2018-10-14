@@ -30,7 +30,7 @@ resolution = 30
 
 
 def r(t: int) -> Color:
-	c = choice([typecolor[t][0]]*(2*len(typecolor[t]))+[typecolor[t][1:]]) # land or sea?
+	c = choice([typecolor[t][0]]*(2*len(typecolor[t]))+list(typecolor[t][1:])) # land or sea?
 	# c.r *= random()
 	# c.g *= random()
 	# c.b *= random()
