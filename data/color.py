@@ -8,10 +8,8 @@ def d2h(x: int) -> str:
 class Color:
 	'''For fucking with color in python'''
 	def __init__(self, r: int, g: int, b: int):
-		if type(r+g+b) != int:
-			raise TypeError
-		if max(r, g, b) > 255 or min(r, g, b) < 0:
-			raise ValueError
+		assert type(r+g+b) == int
+		assert max(r, g, b) <= 255 and min(r, g, b) >= 0
 		self.r = r
 		self.g = g
 		self.b = b
@@ -131,8 +129,7 @@ class Color:
 
 	# mul by scalar
 	def scalar(self, other):
-		if other < 0:
-			raise ValueError
+		assert other >= 0
 		return Color(int(min(self.r*other, 255)), int(min(self.g*other, 255)), int(min(self.b*other, 255)))
 
 	# blends
