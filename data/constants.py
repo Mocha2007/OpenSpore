@@ -73,7 +73,9 @@ def text(t: str, screen: pygame.Surface, rect: (int, int, int, int), backcolor: 
 	t = t.replace('\t', ' '*4)
 	coords = rect[:2]
 	width = rect[2]-rect[0]
-	pygame.draw.rect(screen, backcolor, (coords[0], coords[1], width, 20 * (t.count('\n')+1)))
+	rectborder = coords[0], coords[1], width, 20 * (t.count('\n')+1)
+	pygame.draw.rect(screen, backcolor, rectborder)
+	pygame.draw.rect(screen, forecolor, rectborder, 1)
 	t = t.split('\n')
 	for i in range(len(t)):
 		tlabel = font.render(t[i], 1, (255, 255, 255))

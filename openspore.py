@@ -104,7 +104,7 @@ def starinfo(coords: (int, int), system):
 	# draw highlight circle
 	pygame.draw.circle(screen, lightColor, (ul[0]-20, ul[1]-25), 8, 1)
 	# print text
-	common.text(text, screen, (ul[0], ul[1], ul[0]+width, ul[1]+175), darkColor, lighterColor)
+	common.text(text, screen, (ul[0], ul[1], ul[0]+width, ul[1]+175), darkColor, lightColor)
 	# planet mapmode
 	for i, planet in system.bodies:
 		coords = ul[0]+35, ul[1]+20*(i+1)+10
@@ -132,7 +132,7 @@ def showsystem():
 	# draw rect border
 	pygame.draw.rect(screen, lightColor, (ul[0], ul[1], w, h), 1)
 	# label
-	common.text(ss.star.name+' System', screen, (ul[0]+2, ul[1]+5, ul[0]+2, 0), darkColor, lightColor)
+	common.text(ss.star.name+' System', screen, (ul[0], ul[1]+5, ul[0]+1, 0), darkColor, lightColor)
 	# place sun
 	try:
 		starcolor = mapmode.main(ss)
@@ -173,7 +173,7 @@ def showsystem():
 			# draw rect border
 			pygame.draw.rect(screen, lightColor, rectbounds, 1)
 			# label
-			common.text(planet.name, screen, (ful[0]+2, ful[1]+5, ful[0]+2, 0), darkColor, lightColor)
+			common.text(planet.name, screen, (ful[0], ful[1]+5, ful[0]+1, 0), darkColor, lightColor)
 			# circle
 			try:
 				planetcolor = mapmode.planet(planet)
@@ -185,7 +185,7 @@ def showsystem():
 			t = 'Mass: '+str(round(planet.mass/common.m_earth, 3))+' M_E'
 			t += '\nRadius: '+str(round(planet.radius/1000))+' km'
 			t += '\nGravity: '+str(round(common.grav(planet.mass, planet.radius)/common.g_earth, 3))+' g'
-			common.text(t, screen, (ful[0]+1, ful[1]+150, size[0], 0), darkColor, lightColor)
+			common.text(t, screen, (ful[0], ful[1]+150, size[0], 0), darkColor, lightColor)
 
 
 def scale() -> float:
