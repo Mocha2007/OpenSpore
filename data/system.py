@@ -8,6 +8,7 @@ class Moon:
 		while attempt > 1.4819e23:
 			attempt = 3.7493e19 / random()
 		self.mass = attempt
+		self.radius = m2r(attempt, 4e3) # rocky density
 		self.name = moonnamegen()
 		self.resources = []
 		self.sma = 1 # todo
