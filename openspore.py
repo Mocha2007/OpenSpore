@@ -196,7 +196,8 @@ def showsystem():
 			common.text(t, screen, (ful[0], ful[1]+150, size[0], 0), darkColor, lightColor)
 			# spinny globe
 			globe = surface.main(planet)
-			globe.rot((time() % globeperiod)/globeperiod)
+			rotation = (time() % globeperiod)/globeperiod*2*pi
+			globe.rot(rotation)
 			globe.shade()
 			borders = planetmap.main(50, globe, fcenter)
 			for b in borders:

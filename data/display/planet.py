@@ -2,7 +2,6 @@ from math import cos, sin
 import sys
 sys.path.append('./data')
 from points import Points
-from constants import xyz2phitheta
 # equirectangular projection, with the origin as the source
 
 showscale = False
