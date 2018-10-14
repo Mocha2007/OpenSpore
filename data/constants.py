@@ -14,6 +14,7 @@ au = 149597870700
 g = 6.67408e-11
 g_earth = 9.807
 m_earth = 5.97237e24
+m_gg = m_earth * 10
 r_sun = 6.957e8
 t_sun = 5772
 

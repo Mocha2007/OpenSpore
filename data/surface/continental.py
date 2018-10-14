@@ -5,7 +5,7 @@ sys.path.append('./data')
 from points import Points
 from system import Planet
 from color import Color
-from constants import m_earth
+from constants import m_gg
 
 typecolor = {
 	1: ( # hells
@@ -38,7 +38,7 @@ def r(t: int) -> Color:
 
 
 def t2c(planet: Planet) -> Color:
-	if planet.mass > m_earth*10:
+	if planet.mass > m_gg:
 		return r(-2)
 	if planet.temp > 273:
 		if planet.temp < 373:
