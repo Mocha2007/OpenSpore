@@ -9,6 +9,18 @@ starRadius = 2 # px
 darkColor = 8, 42, 54
 lightColor = 40, 72, 95
 lighterColor = 80, 144, 190
+planetkeys = (
+	pygame.K_1,
+	pygame.K_2,
+	pygame.K_3,
+	pygame.K_4,
+	pygame.K_5,
+	pygame.K_6,
+	pygame.K_7,
+	pygame.K_8,
+	pygame.K_9,
+	pygame.K_0
+)
 # may change later on as user does things
 focus = 0, 0, 0
 zoom = 15
@@ -135,8 +147,9 @@ def showsystem():
 		col = planetcolor.r, planetcolor.g, planetcolor.b
 		pygame.draw.circle(screen, col, coords, radius)
 		# label
-		tlabel = font.render(str(i+1), 1, (255, 255, 255))
-		screen.blit(tlabel, (coords[0]-4, coords[1]-20-radius))
+		textcolor = (255, 0, 0) if i == focusPlanet else (255, 255, 255)
+		tlabel = font.render(str(i+1), 1, textcolor)
+		screen.blit(tlabel, (coords[0]-4, coords[1]-40))
 
 
 def scale() -> float:
@@ -188,6 +201,7 @@ delta = 0, 0
 deltaNew = 0, 0
 middleRadius = 1
 focusSystem = g.stars[0][1]
+focusPlanet = 0
 while 1:
 	screen.fill((0, 0, 0))
 	# draw radii
@@ -218,6 +232,7 @@ while 1:
 						for s in g.stars:
 							if s[1].star.id == starid:
 								focus, focusSystem = s
+								focusPlanet = 0
 								break
 						break
 			elif event.button == 4:
@@ -231,6 +246,8 @@ while 1:
 				changemap(direction)
 			elif event.key == pygame.K_p: # projection
 				changeproj(direction)
+			elif event.key in planetkeys: # planet foci
+				focusPlanet = planetkeys.index(event.key)
 	# pressed keys
 	pressed = pygame.key.get_pressed()
 	if pressed[pygame.K_DOWN]:
