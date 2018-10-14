@@ -1,6 +1,6 @@
 from random import random, randint
 from system import Moon
-from constants import m2r, temp2
+from constants import m2r, temp2, m_gg
 
 
 class Planet:
@@ -15,7 +15,7 @@ class Planet:
 		self.temp = temp2(system.star, self)
 		contents = []
 		hasmoon = False
-		if self.mass > 6e25: # gas giant; 60% chance of moon
+		if self.mass > m_gg: # gas giant; 60% chance of moon
 			if random() < .6:
 				hasmoon = True
 		elif random() < .01: # 1% chance terrestrial has moon
