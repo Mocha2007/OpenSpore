@@ -5,19 +5,24 @@ sys.path.append('./data')
 from points import Points
 from system import Planet
 from color import Color
+from constants import m_earth
 
 typecolor = {
-	1: (
+	1: ( # hells
 		Color(255, 0, 0),
 		Color(128, 32, 32)
 	),
-	0: (
+	0: ( # terras
 		Color(0, 128, 255),
 		Color(0, 192, 0)
 	),
-	-1: (
+	-1: ( # snowballs
 		Color(160, 192, 255),
 		Color(255, 255, 255)
+	),
+	-2: ( # gas giants
+		Color(192, 160, 128),
+		Color(224, 192, 128)
 	)
 }
 
@@ -25,7 +30,7 @@ resolution = 12
 
 
 def r(t: int) -> Color:
-	c = choice(typecolor[t]) # land or sea?
+	c = choice([typecolor[t][0]]*2+[typecolor[t][1]]) # land or sea?
 	# c.r *= random()
 	# c.g *= random()
 	# c.b *= random()
@@ -33,6 +38,8 @@ def r(t: int) -> Color:
 
 
 def t2c(planet: Planet) -> Color:
+	if planet.mass > m_earth*10:
+		return r(-2)
 	if planet.temp > 273:
 		if planet.temp < 373:
 			return r(0)

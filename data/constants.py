@@ -41,8 +41,8 @@ def spore_ishab(planet, star): # todo make actually spore
 
 
 def temp(t: float, r: float, sma: float, a: float) -> float:
-	'''Temperature of the star (K), Radius of the star (m), Semimajor axis (m), Albedo\n->
-	Temperature of the body (K)\nFormula from https://en.wikipedia.org/wiki/Planetary_equilibrium_temperature#Theoretical_model'''
+	"""Temperature of the star (K), Radius of the star (m), Semimajor axis (m), Albedo\n->
+	Temperature of the body (K)\nFormula from https://en.wikipedia.org/wiki/Planetary_equilibrium_temperature#Theoretical_model"""
 	return t*(1-a)**.25*(r/2/sma)**.5
 
 
