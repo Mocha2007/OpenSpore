@@ -131,8 +131,12 @@ def showsystem():
 			planetcolor = mapmode.planet(planet)
 		except AttributeError:
 			planetcolor = common.grey
+		radius = 6
 		col = planetcolor.r, planetcolor.g, planetcolor.b
-		pygame.draw.circle(screen, col, coords, 6)
+		pygame.draw.circle(screen, col, coords, radius)
+		# label
+		tlabel = font.render(str(i+1), 1, (255, 255, 255))
+		screen.blit(tlabel, (coords[0]-4, coords[1]-20-radius))
 
 
 def scale() -> float:
