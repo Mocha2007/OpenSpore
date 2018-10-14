@@ -193,6 +193,15 @@ def showsystem():
 			t = 'Mass: '+str(round(planet.mass/common.m_earth, 3))+' M_E'
 			t += '\nRadius: '+str(round(planet.radius/1000))+' km'
 			t += '\nGravity: '+str(round(common.grav(planet.mass, planet.radius)/common.g_earth, 3))+' g'
+			if planet.resources:
+				t += '\nResources:'
+				for resource in planet.resources:
+					t += '\n\t'+resource.name
+					t += '\n\t\t$'+str(resource.value)+'/u'
+			if planet.bodies:
+				t += '\nMoons:'
+				for moon in planet.bodies:
+					t += '\n\t'+moon[1].name
 			common.text(t, screen, (ful[0], ful[1]+150, size[0], 0), darkColor, lightColor)
 			# spinny globe
 			globe = surface.main(planet)
