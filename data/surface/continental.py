@@ -1,5 +1,5 @@
 from math import cos, pi
-from random import choice, random, seed
+from random import choice, seed
 import sys
 sys.path.append('./data')
 from points import Points
