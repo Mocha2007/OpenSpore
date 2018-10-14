@@ -1,5 +1,5 @@
 from random import random, randint
-from constants import temp2
+from constants import m2r, temp2
 
 
 class Moon:
@@ -19,12 +19,13 @@ class Moon:
 		self.resources = resourcegen(**data)
 
 
-class Planet:
-	def __init__(self, system, sma: float, planetnamegen, moonnamegen, resourcegen): # no type annotation since function can't be annotated
+class Planet: # no type annotation since function can't be annotated
+	def __init__(self, system, sma: float, planetnamegen, moonnamegen, resourcegen):
 		attempt = 1e28
 		while attempt > 1.8982e27:
 			attempt = 3.3011e23 / random()
 		self.mass = attempt
+		self.radius = m2r(attempt, 4e3) # rocky density
 		self.name = planetnamegen()
 		self.sma = sma
 		self.temp = temp2(system.star, self)
@@ -39,8 +40,8 @@ class Planet:
 		self.resources = resourcegen(**data)
 
 
-class System:
-	def __init__(self, star, planetnamegen, moonnamegen, resourcegen): # no type annotation since function can't be annotated
+class System: # no type annotation since function can't be annotated
+	def __init__(self, star, planetnamegen, moonnamegen, resourcegen):
 		self.name = star.name
 		self.star = star
 		contents = []

@@ -153,7 +153,9 @@ def showsystem():
 		# planet info if mouse over
 		if common.dist(mousePos, coords) <= radius:
 			t = planet.name
-			common.text(t, screen, (coords[0], coords[1]+10, coords[0]+25, 0), darkColor, lightColor)
+			t += '\n'+str(round(planet.mass/common.m_earth, 3))+' Earth masses'
+			t += '\n'+str(round(planet.radius/1000))+' km radius'
+			common.text(t, screen, (coords[0], coords[1]+10, coords[0]+150, 0), darkColor, lightColor)
 
 
 def scale() -> float:

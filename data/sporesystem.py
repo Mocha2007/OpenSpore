@@ -1,6 +1,6 @@
 from random import random, randint
 from system import Moon
-from constants import temp2
+from constants import m2r, temp2
 
 
 class Planet:
@@ -9,6 +9,7 @@ class Planet:
 		while attempt > 1.8982e27:
 			attempt = 3.3011e23 / random()
 		self.mass = attempt
+		self.radius = m2r(attempt, 4e3) # rocky density
 		self.name = planetnamegen()
 		self.sma = sma
 		self.temp = temp2(system.star, self)

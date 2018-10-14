@@ -1,4 +1,4 @@
-from math import atan2
+from math import atan2, pi
 import pygame
 import sys
 sys.path.append('./data')
@@ -11,6 +11,7 @@ greek = 'αβγδεζηθικλμνξοπρστυφχψω'
 
 # astro
 au = 149597870700
+m_earth = 5.97237e24
 r_sun = 6.957e8
 t_sun = 5772
 
@@ -45,6 +46,10 @@ def temp(t: float, r: float, sma: float, a: float) -> float:
 
 def temp2(star, planet) -> float:
 	return temp(star.temperature, star.radius, planet.sma*au, 0)
+
+
+def m2r(mass: float, density: float) -> float:
+	return (mass*3/4/pi/density)**(1/3)
 
 
 # from -pi to pi
