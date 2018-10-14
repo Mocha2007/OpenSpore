@@ -35,7 +35,7 @@ pygame.init()
 size = int(cfg['size'][0]), int(cfg['size'][1])
 screen = pygame.display.set_mode(size)
 refresh = pygame.display.flip
-font = pygame.font.SysFont("trebuchetms", 15)
+# font = pygame.font.SysFont("trebuchetms", 15)
 icon = pygame.image.load('img/icon.png')
 pygame.display.set_icon(icon)
 pygame.display.set_caption('OpenSpore')
@@ -66,6 +66,7 @@ systemclass = SourceFileLoader('systemclass', 'data/'+cfg['systemclass'][0]+'.py
 
 # load constants module
 common = SourceFileLoader('common', 'data/constants.py').load_module()
+font = common.font
 
 # load resource module
 resgen = SourceFileLoader('resgen', 'data/resources/'+cfg['resourcegen'][0]+'.py').load_module()
@@ -77,7 +78,7 @@ def starinfo(coords: (int, int), system):
 	# upper left of box
 	ul = coords[0]+20, coords[1]+25
 	# name
-	text = [sysstar.name]
+	text = sysstar.name
 	# find star
 	site = focus
 	for s in g.stars:
@@ -86,19 +87,13 @@ def starinfo(coords: (int, int), system):
 			break
 	# list planets
 	for _, planet in system.bodies:
-		text.append(' '*8+planet.name)
+		text += '\n\t\t'+planet.name
 	# distance from home
-	text.append('Distance: '+str(round(common.dist(focus, site), 2))+' ly')
+	text += '\nDistance: '+str(round(common.dist(focus, site), 2))+' ly'
 	# draw highlight circle
 	pygame.draw.circle(screen, lightColor, (ul[0]-20, ul[1]-25), 8, 1)
-	# draw main rectangle
-	pygame.draw.rect(screen, darkColor, (ul[0], ul[1], width, 20 * len(text)))
-	# display label
-	for i in range(len(text)):
-		tlabel = font.render(text[i], 1, (255, 255, 255))
-		screen.blit(tlabel, (ul[0]+5, ul[1]+20*i))
-		if i: # draw line above
-			pygame.draw.line(screen, lightColor, (ul[0]+5, ul[1]+20*i), (ul[0]+width-5, ul[1]+20*i))
+	# print text
+	common.text(text, screen, (ul[0], ul[1], ul[0]+width, ul[1]+175), darkColor, lighterColor)
 	# planet mapmode
 	for i, planet in system.bodies:
 		coords = ul[0]+35, ul[1]+20*(i+1)+10

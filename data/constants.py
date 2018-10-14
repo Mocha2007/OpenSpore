@@ -1,4 +1,5 @@
 from math import atan2
+import pygame
 import sys
 sys.path.append('./data')
 from color import Color
@@ -52,3 +53,19 @@ def xyz2phitheta(xyz: (float, float, float)) -> (float, float):
 	phi = atan2(y, x)
 	theta = atan2(z, (x ** 2 + y ** 2) ** .5)
 	return phi, theta
+
+
+font = pygame.font.SysFont("trebuchetms", 15)
+
+
+def text(t: str, screen: pygame.Surface, rect: (int, int, int, int), backcolor: (int, int, int), forecolor: (int, int, int)):
+	t = t.replace('\t', ' '*4)
+	coords = rect[:2]
+	width = rect[2]-rect[0]
+	pygame.draw.rect(screen, backcolor, (coords[0], coords[1], width, 20 * (t.count('\n')+1)))
+	t = t.split('\n')
+	for i in range(len(t)):
+		tlabel = font.render(t[i], 1, (255, 255, 255))
+		screen.blit(tlabel, (coords[0]+10, coords[1]+i*20))
+		if i: # draw line above
+			pygame.draw.line(screen, forecolor, (coords[0]+10, coords[1]+20*i), (coords[0]+width-10, coords[1]+20*i))
