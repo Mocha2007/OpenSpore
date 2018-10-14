@@ -11,6 +11,8 @@ greek = 'αβγδεζηθικλμνξοπρστυφχψω'
 
 # astro
 au = 149597870700
+g = 6.67408e-11
+g_earth = 9.807
 m_earth = 5.97237e24
 r_sun = 6.957e8
 t_sun = 5772
@@ -50,6 +52,10 @@ def temp2(star, planet) -> float:
 
 def m2r(mass: float, density: float) -> float:
 	return (mass*3/4/pi/density)**(1/3)
+
+
+def grav(mass: float, radius: float) -> float:
+	return g*mass/radius**2
 
 
 # from -pi to pi

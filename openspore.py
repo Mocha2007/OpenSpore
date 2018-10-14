@@ -129,6 +129,10 @@ def showsystem():
 	space = w//(len(ss.bodies)+2)
 	# draw rect
 	pygame.draw.rect(screen, darkColor, (ul[0], ul[1], w, h))
+	# draw rect border
+	pygame.draw.rect(screen, lightColor, (ul[0], ul[1], w, h), 1)
+	# label
+	common.text(ss.star.name+' System', screen, (ul[0]+2, ul[1]+5, ul[0]+2, 0), darkColor, lightColor)
 	# place sun
 	try:
 		starcolor = mapmode.main(ss)
@@ -152,10 +156,36 @@ def showsystem():
 		screen.blit(tlabel, (coords[0]-4, coords[1]-40))
 		# planet info if mouse over
 		if common.dist(mousePos, coords) <= radius:
+			# hover info
 			t = planet.name
 			t += '\n'+str(round(planet.mass/common.m_earth, 3))+' Earth masses'
 			t += '\n'+str(round(planet.radius/1000))+' km radius'
 			common.text(t, screen, (coords[0], coords[1]+10, coords[0]+150, 0), darkColor, lightColor)
+		# infobox
+		if i == focusPlanet:
+			# display size
+			fw = w//2
+			ful = size[0]-fw, 0 # aligned to top right above system
+			fcenter = size[0]-fw//2, h//2 + ful[1]
+			# draw rect
+			rectbounds = ful[0], ful[1], fw, size[1]-h+1
+			pygame.draw.rect(screen, darkColor, rectbounds)
+			# draw rect border
+			pygame.draw.rect(screen, lightColor, rectbounds, 1)
+			# label
+			common.text(planet.name, screen, (ful[0]+2, ful[1]+5, ful[0]+2, 0), darkColor, lightColor)
+			# circle
+			try:
+				planetcolor = mapmode.planet(planet)
+			except AttributeError:
+				planetcolor = common.grey
+			col = planetcolor.r, planetcolor.g, planetcolor.b
+			pygame.draw.circle(screen, col, fcenter, 40)
+			# info text
+			t = 'Mass: '+str(round(planet.mass/common.m_earth, 3))+' M_E'
+			t += '\nRadius: '+str(round(planet.radius/1000))+' km'
+			t += '\nGravity: '+str(round(common.grav(planet.mass, planet.radius)/common.g_earth, 3))+' g'
+			common.text(t, screen, (ful[0]+1, ful[1]+150, size[0], 0), darkColor, lightColor)
 
 
 def scale() -> float:
