@@ -1,4 +1,4 @@
-from math import pi
+from math import cos, pi
 from random import choice, random, seed
 import sys
 sys.path.append('./data')
@@ -26,7 +26,7 @@ typecolor = {
 	)
 }
 
-resolution = 12
+resolution = 30
 
 
 def r(t: int) -> Color:
@@ -51,7 +51,12 @@ def main(planet: Planet) -> list:
 	seed(planet)
 	p = []
 	# equator
-	for lat in range(-90, 90, resolution):
-		for long in range(-180, 180, resolution):
-			p.append(((lat*pi/180, long*pi/180), t2c(planet)))
+	for i in range(resolution):
+		lat = i/resolution * pi - pi/2
+		dots = int(cos(lat) * resolution) # reduce res around poles
+		if dots < 1:
+			continue
+		for j in range(dots):
+			long = j/dots * 2*pi
+			p.append(((long, lat), t2c(planet)))
 	return Points(p)

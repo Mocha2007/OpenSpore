@@ -170,7 +170,7 @@ def showsystem():
 			t += '\n'+str(round(planet.mass/common.m_earth, 3))+' Earth masses'
 			t += '\n'+str(round(planet.radius/1000))+' km radius'
 			common.text(t, screen, (coords[0], coords[1]+10, coords[0]+150, 0), darkColor, lightColor)
-			# todo switch focus if LMB is held down
+			# switch focus if LMB is held down
 			if pygame.mouse.get_pressed()[0]:
 				focusPlanet = i
 		# infobox
