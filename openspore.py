@@ -150,6 +150,10 @@ def showsystem():
 		textcolor = (255, 0, 0) if i == focusPlanet else (255, 255, 255)
 		tlabel = font.render(str(i+1), 1, textcolor)
 		screen.blit(tlabel, (coords[0]-4, coords[1]-40))
+		# planet info if mouse over
+		if common.dist(mousePos, coords) <= radius:
+			t = planet.name
+			common.text(t, screen, (coords[0], coords[1]+10, coords[0]+25, 0), darkColor, lightColor)
 
 
 def scale() -> float:
