@@ -34,7 +34,7 @@ class Planet: # no type annotation since function can't be annotated
 		self.sma = sma
 		self.temp = temp2(system.star, self)
 		contents = []
-		maxmoons = max(0, int((attempt/m_earth)**.5)) # not perfect, but certainly more realistic than before!
+		maxmoons = max(0, int((attempt/m_earth)**.7)) # not perfect, but certainly more realistic than before!
 		for i in range(randint(maxmoons//2, maxmoons)):
 			contents.append((i, Moon(self, system, lambda: moonnamegen(self.name, i), resourcegen)))
 		self.bodies = contents
