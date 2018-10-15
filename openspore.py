@@ -169,25 +169,29 @@ def showsystem():
 		# hot? cold? small?
 		warningcoords = coords[0]-2, size[1]-40
 		haswarning = False
-		warnname = 'Habitable'
+		warnings = []
 		if 373 < planet.temp:
 			tlabel = font.render('!', 1, (255, 192, 128))
-			haswarning, warnname = True, 'Boiling'
+			haswarning = True
+			warnings.append('Boiling')
 		elif planet.temp < 273:
 			tlabel = font.render('!', 1, (128, 192, 255))
-			haswarning, warnname = True, 'Freezing'
-		elif not common.m_airless < planet.mass < common.m_gg:
-			tlabel = font.render('!', 1, (128, 128, 128))
 			haswarning = True
-			warnname = 'Airless' if planet.mass < common.m_airless else 'Giant'
+			warnings.append('Freezing')
 		if haswarning:
 			screen.blit(tlabel, warningcoords)
+		if not common.m_airless < planet.mass < common.m_gg:
+			tlabel = font.render('!', 1, (128, 128, 128))
+			haswarning = True
+			warnings.append('Airless' if planet.mass < common.m_airless else 'Giant')
+			screen.blit(tlabel, (warningcoords[0]+5, warningcoords[1]))
 		# habitability info if mouse over
 		mousepos = pygame.mouse.get_pos()
 		warningcoords = warningcoords[0], warningcoords[1] + 10
-		if common.dist(mousepos, warningcoords) <= 5 and haswarning:
+		if common.dist(mousepos, warningcoords) <= 8 and haswarning:
 			# hover info
-			common.text(warnname, screen, (warningcoords[0], warningcoords[1]-20, warningcoords[0]+75, 0), darkColor, lightColor)
+			warnname = ', '.join(warnings)
+			common.text(warnname, screen, (warningcoords[0], warningcoords[1]-20, warningcoords[0]+150, 0), darkColor, lightColor)
 		# planet info if mouse over
 		elif common.dist(mousepos, coords) <= radius:
 			# hover info
