@@ -30,6 +30,7 @@ zoom = 15
 currentmapmode = 0
 currentprojmode = 0
 moonskip = 0
+currentchem = 0
 
 
 # setup
@@ -88,6 +89,10 @@ systemclass = SourceFileLoader('systemclass', 'data/'+cfg['systemclass'][0]+'.py
 # load constants module
 common = SourceFileLoader('common', 'data/constants.py').load_module()
 font = common.font
+chem = (
+	common.water,
+	common.methane
+)
 
 # load resource module
 resgen = SourceFileLoader('resgen', 'data/resources/'+cfg['resourcegen'][0]+'.py').load_module()
@@ -233,6 +238,8 @@ def showsystem():
 			t += '\nDensity: '+str(round(common.density(planet.mass, planet.radius)))+' kg/m^3'
 			t += '\nGravity: '+str(round(common.grav(planet.mass, planet.radius)/common.g_earth, 3))+' g'
 			t += '\nTemperature: '+str(round(planet.temp))+' K'
+			# states
+			t += '\n(c) '+chem[currentchem].name+': '+chem[currentchem].state(planet.temp).title()
 			# resources
 			if planet.resources:
 				t += '\nResources:'
@@ -245,11 +252,11 @@ def showsystem():
 			except AttributeError:
 				bmrv = 0
 			if planet.bodies:
-				t += '\nMoons ('+str(len(planet.bodies))+'):'
+				t += '\n(+ -) Moons ('+str(len(planet.bodies))+'):'
 				for j in range(len(planet.bodies)):
 					n, moon = planet.bodies[(j + moonskip) % len(planet.bodies)]
 					if j > maxmoonlist:
-						t += '\n... and '+str(len(planet.bodies)-maxmoonlist)+' more (+ -)'
+						t += '\n... and '+str(len(planet.bodies)-maxmoonlist)+' more'
 						break
 					# resource value
 					try:
@@ -364,6 +371,9 @@ while 1:
 				changemap(direction)
 			elif event.key == pygame.K_p: # projection
 				changeproj(direction)
+			elif event.key == pygame.K_c: # chemstate
+				currentchem += 1
+				currentchem %= len(chem)
 			elif event.key in planetkeys: # planet foci
 				focusPlanet = planetkeys.index(event.key)
 	# pressed keys
