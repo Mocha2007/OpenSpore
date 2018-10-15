@@ -21,6 +21,7 @@ m_ig = 3e26 # estimate; b/w nep and sat
 m_j = 1.8982e27
 r_sun = 6.957e8
 t_sun = 5772
+t_wiggle = 20 # kelvins above freezing that is desirable
 
 # colors
 grey = Color(128, 128, 128)
@@ -118,23 +119,24 @@ def bestmoonresource(p): # Planet -> Resource
 def gettype(p) -> str: # Planet ->
 	words = []
 	# temp
-	if 273 < p.temp:
-		if p.temp < 373:
-			words.append('Temperate')
-		else:
-			words.append('Scorching')
+	if p.temp < 273:
+		words.append('Frozen')
+	elif p.temp < 273 + t_wiggle/2:
+		words.append('Cold')
+	elif p.temp < 273 + t_wiggle*2:
+		words.append('Temperate')
+	elif p.temp < 373:
+		words.append('Hot')
 	else:
-		words.append('Freezing')
+		words.append('Boiling')
 	# size
-	if m_gg < p.mass:
-		if p.mass < m_ig:
-			words.append('Ice Giant')
-		else:
-			words.append('Gas Giant')
-	else:
+	if p.mass < m_gg:
 		words.append('Rock')
+	elif p.mass < m_ig:
+		words.append('Ice Giant')
+	else:
+		words.append('Gas Giant')
 	return ' '.join(words)
-
 
 
 def limittext(s: str, l: int) -> str:
