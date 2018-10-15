@@ -200,18 +200,31 @@ def showsystem():
 			t += '\nDensity: '+str(round(common.density(planet.mass, planet.radius)))+' kg/m^3'
 			t += '\nGravity: '+str(round(common.grav(planet.mass, planet.radius)/common.g_earth, 3))+' g'
 			t += '\nTemperature: '+str(round(planet.temp))+' K'
+			# resources
 			if planet.resources:
 				t += '\nResources:'
 				for resource in planet.resources:
 					t += '\n\t'+resource.name
 					t += '\n\t\t$'+str(resource.value)+'/u'
+			# moons
+			try:
+				bmrv = common.bestmoonresource(planet).value
+			except AttributeError:
+				bmrv = 0
 			if planet.bodies:
 				t += '\nMoons ('+str(len(planet.bodies))+'):'
 				for n, moon in planet.bodies:
 					if n > maxmoonlist:
 						t += '\n... and '+str(len(planet.bodies)-maxmoonlist)+' more'
 						break
-					t += '\n\t'+moon.name
+					# resource value
+					try:
+						brv = common.bestresource(moon).value
+						n = (3*brv)//bmrv
+						kaching = '$'*n + ' '*(4-n)
+					except (AttributeError, ZeroDivisionError):
+						kaching = '\t'
+					t += '\n'+kaching+' '+moon.name
 			common.text(t, screen, (ful[0], ful[1]+150, size[0], 0), darkColor, lightColor)
 			# spinny globe
 			globe = surface.main(planet)

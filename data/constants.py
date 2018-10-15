@@ -87,3 +87,25 @@ def text(t: str, screen: pygame.Surface, rect: (int, int, int, int), backcolor: 
 		screen.blit(tlabel, (coords[0]+10, coords[1]+i*20))
 		if i: # draw line above
 			pygame.draw.line(screen, forecolor, (coords[0]+10, coords[1]+20*i), (coords[0]+width-10, coords[1]+20*i))
+
+
+def bestresource(b): # Planet/Moon -> Resource
+	maxvalue = [0, None]
+	if b.resources:
+		for r in b.resources:
+			if r.value > maxvalue[0]:
+				maxvalue[0] = r.value
+				maxvalue[1] = r
+	return maxvalue[1]
+
+
+def bestmoonresource(p): # Planet -> Resource
+	maxvalue = [0, None]
+	# go through moons
+	if p.bodies:
+		for _, m in p.bodies:
+			br = bestresource(m)
+			if br.value > maxvalue[0]:
+				maxvalue[0] = br.value
+				maxvalue[1] = br
+	return maxvalue[1]
