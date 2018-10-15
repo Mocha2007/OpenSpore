@@ -1,5 +1,5 @@
 from random import random, randint, uniform
-from constants import m2r, temp2, m_earth, m_gg
+from constants import m2r, temp2, m_earth, m_gg, m_j
 
 
 class Moon:
@@ -23,7 +23,7 @@ class Moon:
 class Planet: # no type annotation since function can't be annotated
 	def __init__(self, system, sma: float, planetnamegen, moonnamegen, resourcegen):
 		attempt = 1e29
-		while attempt > 1.8982e27*13:
+		while attempt > m_j*13:
 			attempt = 3.3011e23 / random()**3
 		self.mass = attempt
 		if attempt > m_gg:

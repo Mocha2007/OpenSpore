@@ -1,4 +1,4 @@
-from math import atan2, pi
+from math import atan2, ceil, pi
 import pygame
 import sys
 sys.path.append('./data')
@@ -8,6 +8,7 @@ from color import Color
 alphabet = 'abcdefghijklmnopqrstuvwxyz'
 digits = '0123456789'
 greek = 'αβγδεζηθικλμνξοπρστυφχψω'
+vowels = 'aeiou'
 
 # astro
 au = 149597870700
@@ -15,6 +16,7 @@ g = 6.67408e-11
 g_earth = 9.807
 m_earth = 5.97237e24
 m_gg = m_earth * 10
+m_j = 1.8982e27
 r_sun = 6.957e8
 t_sun = 5772
 
@@ -109,3 +111,21 @@ def bestmoonresource(p): # Planet -> Resource
 				maxvalue[0] = br.value
 				maxvalue[1] = br
 	return maxvalue[1]
+
+
+def limittext(s: str, l: int) -> str:
+	if l < 1:
+		return ''
+	if len(s) <= l:
+		return s
+	# slowly remove vowels
+	s = list(s)
+	for i in range(len(s)-1, -1, -1):
+		if s[i] in vowels:
+			del s[i]
+			if len(s) <= l:
+				break
+	s = ''.join(s)
+	# figure out how many consonants to skip
+	skip = ceil(len(s)/l)
+	return s[::skip]
