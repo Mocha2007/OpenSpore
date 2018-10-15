@@ -1,5 +1,5 @@
-from random import random, randint
-from constants import m2r, temp2
+from random import random, randint, uniform
+from constants import m2r, temp2, m_gg
 
 
 class Moon:
@@ -8,7 +8,7 @@ class Moon:
 		while attempt > 1.4819e23:
 			attempt = 3.7493e19 / random()
 		self.mass = attempt
-		self.radius = m2r(attempt, 4e3) # rocky density
+		self.radius = m2r(attempt, 3.5e3) # rocky density
 		self.name = moonnamegen()
 		self.resources = []
 		self.sma = 1 # todo
@@ -26,7 +26,10 @@ class Planet: # no type annotation since function can't be annotated
 		while attempt > 1.8982e27*13:
 			attempt = 3.3011e23 / random()**3
 		self.mass = attempt
-		self.radius = m2r(attempt, 4e3) # rocky density
+		if attempt > m_gg:
+			self.radius = m2r(attempt, uniform(687, 1326)) # gassy density
+		else:
+			self.radius = m2r(attempt, uniform(3933.5, 5427)) # rocky density
 		self.name = planetnamegen()
 		self.sma = sma
 		self.temp = temp2(system.star, self)

@@ -59,6 +59,10 @@ def grav(mass: float, radius: float) -> float:
 	return g*mass/radius**2
 
 
+def density(mass: float, radius: float) -> float:
+	return mass/(4/3 * pi * radius**3)
+
+
 # from -pi to pi
 def xyz2phitheta(xyz: (float, float, float)) -> (float, float):
 	x, y, z = xyz

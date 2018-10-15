@@ -135,7 +135,7 @@ def showsystem():
 	# name, for upper left corner
 	# text = s.name
 	# evenly space planets
-	space = w//(len(ss.bodies)+2)
+	space = w//(len(ss.bodies)+1)
 	# draw rect
 	pygame.draw.rect(screen, darkColor, (ul[0], ul[1], w, h))
 	# draw rect border
@@ -143,15 +143,15 @@ def showsystem():
 	# label
 	common.text(ss.star.name+' System', screen, (ul[0], ul[1]+5, ul[0]+1, 0), darkColor, lightColor)
 	# place sun
-	try:
-		starcolor = mapmode.main(ss)
-	except AttributeError:
-		starcolor = common.grey
-	col = starcolor.r, starcolor.g, starcolor.b
-	pygame.draw.circle(screen, col, (ul[0]+space, centerh), 18)
+	# try:
+	# 	starcolor = mapmode.main(ss)
+	# except AttributeError:
+	# 	starcolor = common.grey
+	# col = starcolor.r, starcolor.g, starcolor.b
+	# pygame.draw.circle(screen, col, (ul[0]+space, centerh), 18)
 	# planet mapmode
 	for i, planet in ss.bodies:
-		coords = ul[0] + (i+2)*space, centerh
+		coords = ul[0] + (i+1)*space, centerh
 		try:
 			planetcolor = mapmode.planet(planet)
 		except AttributeError:
@@ -162,7 +162,7 @@ def showsystem():
 		# label
 		textcolor = (255, 0, 0) if i == focusPlanet else (255, 255, 255)
 		tlabel = font.render(str(i+1), 1, textcolor)
-		screen.blit(tlabel, (coords[0]-4, coords[1]-40))
+		screen.blit(tlabel, (coords[0]-4, size[1]-20))
 		# planet info if mouse over
 		if common.dist(mousePos, coords) <= radius:
 			# hover info
@@ -196,6 +196,7 @@ def showsystem():
 			# info text
 			t = 'Mass: '+str(round(planet.mass/common.m_earth, 3))+' M_E'
 			t += '\nRadius: '+str(round(planet.radius/1000))+' km'
+			t += '\nDensity: '+str(round(common.density(planet.mass, planet.radius)))+' kg/m^3'
 			t += '\nGravity: '+str(round(common.grav(planet.mass, planet.radius)/common.g_earth, 3))+' g'
 			if planet.resources:
 				t += '\nResources:'
