@@ -1,4 +1,5 @@
 from math import atan2, ceil, log10, pi
+from random import uniform
 import pygame
 import sys
 sys.path.append('./data')
@@ -29,6 +30,7 @@ grey = Color(128, 128, 128)
 
 class Chem:
 	def __init__(self, **data):
+		self.name = data['name']
 		try:
 			self.triple = data['triple']
 			assert type(self.triple) == tuple
@@ -79,14 +81,16 @@ class Chem:
 
 chemprop = {
 	'water': {
+		'name': 'Water',
 		'melt': 273.15,
 		'boil': 373.13,
 		'triple': (273.16, 611.657),
 		'critical': (647.096, 2.2064e7)
 	},
 	'methane': {
-		'melt': 273.15,
-		'boil': 373.13,
+		'name': 'Methane',
+		'melt': 90.7,
+		'boil': 111.65,
 		'triple': (90.68, 1.17e4),
 		'critical': (190.4, 4.6e6)
 	}
@@ -124,7 +128,14 @@ def temp(t: float, r: float, sma: float, a: float) -> float:
 
 
 def temp2(star, planet) -> float:
-	return temp(star.temperature, star.radius, planet.sma*au, 0)
+	# gg
+	if planet.mass < m_gg:
+		a = uniform(.142, .689)
+	elif planet.mass < m_ig:
+		a = uniform(.442, .488)
+	else:
+		a = uniform(.499, .538)
+	return temp(star.temperature, star.radius, planet.sma*au, a)
 
 
 def m2r(mass: float, rho: float) -> float:
