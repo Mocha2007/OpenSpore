@@ -5,8 +5,7 @@ from system import System
 
 
 def main(system: System) -> Color:
-	return Color(128, int(len(system.bodies)*255/9), 128)
+	return Color(128, min(int(len(system.bodies)**2*3), 255), 128)
 
 
 planet = main
-
