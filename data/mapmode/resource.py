@@ -11,6 +11,7 @@ def main(system: System) -> Color:
 			if p.resources:
 				for r in p.resources:
 					if r.value > maxvalue[0]:
+						maxvalue[0] = r.value
 						maxvalue[1] = r.data['color']
 	return maxvalue[1]
 
@@ -20,5 +21,6 @@ def planet(p: Planet) -> Color:
 	if p.resources:
 		for r in p.resources:
 			if r.value > maxvalue[0]:
+				maxvalue[0] = r.value
 				maxvalue[1] = r.data['color']
 	return maxvalue[1]
