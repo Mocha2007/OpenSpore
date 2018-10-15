@@ -38,7 +38,8 @@ class System:
 		self.name = star.name
 		self.star = star
 		contents = []
+		sma = star.mass**2 / 3
 		for i in range(randint(1, 5)):
-			sma = (3**.5)**i * star.mass**2 / 3 # todo
+			sma *= uniform(1.38, 2.02)  # e/v u/s
 			contents.append((i, Planet(self, sma, lambda: planetnamegen(star.name, i), moonnamegen, resourcegen)))
 		self.bodies = contents
