@@ -32,6 +32,7 @@ class Planet: # no type annotation since function can't be annotated
 			self.radius = m2r(attempt, uniform(3933.5, 5427)) # rocky density
 		self.name = planetnamegen()
 		self.sma = sma
+		self.period = (sma**3/system.star.mass)**.5
 		self.temp = temp2(system.star, self)
 		contents = []
 		maxmoons = max(0, int((attempt/m_earth)**.7)) # not perfect, but certainly more realistic than before!

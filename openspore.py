@@ -23,7 +23,7 @@ planetkeys = (
 	pygame.K_0
 )
 globeperiod = 15 # s
-maxmoonlist = 8
+maxmoonlist = 6
 # may change later on as user does things
 focus = 0, 0, 0
 zoom = 15
@@ -202,6 +202,7 @@ def showsystem():
 			# hover info
 			t = planet.name
 			t += '\n'+str(round(planet.sma, 3))+' au'
+			t += '\n'+str(round(planet.period, 3))+' y'
 			common.text(t, screen, (coords[0], coords[1]+10, coords[0]+150, 0), darkColor, lightColor)
 			# switch focus if LMB is held down
 			if pygame.mouse.get_pressed()[0]:
