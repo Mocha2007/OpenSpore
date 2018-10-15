@@ -175,11 +175,11 @@ def showsystem():
 		warningcoords = coords[0]-2, size[1]-40
 		haswarning = False
 		warnings = []
-		if common.water.boil < planet.temp:
+		if chem[currentchem].boil < planet.temp:
 			tlabel = font.render('!', 1, (255, 192, 128))
 			haswarning = True
 			warnings.append('Boiling')
-		elif planet.temp < common.water.melt:
+		elif planet.temp < chem[currentchem].melt:
 			tlabel = font.render('!', 1, (128, 192, 255))
 			haswarning = True
 			warnings.append('Freezing')
