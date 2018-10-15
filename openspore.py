@@ -166,8 +166,29 @@ def showsystem():
 		textcolor = (255, 0, 0) if i == focusPlanet else (255, 255, 255)
 		tlabel = font.render(str(i+1), 1, textcolor)
 		screen.blit(tlabel, (coords[0]-4, size[1]-20))
+		# hot? cold? small?
+		warningcoords = coords[0]-2, size[1]-40
+		haswarning = False
+		if 373 < planet.temp:
+			tlabel = font.render('!', 1, (255, 192, 128))
+			haswarning, warnname = True, 'Boiling'
+		elif planet.temp < 273:
+			tlabel = font.render('!', 1, (128, 192, 255))
+			haswarning, warnname = True, 'Freezing'
+		elif not common.m_airless < planet.mass < common.m_gg:
+			tlabel = font.render('!', 1, (128, 128, 128))
+			haswarning = True
+			warnname = 'Airless' if planet.mass < common.m_airless else 'Giant'
+		if haswarning:
+			screen.blit(tlabel, warningcoords)
+		# habitability info if mouse over
+		mousePos = pygame.mouse.get_pos()
+		warningcoords = warningcoords[0], warningcoords[1] + 10
+		if common.dist(mousePos, warningcoords) <= 5 and haswarning:
+			# hover info
+			common.text(warnname, screen, (warningcoords[0], warningcoords[1]-20, warningcoords[0]+75, 0), darkColor, lightColor)
 		# planet info if mouse over
-		if common.dist(mousePos, coords) <= radius:
+		elif common.dist(mousePos, coords) <= radius:
 			# hover info
 			t = planet.name
 			t += '\n'+str(round(planet.mass/common.m_earth, 3))+' Earth masses'
@@ -286,8 +307,8 @@ def changeproj(n: int):
 g = galaxy.Galaxy(stargen.main, starnamegen.main, planetnamegen.main, moonnamegen.main, systemclass.System, resgen.main)
 refresh()
 
-mousePos = 0, 0
-mousePosNew = 0, 0
+# mousePos = 0, 0
+# mousePosNew = 0, 0
 delta = 0, 0
 deltaNew = 0, 0
 middleRadius = 1

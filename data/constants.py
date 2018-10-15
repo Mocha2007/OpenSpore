@@ -15,6 +15,7 @@ au = 149597870700
 g = 6.67408e-11
 g_earth = 9.807
 m_earth = 5.97237e24
+m_airless = m_earth / 9 # must be greater than mars... but likely not by a whole lot
 m_gg = m_earth * 10
 m_j = 1.8982e27
 r_sun = 6.957e8
