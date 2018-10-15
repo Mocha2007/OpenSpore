@@ -21,7 +21,7 @@ m_ig = 3e26 # estimate; b/w nep and sat
 m_j = 1.8982e27
 r_sun = 6.957e8
 t_sun = 5772
-t_wiggle = 20 # kelvins above freezing that is desirable
+t_earth = 288
 
 # colors
 grey = Color(128, 128, 128)
@@ -37,6 +37,7 @@ class Chem:
 
 
 water = Chem(melt=273.15, boil=373.13)
+methane = Chem(melt=90.7, boil=111.65)
 
 
 # functions
@@ -60,7 +61,8 @@ def spore_ishab(planet, star): # todo make actually spore
 
 def temp(t: float, r: float, sma: float, a: float) -> float:
 	"""Temperature of the star (K), Radius of the star (m), Semimajor axis (m), Albedo\n->
-	Temperature of the body (K)\nFormula from https://en.wikipedia.org/wiki/Planetary_equilibrium_temperature#Theoretical_model"""
+	Temperature of the body (K)\n
+	Formula from https://en.wikipedia.org/wiki/Planetary_equilibrium_temperature#Theoretical_model"""
 	return t*(1-a)**.25*(r/2/sma)**.5
 
 
@@ -68,8 +70,8 @@ def temp2(star, planet) -> float:
 	return temp(star.temperature, star.radius, planet.sma*au, 0)
 
 
-def m2r(mass: float, density: float) -> float:
-	return (mass*3/4/pi/density)**(1/3)
+def m2r(mass: float, rho: float) -> float:
+	return (mass*3/4/pi/rho)**(1/3)
 
 
 def grav(mass: float, radius: float) -> float:
@@ -133,10 +135,14 @@ def gettype(p) -> str: # Planet ->
 	# temp
 	if p.temp < water.melt:
 		words.append('Frozen')
-	elif p.temp < water.melt + t_wiggle/2:
+	elif p.temp < (water.melt + t_earth)/2:
 		words.append('Cold')
-	elif p.temp < water.melt + t_wiggle*2:
+	elif p.temp < (water.melt + t_earth*3)/4:
+		words.append('Cool')
+	elif p.temp < (water.boil + t_earth)/2:
 		words.append('Temperate')
+	elif p.temp < (water.boil + t_earth*3)/4:
+		words.append('Warm')
 	elif p.temp < water.boil:
 		words.append('Hot')
 	else:
