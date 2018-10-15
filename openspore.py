@@ -29,6 +29,7 @@ focus = 0, 0, 0
 zoom = 15
 currentmapmode = 0
 currentprojmode = 0
+moonskip = 0
 
 
 # setup
@@ -127,6 +128,7 @@ def starinfo(coords: (int, int), system):
 
 def showsystem():
 	global focusPlanet
+	global moonskip
 	ss = focusSystem
 	# display size
 	w = size[0]//4
@@ -174,6 +176,7 @@ def showsystem():
 			# switch focus if LMB is held down
 			if pygame.mouse.get_pressed()[0]:
 				focusPlanet = i
+				moonskip = 0
 		# infobox
 		if i == focusPlanet:
 			# display size
@@ -213,9 +216,10 @@ def showsystem():
 				bmrv = 0
 			if planet.bodies:
 				t += '\nMoons ('+str(len(planet.bodies))+'):'
-				for n, moon in planet.bodies:
-					if n > maxmoonlist:
-						t += '\n... and '+str(len(planet.bodies)-maxmoonlist)+' more'
+				for j in range(len(planet.bodies)):
+					n, moon = planet.bodies[(j + moonskip) % len(planet.bodies)]
+					if j > maxmoonlist:
+						t += '\n... and '+str(len(planet.bodies)-maxmoonlist)+' more (+ -)'
 						break
 					# resource value
 					try:
@@ -346,17 +350,21 @@ while 1:
 		g.anyrotatex(pi/45)
 	if pressed[pygame.K_KP6]:
 		g.anyrotatex(-pi/45)
+	if pressed[pygame.K_KP_MINUS]:
+		moonskip -= 1
+	if pressed[pygame.K_KP_PLUS]:
+		moonskip += 1
 	# mousedown?
-	if pygame.mouse.get_pressed()[0]: # left click enabled
-		mousePosNew = pygame.mouse.get_pos()
-		deltaNew = tuple(map(lambda x: (x[1]-x[0])/zoom, zip(mousePos, mousePosNew)))
-	else:
-		# reset
-		mousePos = pygame.mouse.get_pos()
-		delta = tuple(map(sum, zip(delta, deltaNew)))
-		# reset
-		mousePosNew = pygame.mouse.get_pos()
-		deltaNew = 0, 0
+	# if pygame.mouse.get_pressed()[0]: # left click enabled
+		# 	mousePosNew = pygame.mouse.get_pos()
+	# 	deltaNew = tuple(map(lambda x: (x[1]-x[0])/zoom, zip(mousePos, mousePosNew)))
+		# else:
+		# 	# reset
+		# 	mousePos = pygame.mouse.get_pos()
+		# 	delta = tuple(map(sum, zip(delta, deltaNew)))
+		# 	# reset
+		# 	mousePosNew = pygame.mouse.get_pos()
+	# 	deltaNew = 0, 0
 	# focusSystem is of type System
 	showsystem()
 	# infobox
