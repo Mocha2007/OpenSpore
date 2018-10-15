@@ -1,11 +1,11 @@
 from math import cos, pi
-from random import choice, seed
+from random import choice, randint, seed
 import sys
 sys.path.append('./data')
 from points import Points
 from system import Planet
 from color import Color
-from constants import m_gg
+from constants import m_gg, m_ig
 
 typecolor = {
 	1: ( # hells
@@ -23,6 +23,10 @@ typecolor = {
 	-2: ( # gas giants
 		Color(192, 160, 128),
 		Color(224, 192, 128)
+	),
+	-3: ( # ice giants
+		Color(64, 64, 160),
+		Color(144, 192, 192)
 	)
 }
 
@@ -37,9 +41,20 @@ def r(t: int) -> Color:
 	return c
 
 
+def r2(t: int) -> Color:
+	c1, c2 = typecolor[t]
+	c = Color(0, 0, 0)
+	c.r = randint(c1.r, c2.r)
+	c.g = randint(c1.g, c2.g)
+	c.b = randint(c1.b, c2.b)
+	return c
+
+
 def t2c(planet: Planet) -> Color:
 	if planet.mass > m_gg:
-		return r(-2)
+		if planet.mass < m_ig:
+			return r2(-3)
+		return r2(-2)
 	if planet.temp > 273:
 		if planet.temp < 373:
 			return r(0)
