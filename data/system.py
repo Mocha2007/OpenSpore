@@ -1,5 +1,5 @@
 from random import random, randint, uniform
-from constants import m2r, temp2, m_gg
+from constants import m2r, temp2, m_earth, m_gg
 
 
 class Moon:
@@ -34,7 +34,8 @@ class Planet: # no type annotation since function can't be annotated
 		self.sma = sma
 		self.temp = temp2(system.star, self)
 		contents = []
-		for i in range(randint(0, 1)):
+		maxmoons = max(0, int((attempt/m_earth)**.5)) # not perfect, but certainly more realistic than before!
+		for i in range(randint(0, maxmoons)):
 			contents.append((i, Moon(self, system, lambda: moonnamegen(self.name, i), resourcegen)))
 		self.bodies = contents
 		data = {
