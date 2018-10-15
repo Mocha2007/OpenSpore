@@ -115,6 +115,28 @@ def bestmoonresource(p): # Planet -> Resource
 	return maxvalue[1]
 
 
+def gettype(p) -> str: # Planet ->
+	words = []
+	# temp
+	if 273 < p.temp:
+		if p.temp < 373:
+			words.append('Temperate')
+		else:
+			words.append('Scorching')
+	else:
+		words.append('Freezing')
+	# size
+	if m_gg < p.mass:
+		if p.mass < m_ig:
+			words.append('Ice Giant')
+		else:
+			words.append('Gas Giant')
+	else:
+		words.append('Rock')
+	return ' '.join(words)
+
+
+
 def limittext(s: str, l: int) -> str:
 	if l < 1:
 		return ''

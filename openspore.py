@@ -224,10 +224,11 @@ def showsystem():
 			# col = planetcolor.r, planetcolor.g, planetcolor.b
 			# pygame.draw.circle(screen, col, fcenter, 40)
 			# info text
+			t = '\t'+common.gettype(planet)+'\n'
 			if planet.mass < common.m_earth*100:
-				t = 'Mass: '+str(round(planet.mass/common.m_earth, 3))+' M_E'
+				t += 'Mass: '+str(round(planet.mass/common.m_earth, 3))+' M_E'
 			else: # bigger than saturn
-				t = 'Mass: '+str(round(planet.mass/common.m_j, 3))+' M_J'
+				t += 'Mass: '+str(round(planet.mass/common.m_j, 3))+' M_J'
 			t += '\nRadius: '+str(round(planet.radius/1000))+' km'
 			t += '\nDensity: '+str(round(common.density(planet.mass, planet.radius)))+' kg/m^3'
 			t += '\nGravity: '+str(round(common.grav(planet.mass, planet.radius)/common.g_earth, 3))+' g'
