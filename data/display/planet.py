@@ -11,6 +11,7 @@ defaultzoom = 15 # fixme from openspore.py
 def main(radius: int, pointmap: Points, center: (int, int)) -> list:
 	# main
 	starList = pointmap.points
+	starList.sort(key=lambda w: cos(w[0][0])*cos(w[0][1]))
 
 	# make list
 	starList2 = []
