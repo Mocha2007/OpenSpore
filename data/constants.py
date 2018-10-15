@@ -95,7 +95,6 @@ water = Chem(**chemprop['water'])
 methane = Chem(**chemprop['methane'])
 stp = 273.15, 1e5
 ntp = 293.15, 1.01325e5
-print(water.state(300))
 
 
 # functions
