@@ -51,6 +51,6 @@ class System: # no type annotation since function can't be annotated
 		self.star = star
 		contents = []
 		for i in range(randint(0, 9)):
-			sma = 2**i * star.mass**2 / 3 # todo
+			sma = (3**.5)**i * star.mass**2 / 3 # todo
 			contents.append((i, Planet(self, sma, lambda: planetnamegen(star.name, i), moonnamegen, resourcegen)))
 		self.bodies = contents
