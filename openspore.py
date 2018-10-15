@@ -169,6 +169,7 @@ def showsystem():
 		# hot? cold? small?
 		warningcoords = coords[0]-2, size[1]-40
 		haswarning = False
+		warnname = 'Habitable'
 		if 373 < planet.temp:
 			tlabel = font.render('!', 1, (255, 192, 128))
 			haswarning, warnname = True, 'Boiling'
@@ -182,13 +183,13 @@ def showsystem():
 		if haswarning:
 			screen.blit(tlabel, warningcoords)
 		# habitability info if mouse over
-		mousePos = pygame.mouse.get_pos()
+		mousepos = pygame.mouse.get_pos()
 		warningcoords = warningcoords[0], warningcoords[1] + 10
-		if common.dist(mousePos, warningcoords) <= 5 and haswarning:
+		if common.dist(mousepos, warningcoords) <= 5 and haswarning:
 			# hover info
 			common.text(warnname, screen, (warningcoords[0], warningcoords[1]-20, warningcoords[0]+75, 0), darkColor, lightColor)
 		# planet info if mouse over
-		elif common.dist(mousePos, coords) <= radius:
+		elif common.dist(mousepos, coords) <= radius:
 			# hover info
 			t = planet.name
 			t += '\n'+str(round(planet.mass/common.m_earth, 3))+' Earth masses'
