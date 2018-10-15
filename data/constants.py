@@ -1,4 +1,4 @@
-from math import atan2, ceil, pi
+from math import atan2, ceil, log10, pi
 import pygame
 import sys
 sys.path.append('./data')
@@ -29,15 +29,73 @@ grey = Color(128, 128, 128)
 
 class Chem:
 	def __init__(self, **data):
+		try:
+			self.triple = data['triple']
+			assert type(self.triple) == tuple
+			self.critical = data['critical']
+			assert type(self.critical) == tuple
+		except IndexError:
+			pass
 		self.melt = data['melt']
 		assert type(self.melt) == float
 		self.freeze = self.melt
 		self.boil = data['boil']
 		assert type(self.boil) == float
 
+	# get current state
+	def state(self, t: float) -> str:
+		if t < self.melt:
+			return 'solid'
+		if t < self.boil:
+			return 'liquid'
+		return 'gas'
 
-water = Chem(melt=273.15, boil=373.13)
-methane = Chem(melt=90.7, boil=111.65)
+	# use crit/trip instead - fairly accurate, but not perfect
+	def state2(self, tp: (float, float)) -> str:
+		# supercritical?
+		if self.critical[0] < tp[0] and self.critical[1] < tp[1]:
+			return 'supercritical fluid'
+		# normal
+		if tp[0] < self.triple[0]:
+			# sol? gas?
+			# upper left
+			if tp[1] > self.triple[1]:
+				return 'solid'
+			# lower left
+			logt = log10(self.triple[0]), log10(self.triple[1])
+			f = lambda x: logt[1] / logt[0] * x
+			if f(log10(tp[0])) < log10(tp[1]):
+				return 'solid'
+			return 'gas'
+		# now... liq? gas?
+		logt = log10(self.critical[0]), log10(self.critical[1])
+		f = lambda x: logt[1] / logt[0] * x
+		# upper right
+		if f(log10(tp[0])) < log10(tp[1]):
+			return 'liquid'
+		# lower right
+		return 'gas'
+
+
+chemprop = {
+	'water': {
+		'melt': 273.15,
+		'boil': 373.13,
+		'triple': (273.16, 611.657),
+		'critical': (647.096, 2.2064e7)
+	},
+	'methane': {
+		'melt': 273.15,
+		'boil': 373.13,
+		'triple': (90.68, 1.17e4),
+		'critical': (190.4, 4.6e6)
+	}
+}
+water = Chem(**chemprop['water'])
+methane = Chem(**chemprop['methane'])
+stp = 273.15, 1e5
+ntp = 293.15, 1.01325e5
+print(water.state(300))
 
 
 # functions
