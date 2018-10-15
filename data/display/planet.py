@@ -2,10 +2,9 @@ from math import cos, sin
 import sys
 sys.path.append('./data')
 from points import Points
-# equirectangular projection, with the origin as the source
 
+# equirectangular projection, with the origin as the source
 showscale = False
-defaultzoom = 15 # fixme from openspore.py
 
 
 def main(radius: int, pointmap: Points, center: (int, int)) -> list:
