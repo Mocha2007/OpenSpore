@@ -27,6 +27,18 @@ t_wiggle = 20 # kelvins above freezing that is desirable
 grey = Color(128, 128, 128)
 
 
+class Chem:
+	def __init__(self, **data):
+		self.melt = data['melt']
+		assert type(self.melt) == float
+		self.freeze = self.melt
+		self.boil = data['boil']
+		assert type(self.boil) == float
+
+
+water = Chem(melt=273.15, boil=373.13)
+
+
 # functions
 def delta(a: tuple, b: tuple) -> tuple:
 	temporary = tuple(zip(a, b))
@@ -119,13 +131,13 @@ def bestmoonresource(p): # Planet -> Resource
 def gettype(p) -> str: # Planet ->
 	words = []
 	# temp
-	if p.temp < 273:
+	if p.temp < water.melt:
 		words.append('Frozen')
-	elif p.temp < 273 + t_wiggle/2:
+	elif p.temp < water.melt + t_wiggle/2:
 		words.append('Cold')
-	elif p.temp < 273 + t_wiggle*2:
+	elif p.temp < water.melt + t_wiggle*2:
 		words.append('Temperate')
-	elif p.temp < 373:
+	elif p.temp < water.boil:
 		words.append('Hot')
 	else:
 		words.append('Boiling')

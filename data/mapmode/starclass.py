@@ -2,6 +2,7 @@ import sys
 sys.path.append('./data')
 from color import Color
 from system import System
+from constants import water
 
 colorMap = {
 	'O': Color(0, 128, 255),
@@ -27,8 +28,8 @@ def main(system: System) -> Color:
 
 
 def planet(p: Planet) -> Color:
-	if 273 < p.temp:
-		if p.temp < 373:
+	if water.melt < p.temp:
+		if p.temp < water.boil:
 			return planetMap[1]
 		return planetMap[0]
 	return planetMap[2]

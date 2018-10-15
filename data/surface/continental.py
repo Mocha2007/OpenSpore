@@ -5,7 +5,7 @@ sys.path.append('./data')
 from points import Points
 from system import Planet
 from color import Color
-from constants import m_gg, m_ig
+from constants import m_gg, m_ig, water
 
 typecolor = {
 	1: ( # hells
@@ -55,8 +55,8 @@ def t2c(planet: Planet) -> Color:
 		if planet.mass < m_ig:
 			return r2(-3)
 		return r2(-2)
-	if planet.temp > 273:
-		if planet.temp < 373:
+	if planet.temp > water.melt:
+		if planet.temp < water.boil:
 			return r(0)
 		return r(1)
 	return r(-1)
