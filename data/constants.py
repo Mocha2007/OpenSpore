@@ -30,8 +30,9 @@ r_sun = 6.957e8
 t_sun = 5772
 t_earth = 288
 
-# colors
+# other
 grey = Color(128, 128, 128)
+stp = 273.15, 1e5
 
 
 class Chem:
@@ -76,7 +77,12 @@ class Chem:
 			# 	return 'solid'
 			# return 'gas'
 		# now... liq? gas?
-		f = lambda x: log10(self.triple[1]) / self.triple[0] * x
+		if stp[0] < t: # upper part of the liq-gas boundary
+			slope = log10(self.critical[1] - stp[1]) / (self.critical[0] - self.boil)
+		else: # lower part of the liq-gas boundary
+			slope = log10(stp[1] - self.triple[1]) / (self.boil - self.triple[0])
+		yintercept = log10(stp[1]) - slope * self.boil
+		f = lambda x: slope * x + yintercept
 		# upper right
 		if f(t) < log10(p):
 			return 'liquid'
@@ -116,8 +122,6 @@ chemprop = {
 water = Chem(**chemprop['water'])
 methane = Chem(**chemprop['methane'])
 ammonia = Chem(**chemprop['ammonia'])
-stp = 273.15, 1e5
-ntp = 293.15, 1.01325e5
 
 
 # functions
