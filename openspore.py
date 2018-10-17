@@ -282,15 +282,9 @@ def showsystem():
 				elif planet.atm > common.p_troposphere:
 					atminfo = "Tropospheric"
 					atmcolor = 0, 255, 0
-				elif planet.atm > common.p_stratosphere:
-					atminfo = "Stratospheric"
-					atmcolor = 0, 192, 0
-				elif planet.atm > common.p_mesosphere:
-					atminfo = "Mesospheric"
-					atmcolor = 0, 128, 0
 				else:
-					atminfo = "Thermospheric"
-					atmcolor = 0, 64, 0
+					atminfo = "Stratospheric"
+					atmcolor = 0, 128, 0
 				templabel = font.render('!', 1, atmcolor)
 				screen.blit(templabel, atmcoords)
 				if common.dist(mousepos, (atmcoords[0], atmcoords[1]+5)) <= 8:
