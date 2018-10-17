@@ -34,8 +34,9 @@ typecolor = {
 resolution = 30
 
 
-def r(t: int) -> Color:
-	c = choice([typecolor[t][0]]*(2*len(typecolor[t]))+list(typecolor[t][1:])) # land or sea?
+def r(t: int, ratio: (int, int)) -> Color:
+	c = choice([typecolor[t][0]]*(ratio[0]*len(typecolor[t])) +
+				list(typecolor[t][1:])*(ratio[1]*len(typecolor[t]))) # sea, land
 	return c
 
 
@@ -52,7 +53,7 @@ def r2(t: int) -> Color:
 	return c
 
 
-def t2c(planet: Planet) -> Color:
+def t2c(planet: Planet, ratio: (int, int)) -> Color:
 	if planet.mass < m_airless:
 		return r2(2)
 	if planet.mass > m_gg:
@@ -61,15 +62,16 @@ def t2c(planet: Planet) -> Color:
 		return r2(-2)
 	if planet.temp > water.melt:
 		if planet.temp < water.boil:
-			return r(0)
-		return r(1)
-	return r(-1)
+			return r(0, ratio)
+		return r(1, ratio)
+	return r(-1, ratio)
 
 
 def main(planet: Planet) -> list:
 	seed(planet)
 	p = []
 	# equator
+	ratio = randint(1, 5), randint(1, 5) # water % must be >20% for water cycle
 	for i in range(resolution):
 		lat = i/resolution * pi - pi/2
 		dots = int(cos(lat) * resolution) # reduce res around poles
@@ -77,5 +79,5 @@ def main(planet: Planet) -> list:
 			continue
 		for j in range(dots):
 			long = j/dots * 2*pi
-			p.append(((long, lat), t2c(planet)))
+			p.append(((long, lat), t2c(planet, ratio)))
 	return Points(p)
