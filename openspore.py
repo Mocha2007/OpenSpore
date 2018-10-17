@@ -272,6 +272,30 @@ def showsystem():
 						kaching = '\t'
 					t += '\n'+kaching+' '+moon.name
 			common.text(t, screen, (ful[0], ful[1]+150, size[0], 0), darkColor, lightColor)
+			# atm label
+			if planet.atm:
+				# atm layer info
+				atmcoords = size[0]-157, 270
+				if planet.atm > common.p_earth:
+					atminfo = "Superterran"
+					atmcolor = 128, 255, 128
+				elif planet.atm > common.p_troposphere:
+					atminfo = "Tropospheric"
+					atmcolor = 0, 255, 0
+				elif planet.atm > common.p_stratosphere:
+					atminfo = "Stratospheric"
+					atmcolor = 0, 192, 0
+				elif planet.atm > common.p_mesosphere:
+					atminfo = "Mesospheric"
+					atmcolor = 0, 128, 0
+				else:
+					atminfo = "Thermospheric"
+					atmcolor = 0, 64, 0
+				templabel = font.render('!', 1, atmcolor)
+				screen.blit(templabel, atmcoords)
+				if common.dist(mousepos, (atmcoords[0], atmcoords[1]+5)) <= 8:
+					# hover info
+					common.text(atminfo, screen, (atmcoords[0]-120, atmcoords[1], atmcoords[0]-10, 0), darkColor, lightColor)
 			# spinny globe
 			globe = surface.main(planet)
 			rotation = (time() % globeperiod)/globeperiod*2*pi
