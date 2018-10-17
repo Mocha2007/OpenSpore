@@ -175,28 +175,25 @@ def showsystem():
 		warningcoords = coords[0]-2, size[1]-40
 		haswarning = False
 		warnings = []
-		if chem[currentchem].boil < planet.temp:
+		cstate = common.chemstate(chem[currentchem], planet)
+		csint = common.statemap[cstate]
+		if csint > 1:
 			tlabel = font.render('!', 1, (255, 192, 128))
 			haswarning = True
 			warnings.append('Boiling')
-		elif planet.temp < chem[currentchem].melt:
+		elif csint == 0:
 			tlabel = font.render('!', 1, (128, 192, 255))
 			haswarning = True
 			warnings.append('Freezing')
 		if haswarning:
 			screen.blit(tlabel, warningcoords)
-		if common.m_gg <= planet.mass:
-			tlabel = font.render('!', 1, (128, 128, 128))
-			haswarning = True
-			warnings.append('Gas Giant')
-			screen.blit(tlabel, (warningcoords[0]+5, warningcoords[1]))
 		if not (planet.atm and common.p_hab[0] < planet.atm < common.p_hab[1]):
 			tlabel = font.render('!', 1, (128, 128, 128))
 			haswarning = True
 			if planet.atm:
-				warnings.append('Thin Atmosphere' if planet.atm < common.p_hab[0] else 'Thick Atmosphere')
+				warnings.append('Thin' if planet.atm < common.p_hab[0] else 'Thick')
 			else:
-				warnings.append('Thin Atmosphere' if planet.mass < common.m_earth else 'Thick Atmosphere')
+				warnings.append('Thin' if planet.mass < common.m_earth else 'Thick')
 			screen.blit(tlabel, (warningcoords[0]-5, warningcoords[1]))
 		# habitability info if mouse over
 		mousepos = pygame.mouse.get_pos()
@@ -204,7 +201,7 @@ def showsystem():
 		if common.dist(mousepos, warningcoords) <= 8 and haswarning:
 			# hover info
 			warnname = ', '.join(warnings)
-			common.text(warnname, screen, (warningcoords[0], warningcoords[1]-20, warningcoords[0]+150, 0), darkColor, lightColor)
+			common.text(warnname, screen, (warningcoords[0], warningcoords[1]-20, warningcoords[0]+125, 0), darkColor, lightColor)
 		# planet info if mouse over
 		elif common.dist(mousepos, coords) <= radius:
 			# hover info
@@ -252,11 +249,7 @@ def showsystem():
 				else:
 					t += '\nPressure: '+str(round(planet.atm/common.p_earth, 3))+' atm'
 			# states
-			# t += '\n(c) '+chem[currentchem].name+': '+chem[currentchem].state(planet.temp).title()
-			if planet.atm:
-				t += '\n(c) '+chem[currentchem].name+': '+chem[currentchem].state2((planet.temp, planet.atm)).title()
-			else:
-				t += '\n(c) '+chem[currentchem].name+': '+chem[currentchem].state2((planet.temp, 1)).title()
+			t += '\n(c) '+chem[currentchem].name+': '+cstate.title()
 			# resources
 			if planet.resources:
 				t += '\nResources:'

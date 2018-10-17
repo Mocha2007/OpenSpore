@@ -84,6 +84,12 @@ class Chem:
 		return 'gas'
 
 
+statemap = {
+	'solid': 0,
+	'liquid': 1,
+	'gas': 2,
+	'supercritical fluid': 3
+}
 chemprop = {
 	'water': {
 		'name': 'Water',
@@ -246,3 +252,9 @@ def limittext(s: str, l: int) -> str:
 	# figure out how many consonants to skip
 	skip = ceil(len(s)/l)
 	return s[::skip]
+
+
+def chemstate(c: Chem, p) -> str:
+	if p.atm is None:
+		return c.state2((p.temp, 1))
+	return c.state2((p.temp, p.atm))
