@@ -59,26 +59,25 @@ class Chem:
 
 	# use crit/trip instead - fairly accurate, but not perfect
 	def state2(self, tp: (float, float)) -> str:
+		t, p = tp
 		# supercritical?
-		if self.critical[0] < tp[0] and self.critical[1] < tp[1]:
+		if self.critical[0] < t and self.critical[1] < p:
 			return 'supercritical fluid'
 		# normal
-		if tp[0] < self.triple[0]:
+		if t < self.triple[0]:
 			# sol? gas?
 			# upper left
-			if tp[1] > self.triple[1]:
+			if p > self.triple[1]:
 				return 'solid'
 			# lower left
-			logt = log10(self.triple[0]), log10(self.triple[1])
-			f = lambda x: logt[1] / logt[0] * x
-			if f(log10(tp[0])) < log10(tp[1]):
+			f = lambda x: log10(self.triple[1]) / self.triple[0] * x
+			if f(t) < log10(p):
 				return 'solid'
 			return 'gas'
 		# now... liq? gas?
-		logt = log10(self.critical[0]), log10(self.critical[1])
-		f = lambda x: logt[1] / logt[0] * x
+		f = lambda x: log10(self.triple[1]) / self.triple[0] * x
 		# upper right
-		if f(log10(tp[0])) < log10(tp[1]):
+		if f(t) < log10(p):
 			return 'liquid'
 		# lower right
 		return 'gas'
