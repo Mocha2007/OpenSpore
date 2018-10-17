@@ -25,6 +25,7 @@ p_earth = 101325
 # https://en.wikipedia.org/wiki/Hypoxia_(medical)#Cause
 p_hab = 5300, 8*p_earth
 p_troposphere = 18481.36 # tropopause
+r_j = 6.9911e7
 r_sun = 6.957e8
 t_sun = 5772
 t_earth = 288

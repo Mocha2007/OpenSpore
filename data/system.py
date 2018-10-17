@@ -1,5 +1,5 @@
 from random import random, randint, uniform
-from constants import m2r, temp2, m_airless, m_earth, m_gg, m_j
+from constants import m2r, temp2, m_airless, m_earth, m_gg, m_j, r_j
 
 
 class Moon:
@@ -31,6 +31,8 @@ class Planet: # no type annotation since function can't be annotated
 			self.radius = m2r(attempt, uniform(687, 1326)) # gassy density
 		else:
 			self.radius = m2r(attempt, uniform(3933.5, 5427)) # rocky density
+		if r_j < self.radius:
+			self.radius = r_j * uniform(.99, 1.01)
 		# pressure
 		if m_airless < attempt < m_gg:
 			self.atm = attempt ** uniform(.11, .29) # min gas log ratio is mars, max venus
