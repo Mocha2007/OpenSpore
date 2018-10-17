@@ -271,7 +271,7 @@ def showsystem():
 			globe = surface.main(planet)
 			rotation = (time() % globeperiod)/globeperiod*2*pi
 			globe.rot(rotation)
-			globe.shade()
+			globe.shade(pi/4)
 			borders = planetmap.main(50, globe, fcenter)
 			for b in borders:
 				pygame.draw.circle(screen, b[1].rgb(), b[0], 5)

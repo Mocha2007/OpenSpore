@@ -19,14 +19,14 @@ class Points: # no type annotation since function can't be annotated
 		self.points = starList
 		return self
 
-	def shade(self):
+	def shade(self, theta: float):
 		"""Darken rim"""
 		starList = []
 		for coords, color in self.points:
 			lat, long = coords[0], coords[1]
 			if cos(lat) * cos(long) < 0:
 				continue
-			dark = max(cos(lat+pi/4) * cos(long), 0)
+			dark = max(cos(lat+theta) * cos(long), 0)
 			starList.append(
 				(coords, color.scalar(dark))
 			)
