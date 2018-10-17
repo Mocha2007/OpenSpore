@@ -91,7 +91,8 @@ common = SourceFileLoader('common', 'data/constants.py').load_module()
 font = common.font
 chem = (
 	common.water,
-	common.methane
+	common.methane,
+	common.ammonia
 )
 
 # load resource module

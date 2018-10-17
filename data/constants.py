@@ -104,10 +104,18 @@ chemprop = {
 		'boil': 111.65,
 		'triple': (90.68, 1.17e4),
 		'critical': (190.4, 4.6e6)
+	},
+	'ammonia': {
+		'name': 'Ammonia',
+		'melt': 195.42,
+		'boil': 239.81,
+		'triple': (195.4, 6.06e3),
+		'critical': (405.5, 1.128e7)
 	}
 }
 water = Chem(**chemprop['water'])
 methane = Chem(**chemprop['methane'])
+ammonia = Chem(**chemprop['ammonia'])
 stp = 273.15, 1e5
 ntp = 293.15, 1.01325e5
 
