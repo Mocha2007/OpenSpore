@@ -8,6 +8,7 @@ from color import Color
 from constants import m_airless, m_gg, m_ig, water
 
 typecolor = {
+	# 2 is reserved
 	1: ( # hells
 		Color(255, 0, 0),
 		Color(128, 32, 32)

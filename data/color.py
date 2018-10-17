@@ -13,29 +13,6 @@ class Color:
 		self.r = r
 		self.g = g
 		self.b = b
-		self.rgb = r, g, b
-		# hsv
-		ri = r/255
-		gi = g/255
-		bi = b/255
-		cmax = max(ri, gi, bi)
-		cmin = min(ri, gi, bi)
-		delta = cmax - cmin
-		if delta == 0:
-			self.h = 0
-		elif cmax == ri:
-			self.h = 60*(((gi-bi)/delta) % 6)
-		elif cmax == gi:
-			self.h = 60*((bi-ri)/delta+2)
-		else:
-			self.h = 60*((ri-gi)/delta+4)
-		self.s = delta/cmax if cmax else 0
-		self.v = cmax
-		# cmyk https://www.rapidtables.com/convert/color/rgb-to-cmyk.html
-		self.k = 1 - cmax
-		self.c = 1-ri-self.k
-		self.m = 1-gi-self.k
-		self.y = 1-bi-self.k
 
 	def __str__(self) -> str:
 		return '#' + d2h(self.r) + d2h(self.g) + d2h(self.b)
@@ -102,6 +79,9 @@ class Color:
 
 	def complement(self):
 		return self.__neg__()
+
+	def rgb(self):
+		return self.r, self.g, self.b
 
 	def triad(self):
 		return Color(self.g, self.b, self.r), Color(self.b, self.r, self.g)
