@@ -24,8 +24,8 @@ class Points: # no type annotation since function can't be annotated
 		starList = []
 		for coords, color in self.points:
 			lat, long = coords[0], coords[1]
-			dark = cos(lat) * cos(long)
-			if dark < 0:
+			dark = max(cos(lat+pi/4) * cos(long), 0)
+			if cos(lat) * cos(long) < 0:
 				continue
 			starList.append(
 				(coords, color.scalar(dark))
