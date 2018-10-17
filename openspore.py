@@ -238,6 +238,11 @@ def showsystem():
 			t += '\nDensity: '+str(round(common.density(planet.mass, planet.radius)))+' kg/m^3'
 			t += '\nGravity: '+str(round(common.grav(planet.mass, planet.radius)/common.g_earth, 3))+' g'
 			t += '\nTemperature: '+str(round(planet.temp))+' K'
+			if planet.atm:
+				if planet.atm < common.p_earth:
+					t += '\nPressure: '+str(round(planet.atm))+' Pa'
+				else:
+					t += '\nPressure: '+str(round(planet.atm/common.p_earth, 3))+' atm'
 			# states
 			t += '\n(c) '+chem[currentchem].name+': '+chem[currentchem].state(planet.temp).title()
 			# resources
