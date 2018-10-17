@@ -21,6 +21,9 @@ m_gg = m_earth * 10
 m_ig = 3e26 # estimate; b/w nep and sat
 m_j = 1.8982e27
 p_earth = 101325
+# https://www.physicsforums.com/threads/what-air-pressure-can-the-human-body-survive.333248/
+# https://en.wikipedia.org/wiki/Hypoxia_(medical)#Cause
+p_hab = 5300, 8*p_earth
 p_troposphere = 18481.36 # tropopause
 r_sun = 6.957e8
 t_sun = 5772

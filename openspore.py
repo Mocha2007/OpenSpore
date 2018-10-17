@@ -185,11 +185,19 @@ def showsystem():
 			warnings.append('Freezing')
 		if haswarning:
 			screen.blit(tlabel, warningcoords)
-		if not common.m_airless < planet.mass < common.m_gg:
+		if common.m_gg <= planet.mass:
 			tlabel = font.render('!', 1, (128, 128, 128))
 			haswarning = True
-			warnings.append('Airless' if planet.mass < common.m_airless else 'Giant')
+			warnings.append('Gas Giant')
 			screen.blit(tlabel, (warningcoords[0]+5, warningcoords[1]))
+		if not (planet.atm and common.p_hab[0] < planet.atm < common.p_hab[1]):
+			tlabel = font.render('!', 1, (128, 128, 128))
+			haswarning = True
+			if planet.atm:
+				warnings.append('Thin Atmosphere' if planet.atm < common.p_hab[0] else 'Thick Atmosphere')
+			else:
+				warnings.append('Thin Atmosphere' if planet.mass < common.m_earth else 'Thick Atmosphere')
+			screen.blit(tlabel, (warningcoords[0]-5, warningcoords[1]))
 		# habitability info if mouse over
 		mousepos = pygame.mouse.get_pos()
 		warningcoords = warningcoords[0], warningcoords[1] + 10
