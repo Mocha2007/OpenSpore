@@ -5,7 +5,7 @@ sys.path.append('./data')
 from points import Points
 from system import Planet
 from color import Color
-from constants import m_gg, m_ig, water
+from constants import m_airless, m_gg, m_ig, water
 
 typecolor = {
 	1: ( # hells
@@ -35,22 +35,25 @@ resolution = 30
 
 def r(t: int) -> Color:
 	c = choice([typecolor[t][0]]*(2*len(typecolor[t]))+list(typecolor[t][1:])) # land or sea?
-	# c.r *= random()
-	# c.g *= random()
-	# c.b *= random()
 	return c
 
 
 def r2(t: int) -> Color:
-	c1, c2 = typecolor[t]
 	c = Color(0, 0, 0)
-	c.r = randint(c1.r, c2.r)
-	c.g = randint(c1.g, c2.g)
-	c.b = randint(c1.b, c2.b)
+	if t == 2: # rock
+		v = randint(64, 192)
+		c.r, c.g, c.b = v, v, v
+	else: # use typecolor
+		c1, c2 = typecolor[t]
+		c.r = randint(c1.r, c2.r)
+		c.g = randint(c1.g, c2.g)
+		c.b = randint(c1.b, c2.b)
 	return c
 
 
 def t2c(planet: Planet) -> Color:
+	if planet.mass < m_airless:
+		return r2(2)
 	if planet.mass > m_gg:
 		if planet.mass < m_ig:
 			return r2(-3)
