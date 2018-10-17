@@ -274,7 +274,7 @@ def showsystem():
 			globe.shade(pi/4)
 			borders = planetmap.main(50, globe, fcenter)
 			for b in borders:
-				pygame.draw.circle(screen, b[1].rgb(), b[0], 5)
+				pygame.draw.circle(screen, b[1].rgb(), b[0], 6)
 
 
 def scale() -> float:
