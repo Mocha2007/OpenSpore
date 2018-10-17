@@ -1,5 +1,5 @@
 from random import random, randint, uniform
-from constants import m2r, temp2, m_airless, m_earth, m_gg, m_j, r_j
+from constants import m2r, temp2, m_airless, m_earth, m_gg, m_j, r_j, r_sun, t_sun
 
 
 class Moon:
@@ -60,7 +60,7 @@ class System: # no type annotation since function can't be annotated
 		self.name = star.name
 		self.star = star
 		contents = []
-		sma = star.mass**2 / 3
+		sma = (star.temperature/t_sun)**2 * star.radius/r_sun / 5 # 3 too low
 		for i in range(randint(1, 9)):
 			sma *= uniform(1.38, 2.02)  # e/v u/s
 			contents.append((i, Planet(self, sma, lambda: planetnamegen(star.name, i), moonnamegen, resourcegen)))
