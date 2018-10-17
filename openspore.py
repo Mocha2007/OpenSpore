@@ -252,7 +252,11 @@ def showsystem():
 				else:
 					t += '\nPressure: '+str(round(planet.atm/common.p_earth, 3))+' atm'
 			# states
-			t += '\n(c) '+chem[currentchem].name+': '+chem[currentchem].state(planet.temp).title()
+			# t += '\n(c) '+chem[currentchem].name+': '+chem[currentchem].state(planet.temp).title()
+			if planet.atm:
+				t += '\n(c) '+chem[currentchem].name+': '+chem[currentchem].state2((planet.temp, planet.atm)).title()
+			else:
+				t += '\n(c) '+chem[currentchem].name+': '+chem[currentchem].state2((planet.temp, 1)).title()
 			# resources
 			if planet.resources:
 				t += '\nResources:'
