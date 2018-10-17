@@ -67,13 +67,13 @@ class Chem:
 		if t < self.triple[0]:
 			# sol? gas?
 			# upper left
-			if p > self.triple[1]:
-				return 'solid'
+			# if p > self.triple[1]:
+			return 'solid' # more accurate than previous solution
 			# lower left
-			f = lambda x: log10(self.triple[1]) / self.triple[0] * x
-			if f(t) < log10(p):
-				return 'solid'
-			return 'gas'
+			# f = lambda x: log10(self.triple[1]) / self.triple[0] * x
+			# if f(t) < log10(p):
+			# 	return 'solid'
+			# return 'gas'
 		# now... liq? gas?
 		f = lambda x: log10(self.triple[1]) / self.triple[0] * x
 		# upper right
