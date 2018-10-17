@@ -5,7 +5,7 @@ sys.path.append('./data')
 from points import Points
 from system import Planet
 from color import Color
-from constants import m_airless, m_gg, m_ig, water
+from constants import m_airless, m_gg, m_ig, statemap, chemstate, water
 
 typecolor = {
 	# 2 is reserved
@@ -60,11 +60,12 @@ def t2c(planet: Planet, ratio: (int, int)) -> Color:
 		if planet.mass < m_ig:
 			return r2(-3)
 		return r2(-2)
-	if planet.temp > water.melt:
-		if planet.temp < water.boil:
-			return r(0, ratio)
-		return r(1, ratio)
-	return r(-1, ratio)
+	state = statemap[chemstate(water, planet)]
+	if state == 0:
+		return r(-1, ratio)
+	if state == 1:
+		return r(0, ratio)
+	return r(1, ratio)
 
 
 def main(planet: Planet) -> list:
