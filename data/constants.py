@@ -22,8 +22,8 @@ m_ig = 3e26 # estimate; b/w nep and sat
 m_j = 1.8982e27
 p_earth = 101325
 # https://www.physicsforums.com/threads/what-air-pressure-can-the-human-body-survive.333248/
-# https://en.wikipedia.org/wiki/Hypoxia_(medical)#Cause
-p_hab = 5300, 8*p_earth
+# "72mm of Mercury as the minimal inspired partial pressure of Oxygen"
+p_hab = 9630, 8*p_earth
 p_troposphere = 18481.36 # tropopause
 r_j = 6.9911e7
 r_sun = 6.957e8
