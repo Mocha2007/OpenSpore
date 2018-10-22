@@ -251,6 +251,15 @@ def showsystem():
 					t += '\nPressure: '+str(round(planet.atm/common.p_earth, 3))+' atm'
 			# states
 			t += '\n(c) '+chem[currentchem].name+': '+cstate.title()
+			# FIXME atmosphere test!
+			t += '\n(a) Show Atmosphere'
+			if pygame.key.get_pressed()[pygame.K_a]:
+				t_a = ['Atmosphere']
+				for i in planet.atmosphere:
+					quantity = round(planet.atmosphere[i], 3)
+					if quantity:
+						t_a.append(i + '\t' + str(quantity))
+				common.text('\n'.join(t_a), screen, (ful[0] - 150, ful[1] + 310, ful[0]+1, 0), darkColor, lightColor)
 			# resources
 			if planet.resources:
 				t += '\nResources:'
