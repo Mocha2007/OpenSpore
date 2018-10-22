@@ -206,8 +206,8 @@ def showsystem():
 		elif common.dist(mousepos, coords) <= radius:
 			# hover info
 			t = planet.name
-			t += '\n'+str(round(planet.sma, 3))+' au'
-			t += '\n'+str(round(planet.period, 3))+' y'
+			t += '\n'+str(round(planet.orbit.sma/common.au, 3))+' au'
+			t += '\n'+str(round(planet.orbit.period()/common.year, 3))+' y'
 			common.text(t, screen, (coords[0], coords[1]+10, coords[0]+150, 0), darkColor, lightColor)
 			# switch focus if LMB is held down
 			if pygame.mouse.get_pressed()[0]:

@@ -1,4 +1,4 @@
-from constants import t_sun, r_sun
+from constants import t_sun, r_sun, m_sun
 from time import time
 
 
@@ -29,3 +29,4 @@ class Star:
 			self.type = 'O'
 		self.name = name
 		self.id = time()
+		self.mass *= m_sun

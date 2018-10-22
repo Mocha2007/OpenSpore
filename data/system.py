@@ -1,7 +1,8 @@
 from random import random, randint, uniform
 from math import exp, log
-from constants import m2r, temp2, m_earth, m_browndwarf, m_gg, m_j, m_rock, r_j, r_sun, t_sun
+from constants import au, m2r, temp2, m_earth, m_browndwarf, m_gg, m_j, m_rock, r_j, r_sun, t_sun
 from constants import atmchems, c_e, c_j # for atm
+from orbit import rporbit
 
 
 def atm(p) -> dict:
@@ -46,7 +47,7 @@ class Moon:
 		self.radius = m2r(attempt, 3.5e3) # rocky density
 		self.name = moonnamegen()
 		self.resources = []
-		self.sma = 1 # todo
+		self.sma = 1 # fixme orbit
 		self.temp = planet.temp
 		data = {
 			'system': system,
@@ -61,7 +62,7 @@ class Planet: # no type annotation since function can't be annotated
 		# radius
 		self.radius = pradius(self.mass)
 		# pressure
-		self.sma = sma
+		self.orbit = rporbit(system.star, sma)
 		self.temp = temp2(system.star, self)
 		self.atmosphere = atm(self)
 		if self.atmosphere and self.mass < m_gg:
@@ -70,7 +71,6 @@ class Planet: # no type annotation since function can't be annotated
 		else:
 			self.atm = None
 		self.name = planetnamegen()
-		self.period = (sma**3/system.star.mass)**.5
 		contents = []
 		maxmoons = max(0, int((self.mass/m_earth)**.7)) # not perfect, but certainly more realistic than before!
 		for i in range(randint(maxmoons//2, maxmoons)):
@@ -88,7 +88,7 @@ class System: # no type annotation since function can't be annotated
 		self.name = star.name
 		self.star = star
 		contents = []
-		sma = (star.temperature/t_sun)**2 * star.radius/r_sun / 5 # 3 too low
+		sma = au * (star.temperature/t_sun)**2 * star.radius/r_sun / 5 # 3 too low
 		for i in range(randint(1, 9)):
 			sma *= uniform(1.38, 2.02)  # e/v u/s
 			contents.append((i, Planet(self, sma, lambda: planetnamegen(star.name, i), moonnamegen, resourcegen)))
