@@ -1,5 +1,4 @@
 from sys import exit
-from time import sleep
 from importlib.machinery import SourceFileLoader
 from math import log10, pi
 from time import time
@@ -202,7 +201,7 @@ def showsystem():
 		if common.dist(mousepos, warningcoords) <= 8 and haswarning:
 			# hover info
 			warnname = ', '.join(warnings)
-			common.text(warnname, screen, (warningcoords[0], warningcoords[1]-20, warningcoords[0]+125, 0), darkColor, lightColor)
+			common.text(warnname, screen, (warningcoords[0], warningcoords[1]-20, warningcoords[0]+125, 0),darkColor, lightColor)
 		# planet info if mouse over
 		elif common.dist(mousepos, coords) <= radius:
 			# hover info
@@ -370,8 +369,16 @@ deltaNew = 0, 0
 middleRadius = 1
 focusSystem = g.stars[0][1]
 focusPlanet = 0
+frames = [0, 1]
 while 1:
+	# blank
 	screen.fill((0, 0, 0))
+	# framerate
+	frames[1] = time()
+	fps = str(round(1/(frames[1] - frames[0])))+' fps'
+	fpslabel = font.render(fps, 1, lighterColor)
+	screen.blit(fpslabel, (0, 0))
+	frames[0] = frames[1]
 	# draw radii
 	try:
 		drawradius(middleRadius/10)
