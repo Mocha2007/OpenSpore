@@ -26,6 +26,17 @@ def pmass() -> float:
 	return exp(log(m_browndwarf/m_rock)*random()) * m_rock
 
 
+def pradius(m: float) -> float:
+	if m > m_gg:
+		rho = uniform(687, 1326) # gassy density
+	else:
+		rho = uniform(3933.5, 5427) # rocky density
+	r = m2r(m, rho)
+	if r_j < r:
+		r = r_j * uniform(.99, 1.01)
+	return r
+
+
 class Moon:
 	def __init__(self, planet, system, moonnamegen, resourcegen): # no type annotation since function can't be annotated
 		attempt = 1e24
@@ -48,12 +59,7 @@ class Planet: # no type annotation since function can't be annotated
 	def __init__(self, system, sma: float, planetnamegen, moonnamegen, resourcegen):
 		self.mass = pmass()
 		# radius
-		if self.mass > m_gg:
-			self.radius = m2r(self.mass, uniform(687, 1326)) # gassy density
-		else:
-			self.radius = m2r(self.mass, uniform(3933.5, 5427)) # rocky density
-		if r_j < self.radius:
-			self.radius = r_j * uniform(.99, 1.01)
+		self.radius = pradius(self.mass)
 		# pressure
 		self.sma = sma
 		self.temp = temp2(system.star, self)

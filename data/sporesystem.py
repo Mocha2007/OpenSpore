@@ -1,5 +1,5 @@
 from random import random, randint, uniform
-from system import Moon, atm, pmass
+from system import Moon, atm, pmass, pradius
 from constants import m2r, temp2, m_gg, m_j, m_rock, r_j
 
 
@@ -7,12 +7,7 @@ class Planet:
 	def __init__(self, system, sma: float, planetnamegen, moonnamegen, resourcegen):
 		self.mass = pmass()
 		# radius
-		if self.mass > m_gg:
-			self.radius = m2r(self.mass, uniform(687, 1326)) # gassy density
-		else:
-			self.radius = m2r(self.mass, uniform(3933.5, 5427)) # rocky density
-		if r_j < self.radius:
-			self.radius = r_j * uniform(.99, 1.01)
+		self.radius = pradius(self.mass)
 		# pressure
 		self.sma = sma
 		self.temp = temp2(system.star, self)
