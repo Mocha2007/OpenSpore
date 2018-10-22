@@ -320,7 +320,7 @@ def chemstate(c: Chem, p) -> str:
 
 
 def v_e(m: float, r: float) -> float:
-	return (2 * grav(m, r) * r)**.5
+	return (2*g*m/r)**.5
 
 
 def v_e2(p) -> float:
