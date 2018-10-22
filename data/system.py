@@ -1,5 +1,5 @@
 from random import random, randint, uniform
-from constants import m2r, temp2, m_airless, m_earth, m_gg, m_j, m_rock, r_j, r_sun, t_sun
+from constants import m2r, temp2, m_earth, m_gg, m_j, m_rock, r_j, r_sun, t_sun
 from constants import atmchems, c_e, c_j # for atm
 
 
@@ -53,7 +53,8 @@ class Planet: # no type annotation since function can't be annotated
 		if r_j < self.radius:
 			self.radius = r_j * uniform(.99, 1.01)
 		# pressure
-		if m_airless < attempt < m_gg:
+		self.atmosphere = atm(self)
+		if self.atmosphere and attempt < m_gg:
 			self.atm = attempt ** uniform(.11, .29) # min gas log ratio is mars, max venus
 			# to calculate more, use log(P)/log(M) to get a ratio
 		else:
@@ -72,7 +73,6 @@ class Planet: # no type annotation since function can't be annotated
 			'body': self
 		}
 		self.resources = resourcegen(**data)
-		self.atmosphere = atm(self)
 
 
 class System: # no type annotation since function can't be annotated

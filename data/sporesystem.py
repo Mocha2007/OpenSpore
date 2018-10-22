@@ -17,7 +17,8 @@ class Planet:
 		if r_j < self.radius:
 			self.radius = r_j * uniform(.99, 1.01)
 		# pressure
-		if m_airless < attempt < m_gg:
+		self.atmosphere = atm(self)
+		if self.atmosphere and attempt < m_gg:
 			self.atm = attempt ** uniform(.11, .29) # min gas log ratio is mars, max venus
 			# to calculate more, use log(P)/log(M) to get a ratio
 		else:
