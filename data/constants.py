@@ -29,6 +29,42 @@ r_j = 6.9911e7
 r_sun = 6.957e8
 t_sun = 5772
 t_earth = 288
+# https://nssdc.gsfc.nasa.gov/planetary/factsheet/jupiterfact.html
+c_j = { # fraction by volume
+	'H': .898,
+	'He': .102,
+	'CH4': 3e-3,
+	'NH3': 2.6e-4,
+	'HD': 2.8e-5,
+	'C2H6': 5.6e-6,
+	'H2O': 4e-6
+}
+# https://en.wikipedia.org/wiki/Atmosphere_of_Jupiter#Chemical_composition
+c_j['Ne'] = c_j['H'] * 1.23e-4
+c_j['H2S'] = c_j['H'] * 1.62e-5
+c_j['Ar'] = c_j['H'] * 3.62e-6
+c_j['PH3'] = c_j['H'] * 3.73e-7
+c_j['Kr'] = c_j['H'] * 1.61e-9
+c_j['Xe'] = c_j['H'] * 1.68e-10
+
+molmass = {
+	'H2': 2, # NOT DEUTERIUM!
+	'HD': 3,
+	'He': 4.002602,
+	'CH4': 16.04,
+	'NH3': 17.031,
+	'H2O': 18.015,
+	'Ne': 20.1797,
+	'N2': 28.014,
+	'C2H6': 30.06,
+	'O2': 31.998,
+	'PH3': 33.998,
+	'H2S': 34.08,
+	'Ar': 39.948,
+	'CO2': 44.009,
+	'Kr': 83.798,
+	'Xe': 131.293,
+}
 
 # other
 grey = Color(128, 128, 128)
@@ -270,3 +306,25 @@ def chemstate(c: Chem, p) -> str:
 	if p.atm is None:
 		return c.state2((p.temp, 1))
 	return c.state2((p.temp, p.atm))
+
+
+def v_e(m: float, r: float) -> float:
+	return (2 * grav(m, r) * r)**.5
+
+
+def v_e2(p) -> float:
+	return v_e(p.mass, p.radius)
+
+
+def getv_eslope(molarmass: float) -> float:
+	"""Get the v_e calc slope in km/s per kelvin"""
+	return 50 / molarmass**.5
+
+
+def atmchems(p) -> list:
+	"""List of ALL compounds which can be retained by the planet"""
+	compoundlist = []
+	for compound in molmass:
+		if v_e2(p) > p.temp * getv_eslope(molmass[compound]):
+			compoundlist.append(compound)
+	return compoundlist
