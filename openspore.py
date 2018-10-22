@@ -262,8 +262,8 @@ def showsystem():
 						t_a.append(j + '\t' + str(quantity))
 				if pygame.key.get_pressed()[pygame.K_LSHIFT]:
 					debug = lambda x: str(round(planet.temp * common.getv_eslope(common.molmass[x])))
-					t_a.append('H2 > '+debug('H2')+' m/s')
-					t_a.append('N2 > '+debug('N2')+' m/s')
+					for j in ('H2', 'N2', 'Xe'):
+						t_a.append(j+' > '+debug(j)+' m/s')
 				common.text('\n'.join(t_a), screen, (ful[0] - 150, ful[1] + 310, ful[0]+1, 0), darkColor, lightColor)
 			# resources
 			if planet.resources:
