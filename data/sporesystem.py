@@ -1,13 +1,13 @@
 from random import random, randint, uniform
 from system import Moon
-from constants import m2r, temp2, m_gg, r_j
+from constants import m2r, temp2, m_gg, m_j, m_rock, r_j
 
 
 class Planet:
 	def __init__(self, system, sma: float, planetnamegen, moonnamegen, resourcegen):
 		attempt = 1e29
-		while attempt > 1.8982e27*13:
-			attempt = 3.3011e23 / random()**3
+		while attempt > m_j*13:
+			attempt = m_rock / random()**3
 		self.mass = attempt
 		# radius
 		if attempt > m_gg:

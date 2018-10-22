@@ -1,5 +1,5 @@
 from random import random, randint, uniform
-from constants import m2r, temp2, m_airless, m_earth, m_gg, m_j, r_j, r_sun, t_sun
+from constants import m2r, temp2, m_airless, m_earth, m_gg, m_j, m_rock, r_j, r_sun, t_sun
 from constants import atmchems, c_e, c_j # for atm
 
 
@@ -43,7 +43,7 @@ class Planet: # no type annotation since function can't be annotated
 	def __init__(self, system, sma: float, planetnamegen, moonnamegen, resourcegen):
 		attempt = 1e29
 		while attempt > m_j*13:
-			attempt = 3.3011e23 / random()**3
+			attempt = m_rock / random()**3
 		self.mass = attempt
 		# radius
 		if attempt > m_gg:

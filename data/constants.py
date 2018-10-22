@@ -17,6 +17,7 @@ g = 6.67408e-11
 g_earth = 9.807
 m_earth = 5.97237e24
 m_airless = 1.3e23 # must be less than titan
+m_rock = m_earth / 1000 # smallest planet must be ceres < x < mercury; 1000 chosen so mass disps for small ones
 m_gg = m_earth * 10
 m_ig = 3e26 # estimate; b/w nep and sat
 m_j = 1.8982e27
@@ -56,6 +57,10 @@ c_e = { # terran atmospheric composition by volume
 	'Ne': 1.818e-5,
 	'He': 5.24e-6,
 	'CH4': 1.79e-6,
+	'Kr': 1.14e-6,
+	'N2O': 5e-7,
+	'Xe': 9e-8,
+	'NO2': 2e-8,
 }
 
 molmass = {
@@ -73,6 +78,8 @@ molmass = {
 	'H2S': 34.08,
 	'Ar': 39.948,
 	'CO2': 44.009,
+	'N2O': 44.0128,
+	'NO2': 46.0055,
 	'Kr': 83.798,
 	'Xe': 131.293,
 }
