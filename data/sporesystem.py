@@ -1,27 +1,24 @@
 from random import random, randint, uniform
-from system import Moon
+from system import Moon, atm, pmass
 from constants import m2r, temp2, m_gg, m_j, m_rock, r_j
 
 
 class Planet:
 	def __init__(self, system, sma: float, planetnamegen, moonnamegen, resourcegen):
-		attempt = 1e29
-		while attempt > m_j*13:
-			attempt = m_rock / random()**8 # needs to be **8 so roughly half are above 1 m_e and half are below
-		self.mass = attempt
+		self.mass = pmass()
 		# radius
-		if attempt > m_gg:
-			self.radius = m2r(attempt, uniform(687, 1326)) # gassy density
+		if self.mass > m_gg:
+			self.radius = m2r(self.mass, uniform(687, 1326)) # gassy density
 		else:
-			self.radius = m2r(attempt, uniform(3933.5, 5427)) # rocky density
+			self.radius = m2r(self.mass, uniform(3933.5, 5427)) # rocky density
 		if r_j < self.radius:
 			self.radius = r_j * uniform(.99, 1.01)
 		# pressure
 		self.sma = sma
 		self.temp = temp2(system.star, self)
 		self.atmosphere = atm(self)
-		if self.atmosphere and attempt < m_gg:
-			self.atm = attempt ** uniform(.11, .29) # min gas log ratio is mars, max venus
+		if self.atmosphere and self.mass < m_gg:
+			self.atm = self.mass ** uniform(.11, .29) # min gas log ratio is mars, max venus
 			# to calculate more, use log(P)/log(M) to get a ratio
 		else:
 			self.atm = None

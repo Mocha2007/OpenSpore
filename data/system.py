@@ -1,5 +1,6 @@
 from random import random, randint, uniform
-from constants import m2r, temp2, m_earth, m_gg, m_j, m_rock, r_j, r_sun, t_sun
+from math import exp, log
+from constants import m2r, temp2, m_earth, m_browndwarf, m_gg, m_j, m_rock, r_j, r_sun, t_sun
 from constants import atmchems, c_e, c_j # for atm
 
 
@@ -19,6 +20,10 @@ def atm(p) -> dict:
 	for chem in a:
 		a[chem] /= totalfraction
 	return a
+
+
+def pmass() -> float:
+	return exp(log(m_browndwarf/m_rock)*random()) * m_rock
 
 
 class Moon:
@@ -41,30 +46,27 @@ class Moon:
 
 class Planet: # no type annotation since function can't be annotated
 	def __init__(self, system, sma: float, planetnamegen, moonnamegen, resourcegen):
-		attempt = 1e29
-		while attempt > m_j*13:
-			attempt = m_rock / random()**8 # needs to be **8 so roughly half are above 1 m_e and half are below
-		self.mass = attempt
+		self.mass = pmass()
 		# radius
-		if attempt > m_gg:
-			self.radius = m2r(attempt, uniform(687, 1326)) # gassy density
+		if self.mass > m_gg:
+			self.radius = m2r(self.mass, uniform(687, 1326)) # gassy density
 		else:
-			self.radius = m2r(attempt, uniform(3933.5, 5427)) # rocky density
+			self.radius = m2r(self.mass, uniform(3933.5, 5427)) # rocky density
 		if r_j < self.radius:
 			self.radius = r_j * uniform(.99, 1.01)
 		# pressure
 		self.sma = sma
 		self.temp = temp2(system.star, self)
 		self.atmosphere = atm(self)
-		if self.atmosphere and attempt < m_gg:
-			self.atm = attempt ** uniform(.11, .29) # min gas log ratio is mars, max venus
+		if self.atmosphere and self.mass < m_gg:
+			self.atm = self.mass ** uniform(.11, .29) # min gas log ratio is mars, max venus
 			# to calculate more, use log(P)/log(M) to get a ratio
 		else:
 			self.atm = None
 		self.name = planetnamegen()
 		self.period = (sma**3/system.star.mass)**.5
 		contents = []
-		maxmoons = max(0, int((attempt/m_earth)**.7)) # not perfect, but certainly more realistic than before!
+		maxmoons = max(0, int((self.mass/m_earth)**.7)) # not perfect, but certainly more realistic than before!
 		for i in range(randint(maxmoons//2, maxmoons)):
 			contents.append((i, Moon(self, system, lambda: moonnamegen(self.name, i), resourcegen)))
 		self.bodies = contents

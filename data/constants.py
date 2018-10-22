@@ -21,6 +21,7 @@ m_rock = m_earth / 1000 # smallest planet must be ceres < x < mercury; 1000 chos
 m_gg = m_earth * 10
 m_ig = 3e26 # estimate; b/w nep and sat
 m_j = 1.8982e27
+m_browndwarf = 13 * m_j
 p_earth = 101325
 # https://www.physicsforums.com/threads/what-air-pressure-can-the-human-body-survive.333248/
 # "72mm of Mercury as the minimal inspired partial pressure of Oxygen"
