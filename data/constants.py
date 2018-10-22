@@ -195,11 +195,6 @@ def dist(a: tuple, b: tuple) -> float:
 	return s**.5
 
 
-def spore_ishab(planet, star): # todo make actually spore
-	inner, outer = star.mass*.95, star.mass*1.05
-	return inner < planet.sma < outer
-
-
 def temp(t: float, r: float, sma: float, a: float) -> float:
 	"""Temperature of the star (K), Radius of the star (m), Semimajor axis (m), Albedo\n->
 	Temperature of the body (K)\n
