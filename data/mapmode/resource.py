@@ -15,13 +15,13 @@ def main(system: System) -> Color:
 						maxvalue[0] = r.value
 						maxvalue[1] = r.data['color']
 			# go through moons
-			if p.bodies:
-				for _, m in p.bodies:
-					if m.resources:
-						for r in m.resources:
-							if r.value > maxvalue[0]:
-								maxvalue[0] = r.value
-								maxvalue[1] = r.data['color']
+			# if p.bodies:
+			# 	for _, m in p.bodies:
+			# 		if m.resources:
+			# 			for r in m.resources:
+			# 				if r.value > maxvalue[0]:
+			# 					maxvalue[0] = r.value
+			# 					maxvalue[1] = r.data['color']
 	return maxvalue[1]
 
 
