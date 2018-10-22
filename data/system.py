@@ -53,6 +53,8 @@ class Planet: # no type annotation since function can't be annotated
 		if r_j < self.radius:
 			self.radius = r_j * uniform(.99, 1.01)
 		# pressure
+		self.sma = sma
+		self.temp = temp2(system.star, self)
 		self.atmosphere = atm(self)
 		if self.atmosphere and attempt < m_gg:
 			self.atm = attempt ** uniform(.11, .29) # min gas log ratio is mars, max venus
@@ -60,9 +62,7 @@ class Planet: # no type annotation since function can't be annotated
 		else:
 			self.atm = None
 		self.name = planetnamegen()
-		self.sma = sma
 		self.period = (sma**3/system.star.mass)**.5
-		self.temp = temp2(system.star, self)
 		contents = []
 		maxmoons = max(0, int((attempt/m_earth)**.7)) # not perfect, but certainly more realistic than before!
 		for i in range(randint(maxmoons//2, maxmoons)):

@@ -17,6 +17,8 @@ class Planet:
 		if r_j < self.radius:
 			self.radius = r_j * uniform(.99, 1.01)
 		# pressure
+		self.sma = sma
+		self.temp = temp2(system.star, self)
 		self.atmosphere = atm(self)
 		if self.atmosphere and attempt < m_gg:
 			self.atm = attempt ** uniform(.11, .29) # min gas log ratio is mars, max venus
@@ -24,8 +26,7 @@ class Planet:
 		else:
 			self.atm = None
 		self.name = planetnamegen()
-		self.sma = sma
-		self.temp = temp2(system.star, self)
+		self.period = (sma**3/system.star.mass)**.5
 		contents = []
 		hasmoon = False
 		if self.mass > m_gg: # gas giant; 60% chance of moon

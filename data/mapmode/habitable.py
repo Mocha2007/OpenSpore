@@ -2,7 +2,7 @@ import sys
 sys.path.append('./data')
 from color import Color
 from system import System, Planet
-from constants import m_airless, m_gg, p_hab, water
+from constants import m_gg, p_hab, water
 
 colorMap = {
 	True: Color(0, 192, 0),
@@ -11,7 +11,7 @@ colorMap = {
 
 
 def p2b(p: Planet) -> bool:
-	return water.melt < p.temp < water.boil and m_airless < p.mass < m_gg and p_hab[0] < p.atm < p_hab[1]
+	return water.melt < p.temp < water.boil and 'O2' in p.atmosphere and p.mass < m_gg and p_hab[0] < p.atm < p_hab[1]
 
 
 def main(system: System) -> Color:
