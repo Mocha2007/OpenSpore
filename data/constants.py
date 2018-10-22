@@ -30,8 +30,8 @@ r_sun = 6.957e8
 t_sun = 5772
 t_earth = 288
 # https://nssdc.gsfc.nasa.gov/planetary/factsheet/jupiterfact.html
-c_j = { # fraction by volume
-	'H': .898,
+c_j = { # jovian atmospheric composition by volume
+	'H2': .898,
 	'He': .102,
 	'CH4': 3e-3,
 	'NH3': 2.6e-4,
@@ -40,12 +40,23 @@ c_j = { # fraction by volume
 	'H2O': 4e-6
 }
 # https://en.wikipedia.org/wiki/Atmosphere_of_Jupiter#Chemical_composition
-c_j['Ne'] = c_j['H'] * 1.23e-4
-c_j['H2S'] = c_j['H'] * 1.62e-5
-c_j['Ar'] = c_j['H'] * 3.62e-6
-c_j['PH3'] = c_j['H'] * 3.73e-7
-c_j['Kr'] = c_j['H'] * 1.61e-9
-c_j['Xe'] = c_j['H'] * 1.68e-10
+c_j['Ne'] = c_j['H2'] * 1.23e-4
+c_j['H2S'] = c_j['H2'] * 1.62e-5
+c_j['Ar'] = c_j['H2'] * 3.62e-6
+c_j['PH3'] = c_j['H2'] * 3.73e-7
+c_j['Kr'] = c_j['H2'] * 1.61e-9
+c_j['Xe'] = c_j['H2'] * 1.68e-10
+
+c_e = { # terran atmospheric composition by volume
+	'N2': .78084,
+	'O2': .20946,
+	'H2O': .05,
+	'Ar': .00934,
+	'CO2': 4e-3,
+	'Ne': 1.818e-5,
+	'He': 5.24e-6,
+	'CH4': 1.79e-6,
+}
 
 molmass = {
 	'H2': 2, # NOT DEUTERIUM!
@@ -318,6 +329,7 @@ def v_e2(p) -> float:
 
 def getv_eslope(molarmass: float) -> float:
 	"""Get the v_e calc slope in km/s per kelvin"""
+	# https://upload.wikimedia.org/wikipedia/commons/4/4a/Solar_system_escape_velocity_vs_surface_temperature.svg
 	return 50 / molarmass**.5
 
 

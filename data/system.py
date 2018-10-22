@@ -1,5 +1,24 @@
 from random import random, randint, uniform
 from constants import m2r, temp2, m_airless, m_earth, m_gg, m_j, r_j, r_sun, t_sun
+from constants import atmchems, c_e, c_j # for atm
+
+
+def atm(p) -> dict:
+	chems = atmchems(p)
+	a = {}
+	totalfraction = 0
+	for chem in chems:
+		if p.mass > m_gg:
+			if chem in c_j:
+				a[chem] = c_j[chem]
+				totalfraction += c_j[chem]
+		elif chem in c_e: # must be terran
+			a[chem] = c_e[chem]
+			totalfraction += c_e[chem]
+	# normalize based on totalfraction
+	for chem in a:
+		a[chem] /= totalfraction
+	return a
 
 
 class Moon:
@@ -53,6 +72,7 @@ class Planet: # no type annotation since function can't be annotated
 			'body': self
 		}
 		self.resources = resourcegen(**data)
+		self.atmosphere = atm(self)
 
 
 class System: # no type annotation since function can't be annotated
