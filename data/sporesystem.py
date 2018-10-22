@@ -7,7 +7,7 @@ class Planet:
 	def __init__(self, system, sma: float, planetnamegen, moonnamegen, resourcegen):
 		attempt = 1e29
 		while attempt > m_j*13:
-			attempt = m_rock / random()**3
+			attempt = m_rock / random()**8 # needs to be **8 so roughly half are above 1 m_e and half are below
 		self.mass = attempt
 		# radius
 		if attempt > m_gg:
