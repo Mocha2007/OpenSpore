@@ -243,6 +243,7 @@ def showsystem():
 			t += '\nRadius: '+str(round(planet.radius/1000))+' km'
 			t += '\nDensity: '+str(round(common.density(planet.mass, planet.radius)))+' kg/m^3'
 			t += '\nGravity: '+str(round(common.grav(planet.mass, planet.radius)/common.g_earth, 3))+' g'
+			t += '\nV_e: '+str(round(common.v_e2(planet)))+' m/s'
 			t += '\nTemperature: '+str(round(planet.temp))+' K'
 			if planet.atm:
 				if planet.atm < common.p_earth:
@@ -251,14 +252,18 @@ def showsystem():
 					t += '\nPressure: '+str(round(planet.atm/common.p_earth, 3))+' atm'
 			# states
 			t += '\n(c) '+chem[currentchem].name+': '+cstate.title()
-			# FIXME atmosphere test!
+			# atmosphere
 			t += '\n(a) Show Atmosphere'
 			if pygame.key.get_pressed()[pygame.K_a]:
 				t_a = ['Atmosphere']
-				for i in planet.atmosphere:
-					quantity = round(planet.atmosphere[i], 3)
+				for j in planet.atmosphere:
+					quantity = round(planet.atmosphere[j], 3)
 					if quantity:
-						t_a.append(i + '\t' + str(quantity))
+						t_a.append(j + '\t' + str(quantity))
+				if pygame.key.get_pressed()[pygame.K_LSHIFT]:
+					debug = lambda x: str(round(planet.temp * common.getv_eslope(common.molmass[x])))
+					t_a.append('H2 > '+debug('H2')+' m/s')
+					t_a.append('N2 > '+debug('N2')+' m/s')
 				common.text('\n'.join(t_a), screen, (ful[0] - 150, ful[1] + 310, ful[0]+1, 0), darkColor, lightColor)
 			# resources
 			if planet.resources:
