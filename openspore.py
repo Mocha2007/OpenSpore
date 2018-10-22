@@ -465,4 +465,3 @@ while 1:
 	screen.blit(label, (0, size[1]-20))
 	# finish
 	refresh()
-	sleep(1/30) # reduce cpu consumption
