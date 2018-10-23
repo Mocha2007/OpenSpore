@@ -1,8 +1,13 @@
 from random import random, randint, uniform
-from math import exp, log
+from math import e, exp, log
 from constants import au, m2r, temp2, m_earth, m_browndwarf, m_gg, m_j, m_rock, r_j, r_sun, t_sun
 from constants import atmchems, c_e, c_j # for atm
 from orbit import rporbit
+
+
+def chemrange(minimum: float, maximum: float) -> float:
+	"""uniform but weighted logarithmically"""
+	return e**uniform(log(minimum), log(maximum))
 
 
 def atm(p) -> dict:
@@ -12,11 +17,13 @@ def atm(p) -> dict:
 	for chem in chems:
 		if p.mass > m_gg:
 			if chem in c_j:
-				a[chem] = c_j[chem]
-				totalfraction += c_j[chem]
+				fraction = chemrange(*c_j[chem])
+				a[chem] = fraction
+				totalfraction += fraction
 		elif chem in c_e: # must be terran
-			a[chem] = c_e[chem]
-			totalfraction += c_e[chem]
+			fraction = chemrange(*c_e[chem])
+			a[chem] = fraction
+			totalfraction += fraction
 	# normalize based on totalfraction
 	for chem in a:
 		a[chem] /= totalfraction

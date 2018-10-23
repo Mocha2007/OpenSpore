@@ -36,35 +36,38 @@ t_sun = 5772
 t_earth = 288
 # https://nssdc.gsfc.nasa.gov/planetary/factsheet/jupiterfact.html
 c_j = { # jovian atmospheric composition by volume
-	'H2': .898,
-	'He': .102,
-	'CH4': 3e-3,
-	'NH3': 2.6e-4,
-	'HD': 2.8e-5,
-	'C2H6': 5.6e-6,
-	'H2O': 4e-6
+	'H2': (.8, .963), # neptune <> saturn
+	'He': (.0325, .19), # saturn <> neptune
+	'CH4': (3e-3, .023), # jupiter <> uranus
+	'NH3': (1.25e-4, 2.6e-4), # saturn <> jupiter
+	'HD': (2.8e-5, 1.9e-4), # jupiter <> neptune
+	'C2H6': (1e-6, 7e-6), # neptune <> saturn
+	'H2O': (4e-6, 4e-6)
 }
 # https://en.wikipedia.org/wiki/Atmosphere_of_Jupiter#Chemical_composition
-c_j['Ne'] = c_j['H2'] * 1.23e-4
-c_j['H2S'] = c_j['H2'] * 1.62e-5
-c_j['Ar'] = c_j['H2'] * 3.62e-6
-c_j['PH3'] = c_j['H2'] * 3.73e-7
-c_j['Kr'] = c_j['H2'] * 1.61e-9
-c_j['Xe'] = c_j['H2'] * 1.68e-10
+j_H = .898
+c_j['Ne'] = (j_H * 1.23e-4, j_H * 1.23e-4)
+c_j['H2S'] = (j_H * 1.62e-5, j_H * 1.62e-5)
+c_j['Ar'] = (j_H * 3.62e-6, j_H * 3.62e-6)
+c_j['PH3'] = (j_H * 3.73e-7, j_H * 3.73e-7)
+c_j['Kr'] = (j_H * 1.61e-9, j_H * 1.61e-9)
+c_j['Xe'] = (j_H * 1.68e-10, j_H * 1.68e-10)
 
 c_e = { # terran atmospheric composition by volume
-	'N2': .78084,
-	'O2': .20946,
-	'H2O': .05,
-	'Ar': .00934,
-	'CO2': 4e-3,
-	'Ne': 1.818e-5,
-	'He': 5.24e-6,
-	'CH4': 1.79e-6,
-	'Kr': 1.14e-6,
-	'N2O': 5e-7,
-	'Xe': 9e-8,
-	'NO2': 2e-8,
+	'N2': (.0189, .78084), # mars <> earth
+	'O2': (1.46e-3, .20946), # mars <> earth
+	'H2O': (1e-5, .05), # earth <> earth
+	'Ar': (7e-5, .0193), # venus <> mars
+	'CO2': (4e-3, .965), # earth <> venus
+	'Ne': (1.818e-5, 1.818e-5),
+	'He': (5.24e-6, 5.24e-6),
+	'CH4': (1.79e-6, 1.79e-6),
+	'Kr': (1.14e-6, 1.14e-6),
+	'SO2': (1e-6, 1.5e-4), # earth <> venus
+	'N2O': (5e-7, 5e-7),
+	'Xe': (9e-8, 9e-8),
+	'NO2': (2e-8, 2e-8),
+	'CO': (1e-7, 5.57e-4), # earth <> mars
 }
 
 molmass = {
@@ -75,6 +78,7 @@ molmass = {
 	'NH3': 17.031,
 	'H2O': 18.015,
 	'Ne': 20.1797,
+	'CO': 28.01,
 	'N2': 28.014,
 	'C2H6': 30.06,
 	'O2': 31.998,
@@ -84,6 +88,7 @@ molmass = {
 	'CO2': 44.009,
 	'N2O': 44.0128,
 	'NO2': 46.0055,
+	'SO2': 64.066,
 	'Kr': 83.798,
 	'Xe': 131.293,
 }
