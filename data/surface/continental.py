@@ -8,7 +8,10 @@ from color import Color
 from constants import m_gg, m_ig, statemap, chemstate, water, ishab
 
 typecolor = {
-	# 2 is reserved
+	2: ( # RESERVED - used by other modules
+		Color(64, 64, 64),
+		Color(192, 192, 192)
+	),
 	1: ( # hells
 		Color(255, 0, 0),
 		Color(128, 32, 32)
@@ -38,6 +41,23 @@ typecolor = {
 resolution = 30
 
 
+def gettype(p: Planet) -> float:
+	if not p.atmosphere:
+		return 2
+	if p.mass > m_gg:
+		if p.mass < m_ig:
+			return -3
+		return -2
+	state = statemap[chemstate(water, p)]
+	if ishab(p):
+		return 0
+	if state == 1:
+		return .5
+	if state == 0:
+		return -1
+	return 1
+
+
 def r(t: float, ratio: (int, int)) -> Color:
 	c = choice([typecolor[t][0]]*(ratio[0]*len(typecolor[t])) +
 				list(typecolor[t][1:])*(ratio[1]*len(typecolor[t]))) # sea, land
@@ -58,20 +78,10 @@ def r2(t: int) -> Color:
 
 
 def t2c(planet: Planet, ratio: (int, int)) -> Color:
-	if not planet.atmosphere:
-		return r2(2)
-	if planet.mass > m_gg:
-		if planet.mass < m_ig:
-			return r2(-3)
-		return r2(-2)
-	state = statemap[chemstate(water, planet)]
-	if ishab(planet):
-		return r(0, ratio)
-	if state == 1:
-		return r(.5, ratio)
-	if state == 0:
-		return r(-1, ratio)
-	return r(1, ratio)
+	t = gettype(planet)
+	if t in (-3, -2, 2):
+		return r2(t)
+	return r(t, ratio)
 
 
 def main(planet: Planet) -> list:
