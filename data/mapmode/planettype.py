@@ -1,4 +1,5 @@
 import sys
+from random import seed
 sys.path.append('./data')
 from color import Color
 from constants import grey
@@ -12,4 +13,5 @@ def main(*_) -> Color:
 
 
 def planet(p: Planet) -> Color:
-	return continental.main(p).points[0][1]
+	seed(p)
+	return continental.t2c(p, (0, 1))
