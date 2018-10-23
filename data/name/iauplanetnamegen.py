@@ -4,6 +4,9 @@ from constants import alphabet
 
 
 def main(starname, position) -> str:
-	if position > 25:
-		return starname + ' ' + alphabet[position // len(alphabet) - 1] + alphabet[position % len(alphabet)]
+	if position > len(alphabet) - 1:
+		try:
+			return starname + ' ' + alphabet[position // len(alphabet) - 1] + alphabet[position % len(alphabet)]
+		except IndexError:
+			return 'OwO What\'s this???'
 	return starname + ' ' + alphabet[position % len(alphabet)]
