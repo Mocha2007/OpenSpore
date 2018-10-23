@@ -56,6 +56,7 @@ class Moon:
 		self.resources = []
 		self.sma = 1 # fixme orbit
 		self.temp = planet.temp
+		self.atm = None # todo
 		data = {
 			'system': system,
 			'body': self
