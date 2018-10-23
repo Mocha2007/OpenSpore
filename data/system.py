@@ -1,6 +1,6 @@
 from random import random, randint, uniform
 from math import e, exp, log
-from constants import au, m2r, temp2, m_earth, m_browndwarf, m_gg, m_j, m_rock, r_j, r_sun, t_sun
+from constants import au, m2r, temp2, m_earth, m_browndwarf, m_gg, m_j, m_rock, r_j, r_sun, t_sun, soi, soi_moon
 from constants import atmchems, c_e, c_j # for atm
 from orbit import rporbit
 
@@ -54,7 +54,7 @@ class Moon:
 		self.radius = m2r(attempt, 3.5e3) # rocky density
 		self.name = moonnamegen()
 		self.resources = []
-		self.sma = 1 # fixme orbit
+		self.sma = rporbit(planet, planet.radius*2) # todo
 		self.temp = planet.temp
 		self.atm = None # todo
 		data = {
@@ -80,9 +80,12 @@ class Planet: # no type annotation since function can't be annotated
 			self.atm = None
 		self.name = planetnamegen()
 		contents = []
-		maxmoons = max(0, int((self.mass/m_earth)**.7)) # not perfect, but certainly more realistic than before!
-		for i in range(randint(maxmoons//2, maxmoons)):
-			contents.append((i, Moon(self, system, lambda: moonnamegen(self.name, i), resourcegen)))
+		# GRAVITATIONALLY ROUNDED MOONS ONLY!!!!!
+		soi_ = soi(self)
+		if soi_moon < soi_:
+			maxmoons = round(3.3e-5 * soi_**.5) # not perfect, but certainly more realistic than before!
+			for i in range(1, randint(0, maxmoons)):
+				contents.append((i, Moon(self, system, lambda: moonnamegen(self.name, i), resourcegen)))
 		self.bodies = contents
 		data = {
 			'system': system,

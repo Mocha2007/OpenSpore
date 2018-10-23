@@ -35,6 +35,7 @@ r_j = 6.9911e7
 r_sun = 6.957e8
 t_sun = 5772
 t_earth = 288
+soi_moon = 6.2e8 # just above venus; earth is 9.2e8 for comparison
 # https://nssdc.gsfc.nasa.gov/planetary/factsheet/jupiterfact.html
 c_j = { # jovian atmospheric composition by volume
 	'H2': (.8, .963), # neptune <> saturn
@@ -319,3 +320,7 @@ def esi(r: float, m: float, t: float) -> float:
 
 def esi2(p) -> float:
 	return esi(p.radius, p.mass, p.temp)
+
+
+def soi(p) -> float:
+	return p.orbit.sma * (p.mass / p.orbit.primary.mass)**.4
