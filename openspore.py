@@ -255,8 +255,8 @@ def showsystem():
 			t += '\n(a) Show Atmosphere'
 			if pygame.key.get_pressed()[pygame.K_a]:
 				t_a = ['Atmosphere']
-				for j in planet.atmosphere:
-					quantity = round(planet.atmosphere[j], 3)
+				for j, k in sorted(planet.atmosphere.items(), key=lambda x: x[1], reverse=True):
+					quantity = round(k, 3)
 					if quantity:
 						t_a.append(j + '\t' + str(quantity))
 				if pygame.key.get_pressed()[pygame.K_LSHIFT]:
