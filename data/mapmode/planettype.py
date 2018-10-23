@@ -12,4 +12,4 @@ def main(*_) -> Color:
 
 
 def planet(p: Planet) -> Color:
-	return continental.t2c(p, (0, 1))
+	return continental.main(p).points[0][1]
