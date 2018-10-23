@@ -15,7 +15,7 @@ poicolors = {
 	'Hot Jupiter': Color(255, 0, 0),
 	'Hot Neptune': Color(128, 0, 0),
 	'Mesoplanet': Color(255, 192, 192),
-	'Mini-Neptune': Color(128, 192, 255),
+	'Mini-Neptune': Color(192, 128, 255),
 	'Superhabitable': Color(255, 128, 0),
 	'Super-Jupiter': Color(255, 224, 192),
 	'Toxic': typecolor[.1][0].blend(typecolor[.1][1])
