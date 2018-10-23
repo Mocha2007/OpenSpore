@@ -30,6 +30,7 @@ p_earth = 101325
 # "72mm of Mercury as the minimal inspired partial pressure of Oxygen"
 p_hab = 9630, 8*p_earth
 p_troposphere = 18481.36 # tropopause
+r_earth = 6.371e6
 r_j = 6.9911e7
 r_sun = 6.957e8
 t_sun = 5772
@@ -299,3 +300,17 @@ def ishab(p) -> bool:
 	if p.atm and 'O2' in p.atmosphere and p_hab[0] < p.atmosphere['O2']*p.atm:
 		return chemstate(water, p) == 'liquid' and p_hab[0] < p.atm < p_hab[1]
 	return False
+
+
+# source for the formula: http://phl.upr.edu/projects/earth-similarity-index-esi
+def esi(r: float, m: float, t: float) -> float:
+	# Radius, Density, Escape Velocity, Temperature
+	esi1 = 1-abs((r-r_earth)/(r+r_earth))
+	esi22 = 1-abs((density(m, r)-density(m_earth, r_earth))/(density(m, r)+density(m_earth, r_earth)))
+	esi3 = 1-abs((v_e(m, r)-v_e(m_earth, r_earth))/(v_e(m, r)+v_e(m_earth, r_earth)))
+	esi4 = 1-abs((t-255)/(t+255))
+	return esi1**(.57/4)*esi22**(1.07/4)*esi3**(.7/4)*esi4**(5.58/4)
+
+
+def esi2(p) -> float:
+	return esi(p.radius, p.mass, p.temp)

@@ -98,6 +98,10 @@ chem = (
 resgen = SourceFileLoader('resgen', 'data/resources/'+cfg['resourcegen'][0]+'.py').load_module()
 
 
+def shift() -> bool:
+	return pygame.key.get_pressed()[pygame.K_LSHIFT] or pygame.key.get_pressed()[pygame.K_RSHIFT]
+
+
 def starinfo(coords: (int, int), system):
 	width = 175
 	sysstar = system.star
@@ -241,6 +245,7 @@ def showsystem():
 				t += 'Mass: '+str(round(planet.mass/common.m_j, 3))+' M_J'
 			t += '\nRadius: '+str(round(planet.radius/1000))+' km'
 			t += '\nDensity: '+str(round(common.density(planet.mass, planet.radius)))+' kg/m^3'
+			t += '\nESI: '+str(round(common.esi2(planet), 3))
 			t += '\nGravity: '+str(round(common.grav(planet.mass, planet.radius)/common.g_earth, 3))+' g'
 			t += '\nV_e: '+str(round(common.v_e2(planet)))+' m/s'
 			t += '\nTemperature: '+str(round(planet.temp))+' K'
@@ -259,7 +264,7 @@ def showsystem():
 					quantity = round(k, 4)
 					if quantity:
 						t_a.append(j + '\t' + str(quantity))
-				if pygame.key.get_pressed()[pygame.K_LSHIFT]:
+				if shift():
 					debug = lambda x: str(round(planet.temp * common.getv_eslope(common.molmass[x])))
 					for j in ('H2', 'N2', 'Xe'):
 						t_a.append(j+' > '+debug(j)+' m/s')
@@ -415,8 +420,7 @@ while 1:
 			elif event.button == 5:
 				zoom /= 2
 		elif event.type == pygame.KEYDOWN:
-			shift = pygame.key.get_pressed()[pygame.K_LSHIFT] or pygame.key.get_pressed()[pygame.K_RSHIFT]
-			direction = 1 if shift else -1
+			direction = -1 if shift() else 1
 			if event.key == pygame.K_m: # mapmode
 				changemap(direction)
 			elif event.key == pygame.K_p: # projection
