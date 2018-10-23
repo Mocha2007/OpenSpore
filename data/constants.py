@@ -296,6 +296,6 @@ def atmchems(p) -> list:
 
 
 def ishab(p) -> bool:
-	if 'O2' in p.atmosphere and p_hab[0] < p.atmosphere['O2']*p.atm:
-		return chemstate(water, p) == 'liquid' and p.mass < m_gg and p_hab[0] < p.atm < p_hab[1]
+	if p.atm and 'O2' in p.atmosphere and p_hab[0] < p.atmosphere['O2']*p.atm:
+		return chemstate(water, p) == 'liquid' and p_hab[0] < p.atm < p_hab[1]
 	return False
