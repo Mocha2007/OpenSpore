@@ -55,20 +55,23 @@ c_j['Kr'] = (j_H * 1.61e-9, j_H * 1.61e-9)
 c_j['Xe'] = (j_H * 1.68e-10, j_H * 1.68e-10)
 
 c_e = { # terran atmospheric composition by volume
-	'N2': (.0189, .78084), # mars <> earth
-	'O2': (1.46e-3, .20946), # mars <> earth
-	'H2O': (1e-5, .05), # earth <> earth
-	'Ar': (7e-5, .0193), # venus <> mars
-	'CO2': (4e-3, .965), # earth <> venus
-	'Ne': (1.818e-5, 1.818e-5),
+	# sorted by molar mass
 	'He': (5.24e-6, 5.24e-6),
 	'CH4': (1.79e-6, 1.79e-6),
-	'Kr': (1.14e-6, 1.14e-6),
-	'SO2': (1e-6, 1.5e-4), # earth <> venus
-	'N2O': (5e-7, 5e-7),
-	'Xe': (9e-8, 9e-8),
-	'NO2': (2e-8, 2e-8),
+	'H2O': (1e-5, .05), # earth <> earth
+	'HF': (1e-9, 5e-9), # venus <> venus
+	'Ne': (1.818e-5, 1.818e-5),
 	'CO': (1e-7, 5.57e-4), # earth <> mars
+	'N2': (.0189, .78084), # mars <> earth
+	'O2': (1.46e-3, .20946), # mars <> earth
+	'HCl': (1e-7, 6e-7), # venus <> venus
+	'Ar': (7e-5, .0193), # venus <> mars
+	'CO2': (4e-3, .965), # earth <> venus
+	'N2O': (5e-7, 5e-7),
+	'NO2': (2e-8, 2e-8),
+	'SO2': (1e-6, 1.5e-4), # earth <> venus
+	'Kr': (1.14e-6, 1.14e-6),
+	'Xe': (9e-8, 9e-8),
 }
 
 molmass = {
@@ -78,6 +81,7 @@ molmass = {
 	'CH4': 16.04,
 	'NH3': 17.031,
 	'H2O': 18.015,
+	'HF': 20.01,
 	'Ne': 20.1797,
 	'CO': 28.01,
 	'N2': 28.014,
@@ -85,6 +89,7 @@ molmass = {
 	'O2': 31.998,
 	'PH3': 33.998,
 	'H2S': 34.08,
+	'HCl': 36.46,
 	'Ar': 39.948,
 	'CO2': 44.009,
 	'N2O': 44.0128,
