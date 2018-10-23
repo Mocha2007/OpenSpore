@@ -11,6 +11,7 @@ poicolors = {
 	'Helium Giant': Color(0, 255, 255),
 	'Hot Jupiter': Color(255, 0, 0),
 	'Hot Neptune': Color(128, 0, 0),
+	'Mesoplanet': Color(255, 192, 192),
 	'Superhabitable': Color(255, 128, 0)
 }
 
@@ -27,6 +28,11 @@ def poi(p: Planet) -> str:
 		if p.mass > m_ig:
 			return 'Hot Jupiter'
 		return 'Hot Neptune'
+	# Mesoplanet
+	if p.mass < 3.3011e23:
+		return 'Mesoplanet'
+	# the following are currently impossible and thus temporarily blocked for performance
+	return ''
 	# Carbon Planet
 	if p.mass < m_gg:
 		carbon = sum(map(lambda x: x[1], filter(lambda x: 'C' in x[0], p.atmosphere.items())))
