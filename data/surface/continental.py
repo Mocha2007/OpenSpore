@@ -6,6 +6,7 @@ from points import Points
 from system import Planet
 from color import Color
 from constants import m_gg, m_ig, statemap, chemstate, water, ishab
+from toxic import istox
 
 typecolor = {
 	2: ( # RESERVED - used by other modules
@@ -19,6 +20,10 @@ typecolor = {
 	0.5: ( # deserts
 		Color(213, 139, 102),
 		Color(243, 206, 167)
+	),
+	0.1: ( # toxics
+		Color(80, 96, 64),
+		Color(160, 176, 80)
 	),
 	0: ( # terras
 		Color(0, 128, 255),
@@ -50,7 +55,7 @@ def gettype(p: Planet) -> float:
 		return -2
 	state = statemap[chemstate(water, p)]
 	if ishab(p):
-		return 0
+		return .1 if istox(p) else 0
 	if state == 1:
 		return .5
 	if state == 0:
@@ -64,7 +69,7 @@ def r(t: float, ratio: (int, int)) -> Color:
 	return c
 
 
-def r2(t: int) -> Color:
+def r2(t: float) -> Color:
 	c = Color(0, 0, 0)
 	if t == 2: # rock
 		v = randint(64, 192)
@@ -79,7 +84,7 @@ def r2(t: int) -> Color:
 
 def t2c(planet: Planet, ratio: (int, int)) -> Color:
 	t = gettype(planet)
-	if t in (-3, -2, 2):
+	if t in (-3, -2, .1, 2):
 		return r2(t)
 	return r(t, ratio)
 
