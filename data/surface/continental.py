@@ -13,6 +13,10 @@ typecolor = {
 		Color(255, 0, 0),
 		Color(128, 32, 32)
 	),
+	0.5: ( # deserts
+		Color(213, 139, 102),
+		Color(243, 206, 167)
+	),
 	0: ( # terras
 		Color(0, 128, 255),
 		Color(0, 192, 0)
@@ -34,7 +38,7 @@ typecolor = {
 resolution = 30
 
 
-def r(t: int, ratio: (int, int)) -> Color:
+def r(t: float, ratio: (int, int)) -> Color:
 	c = choice([typecolor[t][0]]*(ratio[0]*len(typecolor[t])) +
 				list(typecolor[t][1:])*(ratio[1]*len(typecolor[t]))) # sea, land
 	return c
@@ -63,7 +67,9 @@ def t2c(planet: Planet, ratio: (int, int)) -> Color:
 	state = statemap[chemstate(water, planet)]
 	if ishab(planet):
 		return r(0, ratio)
-	if state <= 1:
+	if state == 1:
+		return r(.5, ratio)
+	if state == 0:
 		return r(-1, ratio)
 	return r(1, ratio)
 
