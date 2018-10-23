@@ -5,7 +5,7 @@ sys.path.append('./data')
 from points import Points
 from system import Planet
 from color import Color
-from constants import m_gg, m_ig, statemap, chemstate, water
+from constants import m_gg, m_ig, statemap, chemstate, water, ishab
 
 typecolor = {
 	# 2 is reserved
@@ -61,7 +61,7 @@ def t2c(planet: Planet, ratio: (int, int)) -> Color:
 			return r2(-3)
 		return r2(-2)
 	state = statemap[chemstate(water, planet)]
-	if state == 1 and 'O2' in planet.atmosphere:
+	if ishab(planet):
 		return r(0, ratio)
 	if state <= 1:
 		return r(-1, ratio)
