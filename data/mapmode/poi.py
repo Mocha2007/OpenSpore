@@ -2,7 +2,7 @@ import sys
 sys.path.append('./data')
 from color import Color
 from system import System, Planet
-from constants import grey, atmchems, m_earth, m_gg, m_ig, m_j, ishab, t_earth
+from constants import grey, m_earth, m_gg, m_ig, m_j, ishab, t_earth
 from toxic import istox
 sys.path.append('./data/surface')
 from continental import gettype, typecolor
@@ -11,7 +11,7 @@ from continental import gettype, typecolor
 
 poicolors = {
 	'Carbon Planet': Color(64, 64, 64),
-	'Helium Giant': Color(0, 255, 255),
+	'Helium Planet': Color(0, 255, 255),
 	'Hot Jupiter': Color(255, 0, 0),
 	'Hot Neptune': Color(128, 0, 0),
 	'Mesoplanet': Color(255, 192, 192),
@@ -37,15 +37,13 @@ def poi(p: Planet) -> str:
 		# Super-Jupiter
 		if m_j < p.mass:
 			return 'Super-Jupiter'
-		# the following are currently impossible and thus temporarily blocked for performance
-		return ''
-		# Helium Giant
-		atm = atmchems(p)
-		if 'He' in atm:
-			if max(p.atmosphere.items(), key=lambda x: x[1]) == 'He':
-				return 'Helium Giant'
 		return ''
 	# otherwise, MUST be terrestrial
+	# Helium Planet
+	atm = p.atmosphere
+	if 'He' in atm and m_earth < p.mass:
+		if max(p.atmosphere.items(), key=lambda x: x[1])[0] == 'He':
+			return 'Helium Planet'
 	# "Habitables"
 	if ishab(p):
 		# Superhabitable https://en.wikipedia.org/wiki/Superhabitable_planet

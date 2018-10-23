@@ -57,7 +57,8 @@ c_j['Xe'] = (j_H * 1.68e-10, j_H * 1.68e-10)
 
 c_e = { # terran atmospheric composition by volume
 	# sorted by molar mass
-	'He': (5.24e-6, 5.24e-6),
+	'H2': (2.5, 3), # theoretical He-world
+	'He': (5.24e-6, 1.5), # earth <> theoretical He-world
 	'CH4': (1.79e-6, 1.79e-6),
 	'H2O': (1e-5, .05), # earth <> earth
 	'HF': (1e-9, 5e-9), # venus <> venus

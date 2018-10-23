@@ -269,7 +269,7 @@ def showsystem():
 						t_a.append(j + '\t' + str(quantity))
 				if shift():
 					debug = lambda x: str(round(planet.temp * common.getv_eslope(common.molmass[x])))
-					for j in ('H2', 'N2', 'Xe'):
+					for j in ('H2', 'He', 'N2', 'Xe'):
 						t_a.append(j+' > '+debug(j)+' m/s')
 				common.text('\n'.join(t_a), screen, (ful[0] - 150, ful[1] + 310, ful[0]+1, 0), darkColor, lightColor)
 			# resources
