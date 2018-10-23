@@ -2,7 +2,7 @@ import sys
 sys.path.append('./data')
 from color import Color
 from system import System, Planet
-from constants import grey, atmchems, m_earth, m_gg, m_ig, ishab, t_earth
+from constants import grey, atmchems, m_earth, m_gg, m_ig, m_j, ishab, t_earth
 
 # WARNING this module is super laggy; I get 14 fps from this!!!
 
@@ -12,7 +12,9 @@ poicolors = {
 	'Hot Jupiter': Color(255, 0, 0),
 	'Hot Neptune': Color(128, 0, 0),
 	'Mesoplanet': Color(255, 192, 192),
-	'Superhabitable': Color(255, 128, 0)
+	'Mini-Neptune': Color(128, 192, 255),
+	'Superhabitable': Color(255, 128, 0),
+	'Super-Jupiter': Color(255, 224, 192)
 }
 
 
@@ -31,6 +33,12 @@ def poi(p: Planet) -> str:
 	# Mesoplanet
 	if p.mass < 3.3011e23:
 		return 'Mesoplanet'
+	# Mini-Neptune
+	if m_gg < p.mass < 8.681e25:
+		return 'Mini-Neptune'
+	# Super-Jupiter
+	if m_j < p.mass:
+		return 'Super-Jupiter'
 	# the following are currently impossible and thus temporarily blocked for performance
 	return ''
 	# Carbon Planet
