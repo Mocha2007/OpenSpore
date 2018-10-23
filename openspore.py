@@ -244,16 +244,19 @@ def showsystem():
 			else: # bigger than saturn
 				t += 'Mass: '+str(round(planet.mass/common.m_j, 3))+' M_J'
 			t += '\nRadius: '+str(round(planet.radius/1000))+' km'
-			t += '\nDensity: '+str(round(common.density(planet.mass, planet.radius)))+' kg/m^3'
-			t += '\nESI: '+str(round(common.esi2(planet), 3))
-			t += '\nGravity: '+str(round(common.grav(planet.mass, planet.radius)/common.g_earth, 3))+' g'
-			t += '\nV_e: '+str(round(common.v_e2(planet)))+' m/s'
 			t += '\nTemperature: '+str(round(planet.temp))+' K'
-			if planet.atm:
-				if planet.atm < common.p_earth:
-					t += '\nPressure: '+str(round(planet.atm))+' Pa'
-				else:
-					t += '\nPressure: '+str(round(planet.atm/common.p_earth, 3))+' atm'
+			if shift():
+				t += '\nDensity: '+str(round(common.density(planet.mass, planet.radius)))+' kg/m^3'
+				t += '\nESI: '+str(round(common.esi2(planet), 3))
+				t += '\nGravity: '+str(round(common.grav(planet.mass, planet.radius)/common.g_earth, 3))+' g'
+				t += '\nV_e: '+str(round(common.v_e2(planet)))+' m/s'
+				if planet.atm:
+					if planet.atm < common.p_earth:
+						t += '\nPressure: '+str(round(planet.atm))+' Pa'
+					else:
+						t += '\nPressure: '+str(round(planet.atm/common.p_earth, 3))+' atm'
+			else:
+				t += '\n(Shift) Advanced...'
 			# states
 			t += '\n(c) '+chem[currentchem].name+': '+cstate.title()
 			# atmosphere
@@ -297,9 +300,9 @@ def showsystem():
 					t += '\n'+kaching+' '+moon.name
 			common.text(t, screen, (ful[0], ful[1]+150, size[0], 0), darkColor, lightColor)
 			# atm label
-			if planet.atm:
+			if shift() and planet.atm:
 				# atm layer info
-				atmcoords = size[0]-157, 270
+				atmcoords = size[0]-157, 310
 				if planet.atm > common.p_earth:
 					atminfo = "Superterran"
 					atmcolor = 128, 255, 128
