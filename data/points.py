@@ -1,4 +1,4 @@
-from math import cos, pi
+from math import cos
 
 
 class Points: # no type annotation since function can't be annotated
