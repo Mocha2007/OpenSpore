@@ -382,8 +382,8 @@ open('openspore.log', 'a+').write('\nGENERATION START '+str(time()))
 g = galaxy.Galaxy(stargen.main, starnamegen.main, planetnamegen.main, moonnamegen.main, systemclass.System, resgen.main)
 open('openspore.log', 'a+').write('\nGENERATION END '+str(time()))
 # plotting + reset
-plot.planet(g, plot.p_m, plot.p_rho, xlog=True, ylog=True)
-screen = pygame.display.set_mode(size)
+# plot.planet(g, plot.p_m, plot.p_rho, xlog=True, ylog=True, point='.')
+# screen = pygame.display.set_mode(size)
 
 # main
 
