@@ -7,7 +7,7 @@ from constants import density
 sys.path.append('./data/mapmode')
 from planettype import planet as planetcolor
 
-radius = 1
+radius = 5
 size = 1024, 1024
 
 
@@ -22,6 +22,10 @@ def p_r(p) -> float:
 
 def p_rho(p) -> float:
 	return density(p.mass, p.radius)
+
+
+def p_rgb(p) -> (int, int, int):
+	return planetcolor(p).rgb()
 
 
 # main
@@ -47,11 +51,14 @@ def planet(g: Galaxy, xaxis, yaxis, **options) -> Points:
 		options['xlog'] = False
 	if 'ylog' not in options:
 		options['ylog'] = False
+	if 'point' not in options:
+		options['point'] = '.'
 
 	# pygame setup
 	pygame.init()
 	screen = pygame.display.set_mode(size)
 	screen.fill((0, 0, 0))
+	ptype = options['point']
 
 	# set construction
 	array = []
@@ -72,7 +79,19 @@ def planet(g: Galaxy, xaxis, yaxis, **options) -> Points:
 	maxy = max(array, key=lambda x: x[0][1])[0][1]
 	# display
 	for coords, color in array:
-		screen.set_at(locate(coords, (minx, miny), (maxx, maxy)), color.rgb())
+		place = locate(coords, (minx, miny), (maxx, maxy))
+		c = color.rgb()
+		if ptype == '.':
+			screen.set_at(place, c)
+		elif ptype == '+':
+			# horizontal
+			pygame.draw.line(screen, c, (place[0]-radius, place[1]), (place[0]+radius, place[1]))
+			# vertical
+			pygame.draw.line(screen, c, (place[0], place[1]-radius), (place[0], place[1]+radius))
+		elif ptype == 'o':
+			pygame.draw.circle(screen, c, place, radius)
+		elif ptype == 'x':
+			pygame.draw.rect(screen, c, (place[0]-radius, place[1]-radius, radius*2, radius*2))
 	# save graph
 	pygame.display.flip()
 	pygame.image.save(screen, 'plot.png')
