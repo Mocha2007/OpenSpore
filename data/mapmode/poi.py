@@ -10,7 +10,7 @@ from continental import gettype, typecolor
 # WARNING this module is super laggy; I get 14 fps from this!!!
 
 poicolors = {
-	'Carbon Planet': Color(64, 64, 64),
+	'Carbon Planet': Color(64, 32, 64),
 	'Helium Planet': Color(0, 255, 255),
 	'Hot Jupiter': Color(255, 0, 0),
 	'Hot Neptune': Color(128, 0, 0),
