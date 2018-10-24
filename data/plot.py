@@ -4,6 +4,7 @@ from math import log10
 from galaxy import Galaxy
 from points import Points
 from constants import density
+from starcalc import Star
 sys.path.append('./data/mapmode')
 from planettype import planet as planetcolor
 from starclass import main as starcolor
@@ -23,6 +24,10 @@ def radius(p) -> float:
 
 def rho(p) -> float:
 	return density(p.mass, p.radius)
+
+
+def temp(p) -> float:
+	return p.temperature if type(p) == Star else p.temp
 
 
 def p_rgb(p) -> (int, int, int):
@@ -109,6 +114,29 @@ def planet(g: Galaxy, xaxis, yaxis, **options) -> Points:
 				coords[1] = log10(coords[1])
 			color = planetcolor(p)
 			array.append((coords, color))
+	disp(array, options['point'])
+
+
+def star(g: Galaxy, xaxis, yaxis, **options) -> Points:
+	# options
+	if 'xlog' not in options:
+		options['xlog'] = False
+	if 'ylog' not in options:
+		options['ylog'] = False
+	if 'point' not in options:
+		options['point'] = '.'
+	# set construction
+	array = []
+	# star
+	for _, system in g.stars:
+		coords = [xaxis(system.star), yaxis(system.star)]
+		# log plotting
+		if options['xlog']:
+			coords[0] = log10(coords[0])
+		if options['ylog']:
+			coords[1] = log10(coords[1])
+		color = starcolor(system)
+		array.append((coords, color))
 	disp(array, options['point'])
 
 
