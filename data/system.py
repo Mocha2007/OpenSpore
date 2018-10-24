@@ -49,16 +49,20 @@ def pradius(m: float) -> float:
 	elif m < 3e23: # based on ss data; mesoplanets
 		rhomin = 1630 # Oberon
 		rhomax = 3528 # Io
-	elif m < 1e25: # based on ss data; terrestrials
-		rhomin = 3933.5 # Mars
-		rhomax = 5514 # Earth
-	else: # superearths + gas giants
-		if m < 7e26: # based on exoplanetary data; rough estimate
-			mmin, bmin = getmb((25, 3), (27, 2))
-			mmax, bmax = getmb((25, 4.5), (27, 2.5))
-		else:
-			mmin, bmin = getmb((27, 2), (28.5, 4))
-			mmax, bmax = getmb((27, 3), (28, 4))
+	else:
+		if m < 1e25: # based on ss data; terrestrials
+			# rhomin = 2682 # Kepler-138 b; cf. Mars = 3933.5
+			# rhomax = 5514 # Earth
+			mmin, bmin = getmb((log10(3.98622E+23), log10(2682.517339)), (log10(4.8675E+24), log10(5243))) # kepler-138b -> venus
+			mmax, bmax = getmb((log10(4.01E+21), log10(2550)), (log10(3.3011E+23), log10(5427))) # Haumea -> mercury
+			# i'd do mercury -> earth but this causes fewer issues
+		else: # superearths + gas giants
+			if m < 7e26: # based on exoplanetary data; rough estimate
+				mmin, bmin = getmb((25, 3), (27, 2))
+				mmax, bmax = getmb((25, 4.5), (27, 2.5))
+			else:
+				mmin, bmin = getmb((27, 2), (28.5, 4))
+				mmax, bmax = getmb((27, 3), (28, 4))
 		rhomin = 10 ** (mmin*log10(m) + bmin)
 		rhomax = 10 ** (mmax*log10(m) + bmax)
 		rhomin = max(absmin, rhomin)
