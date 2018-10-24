@@ -69,10 +69,10 @@ def pradius(m: float) -> float:
 class Moon:
 	def __init__(self, planet, system, moonnamegen, resourcegen): # no type annotation since function can't be annotated
 		attempt = 1e24
-		while attempt > 1.4819e23:
-			attempt = 3.7493e19 / random()
+		while attempt > 1.4819e23 or attempt >= planet.mass: # ganymede, largest moon
+			attempt = 3.7493e19 / random() # Mimas, smallest roundthing
 		self.mass = attempt
-		self.radius = m2r(attempt, 3.5e3) # rocky density
+		self.radius = pradius(attempt)
 		self.name = moonnamegen()
 		self.resources = []
 		self.sma = rporbit(planet, planet.radius*2) # todo
