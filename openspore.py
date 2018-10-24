@@ -209,7 +209,7 @@ def showsystem():
 		if common.dist(mousepos, warningcoords) <= 8 and haswarning:
 			# hover info
 			warnname = ', '.join(warnings)
-			common.text(warnname, screen, (warningcoords[0], warningcoords[1]-20, warningcoords[0]+125, 0),darkColor, lightColor)
+			common.text(warnname, screen, (warningcoords[0], warningcoords[1]-20, warningcoords[0]+125, 0), darkColor, lightColor)
 		# planet info if mouse over
 		elif common.dist(mousepos, coords) <= radius:
 			# hover info
