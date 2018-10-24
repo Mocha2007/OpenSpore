@@ -43,14 +43,14 @@ def pmass() -> float:
 def pradius(m: float) -> float:
 	absmin = 100 # probably
 	absmax = 23000 # https://en.wikipedia.org/wiki/PSR_J1719-1438_b
-	if m < 3e21: # based on ss data; mesoplanets
+	if m < 3e21: # based on ss data; smaller mesoplanets
 		rhomin = 820 # (55637) 2002 UX25
 		rhomax = 2170 # Ceres
-	elif m < 3e23: # based on ss data; mesoplanets
-		rhomin = 1630 # Oberon
-		rhomax = 3528 # Io
 	else:
-		if m < 1e25: # based on ss data; terrestrials
+		if m < 3e23: # based on ss data; larger mesoplanets
+			mmin, bmin = getmb((log10(3.014E+21), log10(1630)), (log10(1.08E+23), log10(1834.4))) # Oberon -> Callisto
+			mmax, bmax = getmb((log10(4.01E+21), log10(2550)), (log10(8.93E+22), log10(3528))) # Haumea -> Io
+		elif m < 1e25: # based on ss data; terrestrials
 			# rhomin = 2682 # Kepler-138 b; cf. Mars = 3933.5
 			# rhomax = 5514 # Earth
 			mmin, bmin = getmb((log10(3.98622E+23), log10(2682.517339)), (log10(4.8675E+24), log10(5243))) # kepler-138b -> venus
