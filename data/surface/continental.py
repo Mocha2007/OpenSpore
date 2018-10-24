@@ -14,12 +14,12 @@ typecolor = {
 		Color(192, 192, 192)
 	),
 	1: ( # hells
-		Color(255, 0, 0),
-		Color(128, 32, 32)
+		Color(128, 0, 0),
+		Color(255, 32, 32)
 	),
 	0.5: ( # deserts
-		Color(213, 139, 102),
-		Color(243, 206, 167)
+		Color(123, 94, 77),
+		Color(252, 123, 93)
 	),
 	0.1: ( # toxics
 		Color(80, 96, 64),
@@ -84,7 +84,7 @@ def r2(t: float) -> Color:
 
 def t2c(planet: Planet, ratio: (int, int)) -> Color:
 	t = gettype(planet)
-	if t in (-3, -2, .1, 2):
+	if t not in (0,):
 		return r2(t)
 	return r(t, ratio)
 
