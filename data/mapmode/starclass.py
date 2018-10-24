@@ -1,7 +1,7 @@
 import sys
 sys.path.append('./data')
 from color import Color
-from system import System
+from system import System, Planet
 from constants import chemstate, water
 
 colorMap = {

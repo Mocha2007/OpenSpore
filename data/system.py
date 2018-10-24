@@ -41,7 +41,7 @@ def pradius(m: float) -> float:
 	if m < 3e21: # based on ss data; mesoplanets
 		rhomin = 820 # (55637) 2002 UX25
 		rhomax = 2170 # Ceres
-	elif m < 3e23: # based on ss data; terrestrials
+	elif m < 3e23: # based on ss data; mesoplanets
 		rhomin = 1630 # Oberon
 		rhomax = 3528 # Io
 	elif m < 1e25: # based on ss data; terrestrials
@@ -81,6 +81,7 @@ class Moon:
 		self.sma = rporbit(planet, planet.radius*2) # todo
 		self.temp = planet.temp
 		self.atm = None # todo
+		self.atmosphere = [] # todo
 		data = {
 			'system': system,
 			'body': self
