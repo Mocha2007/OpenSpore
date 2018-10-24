@@ -31,6 +31,11 @@ def atm(p) -> dict:
 	return a
 
 
+def mmass() -> float:
+	moon = 3.7493e19, 1.4819e23 # mimas, ganymede
+	return exp(log(moon[1]/moon[0])*random()) * moon[0]
+
+
 def pmass() -> float:
 	return exp(log(m_browndwarf/m_rock)*random()) * m_rock
 
@@ -71,9 +76,9 @@ def pradius(m: float) -> float:
 
 class Moon:
 	def __init__(self, planet, system, moonnamegen, resourcegen): # no type annotation since function can't be annotated
-		attempt = 1e24
-		while attempt > 1.4819e23 or attempt >= planet.mass: # ganymede, largest moon
-			attempt = 3.7493e19 / random() # Mimas, smallest roundthing
+		attempt = planet.mass
+		while attempt >= planet.mass:
+			attempt = mmass()
 		self.mass = attempt
 		self.radius = pradius(attempt)
 		self.name = moonnamegen()
