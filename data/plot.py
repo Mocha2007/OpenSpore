@@ -6,21 +6,22 @@ from points import Points
 from constants import density
 sys.path.append('./data/mapmode')
 from planettype import planet as planetcolor
+from starclass import main as starcolor
 
-radius = 5
+r = 5
 size = 1024, 1024
 
 
 # SAMPLE AXIS FUNCTIONS
-def p_m(p) -> float:
+def mass(p) -> float:
 	return p.mass
 
 
-def p_r(p) -> float:
+def radius(p) -> float:
 	return p.radius
 
 
-def p_rho(p) -> float:
+def rho(p) -> float:
 	return density(p.mass, p.radius)
 
 
@@ -43,6 +44,49 @@ def locate(point: (float, float), minimum: (float, float), maximum: (float, floa
 	point[0] *= size[0]
 	point[1] *= size[1]
 	return round(point[0]), round(point[1])
+
+
+def body(g: Galaxy, xaxis, yaxis, **options) -> Points:
+	# options
+	if 'xlog' not in options:
+		options['xlog'] = False
+	if 'ylog' not in options:
+		options['ylog'] = False
+	if 'point' not in options:
+		options['point'] = '.'
+	# set construction
+	array = []
+	# star
+	for _, system in g.stars:
+		coords = [xaxis(system.star), yaxis(system.star)]
+		# log plotting
+		if options['xlog']:
+			coords[0] = log10(coords[0])
+		if options['ylog']:
+			coords[1] = log10(coords[1])
+		color = starcolor(system)
+		array.append((coords, color))
+		# planet
+		for _, p in system.bodies:
+			coords = [xaxis(p), yaxis(p)]
+			# log plotting
+			if options['xlog']:
+				coords[0] = log10(coords[0])
+			if options['ylog']:
+				coords[1] = log10(coords[1])
+			color = planetcolor(p)
+			array.append((coords, color))
+			# moon
+			for _, m in p.bodies:
+				coords = [xaxis(m), yaxis(m)]
+				# log plotting
+				if options['xlog']:
+					coords[0] = log10(coords[0])
+				if options['ylog']:
+					coords[1] = log10(coords[1])
+				color = planetcolor(m)
+				array.append((coords, color))
+	disp(array, options['point'])
 
 
 def planet(g: Galaxy, xaxis, yaxis, **options) -> Points:
@@ -86,13 +130,13 @@ def disp(array: list, ptype: str):
 			screen.set_at(place, c)
 		elif ptype == '+':
 			# horizontal
-			pygame.draw.line(screen, c, (place[0]-radius, place[1]), (place[0]+radius, place[1]))
+			pygame.draw.line(screen, c, (place[0]-r, place[1]), (place[0]+r, place[1]))
 			# vertical
-			pygame.draw.line(screen, c, (place[0], place[1]-radius), (place[0], place[1]+radius))
+			pygame.draw.line(screen, c, (place[0], place[1]-r), (place[0], place[1]+r))
 		elif ptype == 'o':
-			pygame.draw.circle(screen, c, place, radius)
+			pygame.draw.circle(screen, c, place, r)
 		elif ptype == 'x':
-			pygame.draw.rect(screen, c, (place[0]-radius, place[1]-radius, radius*2, radius*2))
+			pygame.draw.rect(screen, c, (place[0]-r, place[1]-r, r*2, r*2))
 	# save graph
 	pygame.display.flip()
 	pygame.image.save(screen, 'plot.png')
