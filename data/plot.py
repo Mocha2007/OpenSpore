@@ -77,6 +77,7 @@ def planet(g: Galaxy, xaxis, yaxis, **options) -> Points:
 	miny = min(array, key=lambda x: x[0][1])[0][1]
 	maxx = max(array, key=lambda x: x[0][0])[0][0]
 	maxy = max(array, key=lambda x: x[0][1])[0][1]
+	open('plot.txt', 'w+').write(str(((minx, maxx), (miny, maxy))))
 	# display
 	for coords, color in array:
 		place = locate(coords, (minx, miny), (maxx, maxy))
