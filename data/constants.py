@@ -330,3 +330,11 @@ def esi2(p) -> float:
 
 def soi(p) -> float:
 	return p.orbit.sma * (p.mass / p.orbit.primary.mass)**.4
+
+
+def getmb(a: (float, float), b: (float, float)) -> (float, float):
+	rise = b[1] - a[1]
+	run = b[0] - a[0]
+	m = rise/run
+	b = a[1] - m*a[0]
+	return m, b

@@ -1,7 +1,8 @@
 from random import random, randint, uniform
-from math import e, exp, log
+from math import e, exp, log, log10
 from constants import au, m2r, temp2, m_earth, m_browndwarf, m_gg, m_j, m_rock, r_j, r_sun, t_sun, soi, soi_moon
 from constants import atmchems, c_e, c_j # for atm
+from constants import getmb # for pradius
 from orbit import rporbit
 
 
@@ -35,11 +36,31 @@ def pmass() -> float:
 
 
 def pradius(m: float) -> float:
-	if m > m_gg:
-		rho = uniform(687, 1326) # gassy density
-	else:
-		rho = uniform(3933.5, 5427) # rocky density
-	r = m2r(m, rho)
+	absmin = 100 # probably
+	absmax = 23000 # https://en.wikipedia.org/wiki/PSR_J1719-1438_b
+	if m < 3e21: # based on ss data; mesoplanets
+		rhomin = 984 # Tethys
+		rhomax = 3528 # Io
+	elif m < 1e25: # based on ss data; terrestrials
+		rhomin = 3933.5 # Mars
+		rhomax = 5514 # Earth
+	else: # superearths + gas giants
+		if m < 7e26: # based on exoplanetary data; rough estimate
+			mmin, bmin = getmb((25, 3), (27, 2))
+			mmax, bmax = getmb((25, 4.5), (27, 2.5))
+		else:
+			mmin, bmin = getmb((27, 2), (28.5, 4))
+			mmax, bmax = getmb((27, 3), (28, 4))
+		rhomin = 10 ** (mmin*log10(m) + bmin)
+		rhomax = 10 ** (mmax*log10(m) + bmax)
+		rhomin = max(absmin, rhomin)
+		rhomax = min(absmax, rhomax)
+	# if m > m_gg:
+	# 	rho = uniform(687, 1326) # gassy density
+	# else:
+	# 	rho = uniform(3933.5, 5427) # rocky density
+	r = m2r(m, uniform(rhomin, rhomax))
+	# critical radius
 	if r_j < r:
 		r = r_j * uniform(.99, 1.01)
 	return r
