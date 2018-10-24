@@ -4,6 +4,9 @@ from math import ceil, log10, pi
 from time import time
 import pygame
 
+# logging
+open('openspore.log', 'a+').write('\nSTART '+str(time()))
+
 # constants
 starRadius = 2 # px
 darkColor = 8, 42, 54
@@ -372,7 +375,9 @@ screen.fill((0, 0, 0))
 loading = font.render('Generating...', 1, lighterColor)
 screen.blit(loading, (size[0]//2, size[1]//2))
 refresh()
+open('openspore.log', 'a+').write('\nGENERATION START '+str(time()))
 g = galaxy.Galaxy(stargen.main, starnamegen.main, planetnamegen.main, moonnamegen.main, systemclass.System, resgen.main)
+open('openspore.log', 'a+').write('\nGENERATION END '+str(time()))
 
 # main
 
