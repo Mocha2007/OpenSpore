@@ -1,10 +1,11 @@
 import sys
 sys.path.append('./data')
+from constants import grey
 from color import Color
 
 
 def main(*_) -> Color:
-	return Color(128, 128, 128)
+	return grey
 
 
 planet = main
