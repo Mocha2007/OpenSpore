@@ -1,6 +1,6 @@
 from sys import exit
 from importlib.machinery import SourceFileLoader
-from math import log10, pi
+from math import ceil, log10, pi
 from time import time
 import pygame
 
@@ -324,7 +324,7 @@ def showsystem():
 			globe.shade(pi/4)
 			borders = planetmap.main(50, globe, fcenter)
 			for coords, col in borders:
-				pygame.draw.circle(screen, col.rgb(), coords, 6)
+				pygame.draw.circle(screen, col.rgb(), coords, ceil(150/surface.resolution))
 
 
 def scale() -> float:
