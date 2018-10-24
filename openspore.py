@@ -55,6 +55,16 @@ icon = pygame.image.load('img/icon.png')
 pygame.display.set_icon(icon)
 pygame.display.set_caption('OpenSpore')
 
+# load constants module
+common = SourceFileLoader('common', 'data/constants.py').load_module()
+font = common.font
+
+# loading
+screen.fill((0, 0, 0))
+loading = font.render('Loading...', 1, lighterColor)
+screen.blit(loading, (size[0]//2, size[1]//2))
+refresh()
+
 # load galaxy module
 galaxy = SourceFileLoader('galaxy', 'data/'+cfg['galaxygen'][0]+'.py').load_module()
 
@@ -84,15 +94,6 @@ mapmode = SourceFileLoader('mapmode', 'data/mapmode/'+cfg['mapmode'][0]+'.py').l
 
 # load system module
 systemclass = SourceFileLoader('systemclass', 'data/'+cfg['systemclass'][0]+'.py').load_module()
-
-# load constants module
-common = SourceFileLoader('common', 'data/constants.py').load_module()
-font = common.font
-chem = (
-	common.water,
-	common.methane,
-	common.ammonia
-)
 
 # load resource module
 resgen = SourceFileLoader('resgen', 'data/resources/'+cfg['resourcegen'][0]+'.py').load_module()
@@ -179,7 +180,7 @@ def showsystem():
 		warningcoords = coords[0]-2, size[1]-40
 		haswarning = False
 		warnings = []
-		cstate = common.chemstate(chem[currentchem], planet)
+		cstate = common.chemstate(common.lifechems[currentchem], planet)
 		csint = common.statemap[cstate]
 		if csint > 1:
 			tlabel = font.render('!', 1, (255, 192, 128))
@@ -258,7 +259,7 @@ def showsystem():
 			else:
 				t += '\n(Shift) Advanced...'
 			# states
-			t += '\n(c) '+chem[currentchem].name+': '+cstate.title()
+			t += '\n(c) '+common.lifechems[currentchem].name+': '+cstate.title()
 			# atmosphere
 			t += '\n(a) Show Atmosphere'
 			if pygame.key.get_pressed()[pygame.K_a]:
@@ -366,12 +367,15 @@ def changeproj(n: int):
 	display = SourceFileLoader('display', 'data/display/'+cfg['displaymode'][currentprojmode]+'.py').load_module()
 
 
-# main
-g = galaxy.Galaxy(stargen.main, starnamegen.main, planetnamegen.main, moonnamegen.main, systemclass.System, resgen.main)
+# loading
+screen.fill((0, 0, 0))
+loading = font.render('Generating...', 1, lighterColor)
+screen.blit(loading, (size[0]//2, size[1]//2))
 refresh()
+g = galaxy.Galaxy(stargen.main, starnamegen.main, planetnamegen.main, moonnamegen.main, systemclass.System, resgen.main)
 
-# mousePos = 0, 0
-# mousePosNew = 0, 0
+# main
+
 delta = 0, 0
 deltaNew = 0, 0
 middleRadius = 1
@@ -430,7 +434,7 @@ while 1:
 				changeproj(direction)
 			elif event.key == pygame.K_c: # chemstate
 				currentchem += 1
-				currentchem %= len(chem)
+				currentchem %= len(common.lifechems)
 			elif event.key in planetkeys: # planet foci
 				focusPlanet = planetkeys.index(event.key)
 	# pressed keys
@@ -451,17 +455,6 @@ while 1:
 		moonskip -= 1
 	if pressed[pygame.K_KP_PLUS]:
 		moonskip += 1
-	# mousedown?
-	# if pygame.mouse.get_pressed()[0]: # left click enabled
-		# 	mousePosNew = pygame.mouse.get_pos()
-	# 	deltaNew = tuple(map(lambda x: (x[1]-x[0])/zoom, zip(mousePos, mousePosNew)))
-		# else:
-		# 	# reset
-		# 	mousePos = pygame.mouse.get_pos()
-		# 	delta = tuple(map(sum, zip(delta, deltaNew)))
-		# 	# reset
-		# 	mousePosNew = pygame.mouse.get_pos()
-	# 	deltaNew = 0, 0
 	# focusSystem is of type System
 	showsystem()
 	# infobox

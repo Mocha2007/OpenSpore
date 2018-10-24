@@ -135,6 +135,11 @@ chemprop = {
 water = Chem(**chemprop['water'])
 methane = Chem(**chemprop['methane'])
 ammonia = Chem(**chemprop['ammonia'])
+lifechems = (
+	water,
+	methane,
+	ammonia
+)
 
 
 # functions
