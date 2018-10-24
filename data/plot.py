@@ -53,13 +53,6 @@ def planet(g: Galaxy, xaxis, yaxis, **options) -> Points:
 		options['ylog'] = False
 	if 'point' not in options:
 		options['point'] = '.'
-
-	# pygame setup
-	pygame.init()
-	screen = pygame.display.set_mode(size)
-	screen.fill((0, 0, 0))
-	ptype = options['point']
-
 	# set construction
 	array = []
 	for _, system in g.stars:
@@ -72,6 +65,13 @@ def planet(g: Galaxy, xaxis, yaxis, **options) -> Points:
 				coords[1] = log10(coords[1])
 			color = planetcolor(p)
 			array.append((coords, color))
+	disp(array, options['point'])
+
+
+def disp(array: list, ptype: str):
+	pygame.init()
+	screen = pygame.display.set_mode(size)
+	screen.fill((0, 0, 0))
 	# get minx, miny, maxx, maxy
 	minx = min(array, key=lambda x: x[0][0])[0][0]
 	miny = min(array, key=lambda x: x[0][1])[0][1]
