@@ -1,4 +1,5 @@
 .idea/*
 *.pyc
 openspore.log
+plot.png
 /img/cursor.txt

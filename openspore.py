@@ -101,6 +101,9 @@ systemclass = SourceFileLoader('systemclass', 'data/'+cfg['systemclass'][0]+'.py
 # load resource module
 resgen = SourceFileLoader('resgen', 'data/resources/'+cfg['resourcegen'][0]+'.py').load_module()
 
+# load plotting module
+plot = SourceFileLoader('plot', 'data/plot.py').load_module()
+
 
 def shift() -> bool:
 	return pygame.key.get_pressed()[pygame.K_LSHIFT] or pygame.key.get_pressed()[pygame.K_RSHIFT]
@@ -378,6 +381,9 @@ refresh()
 open('openspore.log', 'a+').write('\nGENERATION START '+str(time()))
 g = galaxy.Galaxy(stargen.main, starnamegen.main, planetnamegen.main, moonnamegen.main, systemclass.System, resgen.main)
 open('openspore.log', 'a+').write('\nGENERATION END '+str(time()))
+# plotting + reset
+plot.planet(g, plot.p_m, plot.p_rho, xlog=True, ylog=True)
+screen = pygame.display.set_mode(size)
 
 # main
 
