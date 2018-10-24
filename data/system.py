@@ -39,7 +39,10 @@ def pradius(m: float) -> float:
 	absmin = 100 # probably
 	absmax = 23000 # https://en.wikipedia.org/wiki/PSR_J1719-1438_b
 	if m < 3e21: # based on ss data; mesoplanets
-		rhomin = 984 # Tethys
+		rhomin = 820 # (55637) 2002 UX25
+		rhomax = 2170 # Ceres
+	elif m < 3e23: # based on ss data; terrestrials
+		rhomin = 1630 # Oberon
 		rhomax = 3528 # Io
 	elif m < 1e25: # based on ss data; terrestrials
 		rhomin = 3933.5 # Mars
