@@ -1,5 +1,29 @@
-from constants import t_sun, r_sun, m_sun
+from constants import t_sun, r_sun, m_sun, m_star, m_j
 from time import time
+from system import pradius
+
+
+def getclass(mass: float) -> str:
+	if mass < m_star/m_sun: # Brown Dwarfs
+		if mass < 30 * m_j/m_sun: # forgot; but less than 2MASS 1237+6526
+			return 'Y'
+		if mass < 63 * m_j/m_sun:
+			# between 62.1 m_j (LHS 6343 C) and 75 m_j (SDSS J1416+1348 A)
+			return 'T'
+		return 'L'
+	if mass < .45:
+		return 'M'
+	if mass < .8:
+		return 'K'
+	if mass < 1.04:
+		return 'G'
+	if mass < 1.4:
+		return 'F'
+	if mass < 2.1:
+		return 'A'
+	if mass < 16:
+		return 'B'
+	return 'O'
 
 
 class Star:
@@ -9,24 +33,14 @@ class Star:
 			self.luminosity = 1.148*mass**3.4751
 		else:
 			self.luminosity = .2264*mass**2.52
-		self.radius = r_sun*mass**0.96
+		self.type = getclass(mass)
+		if self.type in 'LTY':
+			self.radius = pradius(mass*m_sun)
+		else:
+			self.radius = r_sun*mass**0.96
 		self.temperature = t_sun*mass**.54
 		self.lifespan = 3.97310184e17*mass**-2.5162
 		# class
-		if mass < .45:
-			self.type = 'M'
-		elif mass < .8:
-			self.type = 'K'
-		elif mass < 1.04:
-			self.type = 'G'
-		elif mass < 1.4:
-			self.type = 'F'
-		elif mass < 2.1:
-			self.type = 'A'
-		elif mass < 16:
-			self.type = 'B'
-		else:
-			self.type = 'O'
 		self.name = name
 		self.id = time()
 		self.mass *= m_sun

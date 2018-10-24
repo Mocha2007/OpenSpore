@@ -1,6 +1,6 @@
 from random import random, randint, uniform
 from math import e, exp, log, log10
-from constants import au, m2r, temp2, m_earth, m_browndwarf, m_gg, m_j, m_rock, r_j, r_sun, t_sun, soi, soi_moon
+from constants import au, m2r, temp2, m_earth, m_browndwarf, m_gg, m_j, m_rock, r_j, r_sun, t_sun, soi, soi_moon, m_sun
 from constants import atmchems, c_e, c_j # for atm
 from constants import getmb # for pradius
 from orbit import rporbit
@@ -135,6 +135,13 @@ class System: # no type annotation since function can't be annotated
 		contents = []
 		sma = au * (star.temperature/t_sun)**2 * star.radius/r_sun / 5 # 3 too low
 		for i in range(randint(1, 9)):
-			sma *= uniform(1.38, 2.02)  # e/v u/s
-			contents.append((i, Planet(self, sma, lambda: planetnamegen(star.name, i), moonnamegen, resourcegen)))
+			while 1:
+				sma *= uniform(1.38, 2.02)  # e/v u/s
+				attempt = Planet(self, sma, lambda: planetnamegen(star.name, i), moonnamegen, resourcegen)
+				limit = star.radius * 4.5 # WD 1202-024 B (est.)
+				if limit < attempt.orbit.sma:
+					contents.append((i, attempt))
+					break
+				else:
+					sma = limit
 		self.bodies = contents

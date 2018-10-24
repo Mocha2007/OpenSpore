@@ -13,9 +13,12 @@ greek = 'αβγδεζηθικλμνξοπρστυφχψω'
 vowels = 'aeiou'
 
 # astro
+ld = 384399000
 au = 149597870700
 g = 6.67408e-11
-year = 365.2425 * 24 * 60 * 60
+hour = 60 * 60
+day = 24 * hour
+year = 365.2425 * day
 g_earth = 9.807
 m_earth = 5.97237e24
 # m_airless = 1.3e23 # must be less than titan
@@ -23,8 +26,9 @@ m_gg = m_earth * 10
 m_ig = 3e26 # estimate; b/w nep and sat
 m_j = 1.8982e27
 m_rock = 1.8e-5 * m_j # smallest known exoplanet: http://exoplanets.org/detail/KOI_6705.01
-m_sun = 1.9885e30
 m_browndwarf = 13 * m_j
+m_sun = 1.9885e30
+m_star = .075 * m_sun
 p_earth = 101325
 # https://www.physicsforums.com/threads/what-air-pressure-can-the-human-body-survive.333248/
 # "72mm of Mercury as the minimal inspired partial pressure of Oxygen"

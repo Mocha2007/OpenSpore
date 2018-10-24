@@ -11,7 +11,10 @@ colorMap = {
 	'F': Color(255, 255, 128),
 	'G': Color(255, 255, 0),
 	'K': Color(255, 128, 0),
-	'M': Color(255, 0, 0)
+	'M': Color(255, 0, 0),
+	'L': Color(224, 48, 32),
+	'T': Color(176, 48, 80),
+	'Y': Color(96, 80, 96)
 }
 planetMap = {
 	'supercritical fluid': Color(255, 0, 255),

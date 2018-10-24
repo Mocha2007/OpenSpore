@@ -217,8 +217,18 @@ def showsystem():
 		elif common.dist(mousepos, coords) <= radius:
 			# hover info
 			t = planet.name
-			t += '\n'+str(round(planet.orbit.sma/common.au, 3))+' au'
-			t += '\n'+str(round(planet.orbit.period()/common.year, 3))+' y'
+			sma = planet.orbit.sma
+			if common.au/10 < sma:
+				t += '\n'+str(round(planet.orbit.sma/common.au, 3))+' au'
+			else:
+				t += '\n'+str(round(planet.orbit.sma/common.ld, 3))+' LD'
+			period = planet.orbit.period()
+			if common.year < period:
+				t += '\n'+str(round(period/common.year, 3))+' y'
+			elif common.day < period:
+				t += '\n'+str(round(period/common.day, 3))+' d'
+			else:
+				t += '\n'+str(round(period/common.hour, 3))+' h'
 			common.text(t, screen, (coords[0], coords[1]+10, coords[0]+150, 0), darkColor, lightColor)
 			# switch focus if LMB is held down
 			if pygame.mouse.get_pressed()[0]:
@@ -382,7 +392,7 @@ open('openspore.log', 'a+').write('\nGENERATION START '+str(time()))
 g = galaxy.Galaxy(stargen.main, starnamegen.main, planetnamegen.main, moonnamegen.main, systemclass.System, resgen.main)
 open('openspore.log', 'a+').write('\nGENERATION END '+str(time()))
 # plotting + reset
-# plot.planet(g, plot.p_m, plot.p_rho, xlog=True, ylog=True, point='.')
+# plot.body(g, plot.mass, plot.rho, xlog=True, ylog=True, point='.')
 # screen = pygame.display.set_mode(size)
 
 # main
