@@ -295,6 +295,8 @@ def showsystem():
 				for resource in planet.resources:
 					t += '\n\t'+resource.name
 					t += '\n\t\t$'+str(resource.value)+'/u'
+			# life!
+			t += '\nBiodiversity: '+str(len(planet.life))
 			# moons
 			try:
 				bmrv = common.bestmoonresource(planet).value
