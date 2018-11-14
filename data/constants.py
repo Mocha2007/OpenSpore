@@ -66,9 +66,10 @@ c_e = { # terran atmospheric composition by volume
 	'CH4': (1.79e-6, 1.79e-6),
 	'H2O': (1e-5, .05), # earth <> earth
 	'HF': (1e-9, 5e-9), # venus <> venus
-	'Ne': (1.818e-5, 1.818e-5),
+	'Ne': (2.5e-6, 1.818e-5), # mars <> earth
 	'CO': (1e-7, 5.57e-4), # earth <> mars
 	'N2': (.0189, .78084), # mars <> earth
+	'NO': (1e-4, 1e-4), # mars <> mars
 	'O2': (1.46e-3, .20946), # mars <> earth
 	'HCl': (1e-7, 6e-7), # venus <> venus
 	'Ar': (7e-5, .0193), # venus <> mars
@@ -76,8 +77,8 @@ c_e = { # terran atmospheric composition by volume
 	'N2O': (5e-7, 5e-7),
 	'NO2': (2e-8, 2e-8),
 	'SO2': (1e-6, 1.5e-4), # earth <> venus
-	'Kr': (1.14e-6, 1.14e-6),
-	'Xe': (9e-8, 9e-8),
+	'Kr': (3e-7, 1.14e-6), # mars <> earth
+	'Xe': (8e-8, 9e-8), # mars <> earth
 }
 
 molmass = {
@@ -91,6 +92,7 @@ molmass = {
 	'Ne': 20.1797,
 	'CO': 28.01,
 	'N2': 28.014,
+	'NO': 30.01,
 	'C2H6': 30.06,
 	'O2': 31.998,
 	'PH3': 33.998,

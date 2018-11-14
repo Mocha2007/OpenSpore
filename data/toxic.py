@@ -2,6 +2,7 @@ from constants import p_hab, p_earth
 
 toxic = { # IDLH of compounds
 	'CO': 1.2e-3,
+	'NO': 1e-4, # https://www.cdc.gov/niosh/npg/npgd0448.html
 	'SO2': 1e-4,
 	'HCl': 5e-5,
 	'PH3': 5e-5,
