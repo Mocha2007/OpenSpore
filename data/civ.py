@@ -9,10 +9,11 @@ from math import log
 
 
 class Civ:
-	def __init__(self, npc: bool):
+	def __init__(self, npc: bool, planet):
 		self.npc = npc
 		self.cash = 1e5
 		self.inv = [] # (Resource, count)
+		self.id = planet.orbit.primary.id
 
 	def toggle_control(self):
 		self.npc = not self.npc
@@ -23,5 +24,5 @@ def civgen(p):
 	if len(p.life) < 18:
 		return None
 	if True or .5 ** log(len(p.life), 6) < random():
-		return Civ(True)
+		return Civ(True, p)
 	return None
