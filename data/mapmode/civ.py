@@ -3,8 +3,9 @@ from random import randint, seed
 sys.path.append('./data')
 from civ import Civ
 from color import Color
-from constants import grey
 from system import System, Planet
+
+grey = Color(32, 32, 32)
 
 
 def civcolor(civ: Civ) -> int:
