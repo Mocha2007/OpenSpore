@@ -1,6 +1,8 @@
 from constants import ishab
 from toxic import istox
 from random import random, randint
+sys.path.append('./name')
+from benis import main as name
 
 
 class Life:
@@ -9,7 +11,7 @@ class Life:
 
 
 def rlife() -> Life:
-	return Life(name='dingus')
+	return Life(name=name())
 
 
 def lifegen(p) -> list:
