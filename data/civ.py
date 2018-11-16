@@ -1,7 +1,8 @@
 from random import random
 from math import log
 from resource import Resource
-sys.path.append('./name')
+import sys
+sys.path.append('./data/name')
 from benis import main as name
 # Empire Class
 # 	-> npc: bool
