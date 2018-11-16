@@ -69,7 +69,7 @@ c_e = { # terran atmospheric composition by volume
 	'Ne': (2.5e-6, 1.818e-5), # mars <> earth
 	'CO': (1e-7, 5.57e-4), # earth <> mars
 	'N2': (.0189, .78084), # mars <> earth
-	'NO': (1e-4, 1e-4), # mars <> mars
+	'NO': (1e-6, 1e-4), # to fix errors <> mars
 	'O2': (1.46e-3, .20946), # mars <> earth
 	'HCl': (1e-7, 6e-7), # venus <> venus
 	'Ar': (7e-5, .0193), # venus <> mars

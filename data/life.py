@@ -14,7 +14,7 @@ def rlife() -> Life:
 
 def lifegen(p) -> list:
 	"""p of type Planet"""
-	if random() < .5 or not ishab(p) or istox(p):
+	if not ishab(p) or istox(p):
 		# see https://en.wikipedia.org/wiki/Drake_equation#Fraction_of_the_above_that_actually_go_on_to_develop_life,_fl
 		return []
 	# only 50/50 for when it is hab

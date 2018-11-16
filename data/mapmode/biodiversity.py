@@ -1,11 +1,13 @@
 import sys
 sys.path.append('./data')
 from color import Color
-from system import System
+from system import System, Planet
 from math import log
 
 
 def viridity(p: Planet) -> int:
+	if p.civ:
+		return 256
 	if p.life:
 		return min(len(p.life), 255)
 	return 0
@@ -14,6 +16,8 @@ def viridity(p: Planet) -> int:
 def v2c(vir: int) -> Color:
 	if vir == 0:
 		return Color(64, 64, 64)
+	if vir == 256:
+		return Color(255, 0, 0)
 	if vir <= 13:
 		return Color(0, 59 + vir**2, 0)
 	light = min(round(log(vir)**2), 255)

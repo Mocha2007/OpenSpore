@@ -5,6 +5,7 @@ from constants import atmchems, c_e, c_j # for atm
 from constants import getmb # for pradius
 from orbit import rporbit
 from life import lifegen
+from civ import civgen
 
 
 def chemrange(minimum: float, maximum: float) -> float:
@@ -128,6 +129,7 @@ class Planet: # no type annotation since function can't be annotated
 		}
 		self.resources = resourcegen(**data)
 		self.life = lifegen(self)
+		self.civ = civgen(self)
 
 
 class System: # no type annotation since function can't be annotated
