@@ -296,9 +296,15 @@ def showsystem():
 					t += '\n\t'+resource.name
 					t += '\n\t\t$'+str(resource.value)+'/u'
 			# life!
-			t += '\nBiodiversity: '+str(len(planet.life))+('+' if planet.civ else '')
+			t += '\n(l) Biodiversity: '+str(len(planet.life))+('+' if planet.civ else '')
 			if planet.civ:
 				t += '\n> ' + planet.civ.name
+			# life info
+			if planet.life and pygame.key.get_pressed()[pygame.K_l]:
+				t_a = ['Lifeforms']
+				for species in sorted(planet.life.title(), key=lambda x: x.name):
+					t_a.append(species.name)
+				common.text('\n'.join(t_a), screen, (ful[0] - 150, ful[1] + 310, ful[0]+1, 0), darkColor, lightColor)
 			# moons
 			try:
 				bmrv = common.bestmoonresource(planet).value
