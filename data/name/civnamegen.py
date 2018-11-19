@@ -1,15 +1,22 @@
-from random import choice, randint
+from random import choice, randint, random
 import sys
 sys.path.append('./data')
 from constants import rword
 
 types = (
-	('', ''),
+	'Confederation',
+	'Empire',
+	'Federation',
+	'Kingdom',
+	'Principality',
+	'Republic',
+	'Technate',
 )
 
 
 def main() -> str:
-	pre, post = choice(types)
+	t = choice(types)
 	primary = rword(randint(4, 13)) # Liechtenstein = 13
-	name = ' '.join([pre, primary.title(), post])
-	return name
+	if random() < .5:
+		return primary.title() + ' ' + t
+	return t + ' of ' + primary.title()
