@@ -3,7 +3,7 @@ from toxic import istox
 from random import random, randint
 import sys
 sys.path.append('./data/name')
-from benis import main as name
+from lifenamegen import main as name
 
 
 class Life:
