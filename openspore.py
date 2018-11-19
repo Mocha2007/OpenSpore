@@ -296,7 +296,7 @@ def showsystem():
 					t += '\n\t'+resource.name
 					t += '\n\t\t$'+str(resource.value)+'/u'
 			# life!
-			t += '\nBiodiversity: '+str(len(planet.life))+('!' if planet.civ else '')
+			t += '\nBiodiversity: '+str(len(planet.life))+('+' if planet.civ else '')
 			if planet.civ:
 				t += '\n> ' + planet.civ.name
 			# moons

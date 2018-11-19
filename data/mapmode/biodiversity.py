@@ -19,7 +19,7 @@ def v2c(vir: int) -> Color:
 	if vir == 256:
 		return Color(255, 0, 0)
 	if vir <= 13:
-		return Color(0, 59 + vir**2, 0)
+		return Color(0, 57+11*vir, 0)
 	light = min(round(log(vir)**2), 255)
 	return Color(light, 255, light)
 
