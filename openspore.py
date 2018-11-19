@@ -302,8 +302,8 @@ def showsystem():
 			# life info
 			if planet.life and pygame.key.get_pressed()[pygame.K_l]:
 				t_a = ['Lifeforms']
-				for species in sorted(planet.life.title(), key=lambda x: x.name):
-					t_a.append(species.name)
+				for species in sorted(planet.life, key=lambda x: x.name):
+					t_a.append(species.name.title())
 				common.text('\n'.join(t_a), screen, (ful[0] - 150, ful[1] + 310, ful[0]+1, 0), darkColor, lightColor)
 			# moons
 			try:
