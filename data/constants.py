@@ -2,6 +2,7 @@ from math import atan2, ceil, pi
 from random import uniform
 import pygame
 import sys
+from random import choice
 sys.path.append('./data')
 from chem import Chem
 from color import Color
@@ -11,6 +12,11 @@ alphabet = 'abcdefghijklmnopqrstuvwxyz'
 digits = '0123456789'
 greek = 'αβγδεζηθικλμνξοπρστυφχψω'
 vowels = 'aeiou'
+
+
+def rword(n: int) -> str:
+	return ''.join([choice(alphabet) for _ in range(n)])
+
 
 # astro
 ld = 384399000

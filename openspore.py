@@ -297,6 +297,8 @@ def showsystem():
 					t += '\n\t\t$'+str(resource.value)+'/u'
 			# life!
 			t += '\nBiodiversity: '+str(len(planet.life))+('!' if planet.civ else '')
+			if planet.civ:
+				t += '\n> ' + planet.civ.name
 			# moons
 			try:
 				bmrv = common.bestmoonresource(planet).value

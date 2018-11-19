@@ -3,7 +3,7 @@ from math import log
 from resource import Resource
 import sys
 sys.path.append('./data/name')
-from benis import main as name
+from civnamegen import main as name
 # Empire Class
 # 	-> npc: bool
 # 	-> cash: int
