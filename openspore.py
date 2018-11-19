@@ -462,6 +462,10 @@ while 1:
 				currentchem %= len(common.lifechems)
 			elif event.key in planetkeys: # planet foci
 				focusPlanet = planetkeys.index(event.key)
+			elif event.key == pygame.K_KP_PLUS: # zoom
+				zoom *= 2
+			elif event.key == pygame.K_KP_MINUS: # zoom
+				zoom /= 2
 	# pressed keys
 	pressed = pygame.key.get_pressed()
 	if pressed[pygame.K_DOWN]:
