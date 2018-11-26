@@ -3,20 +3,35 @@ import sys
 sys.path.append('./data')
 from constants import rword
 
+
+def forename(n: str):
+	return lambda name: n + ' of ' + name
+
+
+def hindname(n: str):
+	return lambda name: name + ' ' + n
+
+
+def bothname(n: str):
+	return forename(n) if random() < .5 else hindname(n)
+
+
+# type, string
 types = (
-	'Confederation',
-	'Empire',
-	'Federation',
-	'Kingdom',
-	'Principality',
-	'Republic',
-	'Technate',
+	(bothname, 'Commonwealth'),
+	(bothname, 'Confederacy'),
+	(bothname, 'Confederation'),
+	(bothname, 'Empire'),
+	(bothname, 'Federation'),
+	(bothname, 'Kingdom'),
+	(bothname, 'Principality'),
+	(bothname, 'Republic'),
+	(bothname, 'State'),
+	(bothname, 'Technate'),
 )
 
 
 def main() -> str:
-	t = choice(types)
-	primary = rword(randint(4, 13)) # Liechtenstein = 13
-	if random() < .5:
-		return primary.title() + ' ' + t
-	return t + ' of ' + primary.title()
+	f, t = choice(types)
+	primary = rword(randint(4, 13)).title() # Liechtenstein = 13
+	return f(t)(primary)
