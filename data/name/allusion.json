@@ -9,7 +9,14 @@
 	"Sol": "G"
   },
   "KSP": {
-	"Kerbol": "MK"
+	"Dres": ".",
+	"Duna": ".",
+	"Eeloo": ".",
+	"Eve": ".",
+	"Jool": "LTY",
+	"Kerbin": ".",
+	"Kerbol": "MK",
+	"Moho": "."
   },
   "Namei": {
 	"Namei": "K"
@@ -19,7 +26,9 @@
 	"Nyrath": "."
   },
   "Skyrim": {
-	"Nirn": "."
+	"Masser": ".",
+	"Nirn": ".",
+	"Secunda": "."
   },
   "Star Wars": {
 	"Alderaan": ".",
