@@ -89,6 +89,15 @@
   "Spore": {
 	"Grox": "."
   },
+  "Starcraft": {
+	"Protoss": ".",
+	"Pylon": ".",
+	"Vespene": "."
+  },
+  "Star Trek": {
+	"Qo'noS": "G",
+	"Vulcan": "K"
+  },
   "Star Wars": {
 	"Alderaan": "G",
 	"Coruscant": "B",
