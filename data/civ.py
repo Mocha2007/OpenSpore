@@ -1,4 +1,4 @@
-from random import randint, random, seed
+from random import choice, randint, random, seed
 from math import log
 from resource import Resource
 from color import Color
@@ -11,6 +11,16 @@ from civnamegen import main as name
 # 	-> inv: list of tuples of (item: Resource, count: int)
 #
 # Empires will have a 50% chance of generating on world with biodiversity 6
+goal_list = (
+	'cash',
+	'colony',
+	'resource',
+	'war'
+)
+
+
+def r_goal() -> str:
+	return choice(goal_list)
 
 
 class Civ:
@@ -18,9 +28,12 @@ class Civ:
 		self.npc = npc
 		self.cash = 1e5
 		self.inv = {} # (Resource, count)
+		self.inv_hist = [] # list of invs
 		self.id = planet.orbit.primary.id
 		self.name = name()
+		seed(self.id)
 		self.color = Color(0, randint(64, 255), randint(64, 255))
+		self.goal = r_goal() # AI's current project
 
 	def __add__(self, other):
 		assert type(other) in (float, int, Resource)
@@ -45,6 +58,20 @@ class Civ:
 	def toggle_control(self):
 		self.npc = not self.npc
 		return self
+
+	def delta(self, resource: Resource, indices_ago: int) -> float:
+		try:
+			now = self.inv[resource]
+		except KeyError:
+			now = 0
+		try:
+			then = self.inv_hist[-indices_ago][resource]
+		except KeyError:
+			then = 0
+		return now - then
+
+	def value(self) -> float:
+		return sum([resource.value*quantity for resource, quantity in self.inv.items()])
 
 
 def civgen(p):
