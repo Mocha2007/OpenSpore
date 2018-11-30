@@ -90,8 +90,15 @@
 	"Grox": "."
   },
   "Star Wars": {
-	"Alderaan": ".",
-	"Coruscant": "MK"
+	"Alderaan": "G",
+	"Coruscant": "B",
+	"Hoth": "B",
+	"Ibleam": "AFG",
+	"Kashyyyk": "G",
+	"Mandalore": "G",
+	"Naboo": "G",
+	"Tatoo": "G",
+	"Yavin": "K"
   },
   "Stellaris": {
 	"Blorg": "F",
