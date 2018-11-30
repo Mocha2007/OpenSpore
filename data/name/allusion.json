@@ -21,6 +21,13 @@
 	"Sanctuary": "Y",
 	"Winterhome": "Y"
   },
+  "Hidden Dimensions": {
+	"Ca'ania": ".",
+	"Xyloxi": ".",
+	"Caes'cix": ".",
+	"Rivi'i": ".",
+	"Mith'ri'aeil": "."
+  },
   "Interstellar": {
 	"Gargantua": "X"
   },
@@ -53,6 +60,14 @@
 	"Elon": ".",
 	"Musk": ".",
 	"Nyrath": "."
+  },
+  "Outer Wilds": {
+	"Brittle Hollow": ".",
+	"Dark Bramble": ".",
+	"Giant's Deep": ".",
+	"Hourglass Twins": ".",
+	"The Nomad": ".",
+	"Timber Hearth": "."
   },
   "Paradox": {
 	"Chirpy": ".",
