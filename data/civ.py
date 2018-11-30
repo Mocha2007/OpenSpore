@@ -27,13 +27,16 @@ class Civ:
 	def __init__(self, npc: bool, planet):
 		self.npc = npc
 		self.cash = 1e5
-		self.inv = {} # (Resource, count)
+		self.inv = {} # Resource -> count (int)
 		self.inv_hist = [] # list of invs
 		self.id = planet.orbit.primary.id
+		self.home = planet # original homeworld
 		self.name = name()
 		seed(self.id)
 		self.color = Color(0, randint(64, 255), randint(64, 255))
 		self.goal = r_goal() # AI's current project
+		self.diplo = {} # civ.id (float) -> state (str)
+		print(self) # debug
 
 	def __add__(self, other):
 		assert type(other) in (float, int, Resource)
