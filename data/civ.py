@@ -77,7 +77,7 @@ class Civ:
 		now = self.cash
 		try:
 			then = self.cash_hist[-indices_ago]
-		except KeyError:
+		except IndexError:
 			then = 0
 		return now - then
 

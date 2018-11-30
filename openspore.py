@@ -493,6 +493,11 @@ while 1:
 		moonskip -= 1
 	if pressed[pygame.K_KP_PLUS]:
 		moonskip += 1
+	if pressed[pygame.K_PERIOD]:
+		# galaxy change!
+		g = sim.main(g)
+		if int(time()) % 2 == 0:
+			common.text('>>> x1 >>>', screen, (-1, 20, 0, 0), darkColor, lightColor)
 	# focusSystem is of type System
 	showsystem()
 	# infobox
@@ -510,5 +515,3 @@ while 1:
 	screen.blit(label, (0, size[1]-20))
 	# finish
 	refresh()
-	# galaxy change!
-	g = sim.main(g)
