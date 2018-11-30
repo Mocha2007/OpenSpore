@@ -2,6 +2,16 @@
   "Clarke": {
 	"Rama": "."
   },
+  "D&D": {
+	"Eberron": ".",
+	"Jakandor": ".",
+	"Kara-Tur": ".",
+	"Mahasarpa": ".",
+	"Mystara": ".",
+	"Pelinore": ".",
+	"Ravnica": ".",
+	"Rokugan": "."
+  },
   "EU4": {
 	"Ulm": "."
   },
@@ -21,6 +31,10 @@
 	"Kerbol": "MK",
 	"Moho": "."
   },
+  "LOTR": {
+	"Gondor": ".",
+	"Mordor": "."
+  },
   "Memes": {
 	"Urf": "G"
   },
@@ -29,14 +43,11 @@
   },
   "Names": {
 	"Clarke": ".",
+	"Elon": ".",
 	"Hawking": "X",
+	"Musk": ".",
 	"Nyrath": ".",
 	"Sagan": "."
-  },
-  "Skyrim": {
-	"Masser": ".",
-	"Nirn": ".",
-	"Secunda": "."
   },
   "Star Wars": {
 	"Alderaan": ".",
@@ -50,6 +61,25 @@
 	"Irass": ".",
 	"Vultaumar": ".",
 	"Yuhtaan": "."
+  },
+  "TES": {
+	"Masser": ".",
+	"Nirn": ".",
+	"Tamriel": ".",
+	"Secunda": ".",
+
+	"Alftand": ".",
+	"Arkngthamz": ".",
+	"Avanchnzel": ".",
+	"Bthalft": ".",
+	"Bthardamz": ".",
+	"Irkngthand": ".",
+	"Kagrenzel": ".",
+	"Mzinchaleft": ".",
+	"Mzulft": ".",
+	"Nchuand-Zel": ".",
+	"Raldbthar": ".",
+	"Rkund": "."
   },
   "Verduria": {
 	"Ënomai": "G"

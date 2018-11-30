@@ -1,6 +1,7 @@
 from random import choice
 from json import load
 
+# Generates ~1000 stars so need at least that many names
 names = load(open('data/name/allusion.json', encoding="utf-8"))
 sets = {}
 for _, name_list in names.items():
