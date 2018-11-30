@@ -1,9 +1,20 @@
 {
+  "Any": [
+	"Cybrex Alpha",
+	"Fen Habbanis",
+	"Irass",
+	"Vultaumar",
+	"Yuhtaan"
+  ],
   "Black Hole": [
 	"Gargantua",
 	"Zathura"
   ],
   "G": [
+	"Ënomai",
 	"Sol"
+  ],
+  "K": [
+	"Namei"
   ]
 }
