@@ -1,4 +1,7 @@
 {
+  "Clarke": {
+	"Rama": "."
+  },
   "EU4": {
 	"Ulm": "."
   },
@@ -18,12 +21,17 @@
 	"Kerbol": "MK",
 	"Moho": "."
   },
+  "Memes": {
+	"Urf": "G"
+  },
   "Namei": {
 	"Namei": "K"
   },
   "Names": {
+	"Clarke": ".",
 	"Hawking": "X",
-	"Nyrath": "."
+	"Nyrath": ".",
+	"Sagan": "."
   },
   "Skyrim": {
 	"Masser": ".",
