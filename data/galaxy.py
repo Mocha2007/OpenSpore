@@ -16,7 +16,7 @@ maxZ = 30
 class Galaxy: # no type annotation since function can't be annotated
 	def __init__(self, stargen, starnamegen, planetnamegen, moonnamegen, SystemClass, resourcegen):
 		# generate home star
-		home = (0, 0, 0), SystemClass(Star(1, 'Home'), planetnamegen, moonnamegen, resourcegen)
+		home = (0, 0, 0), SystemClass(Star(1, lambda x: 'Home'), planetnamegen, moonnamegen, resourcegen)
 		starList = [home]
 		# generate stars until ten failed placements in a row
 		failures = 0
@@ -38,7 +38,7 @@ class Galaxy: # no type annotation since function can't be annotated
 			for star in starList:
 				if dist(star[0], site) < minDistance:
 					continue
-			newStar = Star(stargen(), starnamegen())
+			newStar = Star(stargen(), starnamegen)
 			starList.append(
 				(site, SystemClass(newStar, planetnamegen, moonnamegen, resourcegen))
 			)

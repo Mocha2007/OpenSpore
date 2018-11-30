@@ -4,7 +4,7 @@ sys.path.append('./data')
 from constants import alphabet, digits
 
 
-def main() -> str:
+def main(*_) -> str:
 	name = ''
 	for i in range(3):
 		name += choice(alphabet)

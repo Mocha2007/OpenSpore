@@ -95,5 +95,5 @@ constellations = (
 )
 
 
-def main() -> str:
+def main(*_) -> str:
 	return choice(greek) + ' ' + choice(constellations)
