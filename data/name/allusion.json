@@ -1,21 +1,25 @@
 {
-  "Any": [
-	"_Stellaris",
-	"Cybrex Alpha",
-	"Fen Habbanis",
-	"Irass",
-	"Vultaumar",
-	"Yuhtaan"
-  ],
-  "Black Hole": [
-	"Gargantua",
-	"Zathura"
-  ],
-  "G": [
-	"Ënomai",
-	"Sol"
-  ],
-  "K": [
-	"Namei"
-  ]
+  "Interstellar": {
+	"Gargantua": "X"
+  },
+  "IRL": {
+	"Sol": "G"
+  },
+  "Namei": {
+	"Namei": "K"
+  },
+  "Stellaris": {
+	"Cybrex Alpha": ".",
+	"Dathnak": "LTY",
+	"Fen Habbanis": ".",
+	"Irass": ".",
+	"Vultaumar": ".",
+	"Yuhtaan": "."
+  },
+  "Verduria": {
+	"Ënomai": "G"
+  },
+  "Zathura": {
+	"Zathura": "X"
+  }
 }
