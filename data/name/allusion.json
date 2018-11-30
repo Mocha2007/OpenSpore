@@ -12,8 +12,9 @@
 	"Ravnica": ".",
 	"Rokugan": "."
   },
-  "EU4": {
-	"Ulm": "."
+  "Frostpunk": {
+	"Sanctuary": "Y",
+	"Winterhome": "Y"
   },
   "Interstellar": {
 	"Gargantua": "X"
@@ -44,10 +45,34 @@
   "Names": {
 	"Clarke": ".",
 	"Elon": ".",
-	"Hawking": "X",
 	"Musk": ".",
-	"Nyrath": ".",
-	"Sagan": "."
+	"Nyrath": "."
+  },
+  "Paradox": {
+	"Chirpy": ".",
+	"Ulm": "Y"
+  },
+  "Scientists": {
+	"Batygin": "LTY",
+	"Brahe": "G",
+	"Brown": "LTY",
+	"Copernicus": "G",
+	"Galileo": ".",
+	"Einstein": "GX",
+	"Halley": ".",
+	"Hawking": "X",
+	"Herschel": ".",
+	"Hubble": ".",
+	"Huygens": ".",
+	"Kepler": "G",
+	"Lagrange": ".",
+	"Laplace": ".",
+	"Messier": ".",
+	"Newton": ".",
+	"Planck": ".",
+	"Sagan": ".",
+	"Tesla": ".",
+	"Tombaugh": "."
   },
   "Star Wars": {
 	"Alderaan": ".",
