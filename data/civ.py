@@ -12,7 +12,7 @@ from civnamegen import main as name
 #
 # Empires will have a 50% chance of generating on world with biodiversity 6
 goal_list = (
-	'cash',
+	'$',
 	'colony',
 	'resource',
 	'war'
@@ -27,6 +27,7 @@ class Civ:
 	def __init__(self, npc: bool, planet):
 		self.npc = npc
 		self.cash = 1e5
+		self.cash_hist = []
 		self.inv = {} # Resource -> count (int)
 		self.inv_hist = [] # list of invs
 		self.id = planet.orbit.primary.id
@@ -36,7 +37,6 @@ class Civ:
 		self.color = Color(0, randint(64, 255), randint(64, 255))
 		self.goal = r_goal() # AI's current project
 		self.diplo = {} # civ.id (float) -> state (str)
-		print(self) # debug
 
 	def __add__(self, other):
 		assert type(other) in (float, int, Resource)
@@ -73,8 +73,28 @@ class Civ:
 			then = 0
 		return now - then
 
+	def cashflow(self, indices_ago: int) -> float:
+		now = self.cash
+		try:
+			then = self.cash_hist[-indices_ago]
+		except KeyError:
+			then = 0
+		return now - then
+
 	def value(self) -> float:
 		return sum([resource.value*quantity for resource, quantity in self.inv.items()])
+
+	def refresh_goal(self):
+		self.goal = r_goal()
+		return self
+
+	def update_hist(self):
+		self.cash_hist.append(self.cash)
+		self.inv_hist.append(self.inv)
+		# trim histories for mem
+		self.cash_hist = self.cash_hist[-100:]
+		self.inv_hist = self.inv_hist[-100:]
+		return self
 
 
 def civgen(p):

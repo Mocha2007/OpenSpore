@@ -104,6 +104,9 @@ resgen = SourceFileLoader('resgen', 'data/resources/'+cfg['resourcegen'][0]+'.py
 # load plotting module
 plot = SourceFileLoader('plot', 'data/plot.py').load_module()
 
+# load sim module
+sim = SourceFileLoader('sim', 'data/sim.py').load_module()
+
 
 def shift() -> bool:
 	return pygame.key.get_pressed()[pygame.K_LSHIFT] or pygame.key.get_pressed()[pygame.K_RSHIFT]
@@ -507,3 +510,5 @@ while 1:
 	screen.blit(label, (0, size[1]-20))
 	# finish
 	refresh()
+	# galaxy change!
+	g = sim.main(g)
