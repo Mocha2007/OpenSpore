@@ -16,5 +16,4 @@ def main(star) -> str:
 	sources = set(sets['.']) # gotta make it a new set
 	if star.type in sets:
 		sources = sources.union(sets[star.type])
-	print(sources)
 	return choice(list(sources))

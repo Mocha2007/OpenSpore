@@ -1,14 +1,28 @@
 {
+  "EU4": {
+	"Ulm": "."
+  },
   "Interstellar": {
 	"Gargantua": "X"
   },
   "IRL": {
 	"Sol": "G"
   },
+  "KSP": {
+	"Kerbol": "MK"
+  },
   "Namei": {
 	"Namei": "K"
   },
+  "Names": {
+	"Hawking": "X",
+	"Nyrath": "."
+  },
+  "Skyrim": {
+	"Nirn": "."
+  },
   "Star Wars": {
+	"Alderaan": ".",
 	"Coruscant": "MK"
   },
   "Stellaris": {
