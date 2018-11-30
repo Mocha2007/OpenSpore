@@ -1,6 +1,7 @@
-from random import random
+from random import randint, random, seed
 from math import log
 from resource import Resource
+from color import Color
 import sys
 sys.path.append('./data/name')
 from civnamegen import main as name
@@ -19,6 +20,7 @@ class Civ:
 		self.inv = {} # (Resource, count)
 		self.id = planet.orbit.primary.id
 		self.name = name()
+		self.color = Color(0, randint(64, 255), randint(64, 255))
 
 	def __add__(self, other):
 		assert type(other) in (float, int, Resource)
