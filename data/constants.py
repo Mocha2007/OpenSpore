@@ -443,6 +443,7 @@ def print_orbit(system, **kwargs):
 	orbit_map.fill((0, 0, 0))
 	if system.bodies:
 		scale = system.bodies[-1][1].orbit.sma # pixels per au
+		scale = .5 * size/scale # only 50% filled cause radius
 		# hab zone iff has planets (otherwise the program will hang)
 		# hab = scale * au * system.star.luminosity**.5
 		fargs = .3, system.star.radius, system.star.temperature
@@ -452,7 +453,7 @@ def print_orbit(system, **kwargs):
 		pygame.draw.circle(orbit_map, (0, 32, 0), center, radius, width)
 	else:
 		scale = system.star.radius
-	scale = .5 * size/scale # only 50% filled cause radius
+		scale = .5 * size/scale # only 50% filled cause radius
 	# star
 	radius = round(scale * system.star.radius)
 	pygame.draw.circle(orbit_map, star_color(system).rgb(), center, radius)
