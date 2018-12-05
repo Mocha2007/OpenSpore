@@ -6,11 +6,11 @@ from starcalc import Star
 from constants import dist
 
 # constants
-galaxyRadius = 30
+galaxyRadius = 100
 minDistance = 3 # ly
 maxDistance = 10 # ly
 tries = 10
-maxZ = 30
+# maxZ = 30
 
 
 class Galaxy: # no type annotation since function can't be annotated
@@ -32,8 +32,8 @@ class Galaxy: # no type annotation since function can't be annotated
 			if dist((0, 0, 0), site) > galaxyRadius:
 				continue
 			# make sure z isn't too high or low
-			if abs(site[2]) > maxZ:
-				continue
+			# if abs(site[2]) > maxZ:
+			# 	continue
 			# verify the site is not too close to another star
 			for star in starList:
 				if dist(star[0], site) < minDistance:
