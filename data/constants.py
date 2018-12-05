@@ -450,3 +450,79 @@ def print_orbit(system, **kwargs):
 		name_pos = center[0]-int(radius*.7), center[1]-int(radius*.7)
 		orbit_map.blit(name, name_pos)
 	pygame.image.save(orbit_map, 'orbit_map.png')
+
+
+def advplt(galaxy):
+	import matplotlib.pyplot as plt
+	sys.path.append('./surface/data')
+	from continental import gettype
+	type_to_count = {}
+	type_to_count2 = {}
+	type_to_count3 = {}
+	moons_vs_mass = {}
+	mass_vs_density = []
+	bwplt = []
+	for _, system in galaxy.stars:
+		typeof = system.star.type
+		if typeof in type_to_count:
+			type_to_count[typeof] += 1
+		else:
+			type_to_count[typeof] = 1
+		for _, planet in system.bodies:
+			bwplt.append(esi2(planet))
+			typeof = gettype(planet)
+			if typeof in type_to_count2:
+				type_to_count2[typeof] += 1
+			else:
+				type_to_count2[typeof] = 1
+			resource = planet.resources[0] if planet.resources else None
+			if resource in type_to_count3:
+				type_to_count3[resource] += 1
+			else:
+				type_to_count3[resource] = 1
+			mass_vs_density.append((planet.mass, density(planet.mass, planet.radius)))
+			# t vs moons
+			mooncount = len(planet.bodies)
+			mooncount = mooncount if mooncount < 10 else '10+'
+			if mooncount in moons_vs_mass:
+				moons_vs_mass[mooncount].append(planet.mass)
+			else:
+				moons_vs_mass[mooncount] = [planet.mass]
+
+	plt.subplot(2, 3, 1)
+	labels, types = zip(*type_to_count.items())
+	plt.pie(types, labels=labels, autopct='%1.1f%%')
+	plt.title('Stellar Classes')
+
+	plt.subplot(2, 3, 2)
+	labels, types = zip(*type_to_count2.items())
+	plt.pie(types, labels=labels, autopct='%1.1f%%')
+	plt.title('Planet Classes')
+
+	plt.subplot(2, 3, 3)
+	labels, types = zip(*type_to_count3.items())
+	plt.pie(types, labels=list(map(lambda r: r.name if r else 'None', labels)), autopct='%1.1f%%')
+	plt.title('Resources')
+
+	plt.subplot(2, 3, 4)
+	labels, types = zip(*moons_vs_mass.items())
+	plt.boxplot(types, labels=labels)
+	plt.yscale('log')
+	plt.xlabel('Moons')
+	plt.ylabel('Mass')
+	plt.title('Moon Count')
+
+	plt.subplot(2, 3, 5)
+	plt.scatter(*zip(*mass_vs_density))
+	plt.xscale('log')
+	plt.yscale('log')
+	plt.xlabel('Mass')
+	plt.ylabel('Density')
+	plt.title('Planet Mass vs. Density')
+
+	plt.subplot(2, 3, 6)
+	plt.boxplot([bwplt])
+	plt.ylabel('ESI')
+	plt.title('Planet ESI')
+
+	plt.show()

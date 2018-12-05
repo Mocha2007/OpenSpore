@@ -509,6 +509,8 @@ while 1:
 		# orbital diagram saving
 		common.print_orbit(focusSystem)
 		screen = pygame.display.set_mode(size)
+	if pressed[pygame.K_INSERT]:
+		common.advplt(g)
 	if pressed[pygame.K_ESCAPE]:
 		exit()
 	# focusSystem is of type System
