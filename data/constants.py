@@ -432,26 +432,29 @@ def print_orbit(system, **kwargs):
 	sys.path.append('./data/surface')
 	from planettype import planet as planet_color
 	from starclass import main as star_color
-	white = 255, 255, 255
+	# set up size
 	size = 1024
 	if 'size' in kwargs:
 		assert type(kwargs['size']) == int
 		size = kwargs['size']
 	center = size//2, size//2
-	scale = size / system.bodies[-1][1].orbit.sma # pixels per au
-	scale *= .5 # only 50% filled cause radius
 	orbit_map = pygame.display.set_mode((size, size))
 	orbit_map.fill((0, 0, 0))
+	if system.bodies:
+		scale = system.bodies[-1][1].orbit.sma # pixels per au
+		# hab zone iff has planets (otherwise the program will hang)
+		# hab = scale * au * system.star.luminosity**.5
+		fargs = .3, system.star.radius, system.star.temperature
+		inner, outer = temp2function(299)(*fargs), temp2function(229)(*fargs)
+		radius = round(scale * (outer+inner)/2)
+		width = round(scale * (outer-inner)/2)
+		pygame.draw.circle(orbit_map, (0, 32, 0), center, radius, width)
+	else:
+		scale = system.star.radius
+	scale = .5 * size/scale # only 50% filled cause radius
 	# star
 	radius = round(scale * system.star.radius)
 	pygame.draw.circle(orbit_map, star_color(system).rgb(), center, radius)
-	# hab zone
-	# hab = scale * au * system.star.luminosity**.5
-	fargs = .3, system.star.radius, system.star.temperature
-	inner, outer = temp2function(299)(*fargs), temp2function(229)(*fargs)
-	radius = round(scale * (outer+inner)/2)
-	width = round(scale * (outer-inner)/2)
-	pygame.draw.circle(orbit_map, (0, 32, 0), center, radius, width)
 	# planets
 	for _, planet in system.bodies:
 		radius = round(scale * planet.orbit.sma)
