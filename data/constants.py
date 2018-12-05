@@ -436,10 +436,10 @@ def print_orbit(system, **kwargs):
 	pygame.draw.circle(orbit_map, star_color(system).rgb(), center, radius)
 	# hab zone
 	# hab = scale * au * system.star.luminosity**.5
-	hab = scale * temp2function(255)(.3, system.star.radius, system.star.temperature)
-	inner, outer = hab*.725, hab*1.24
-	radius = round((outer+inner)/2)
-	width = round((outer-inner)/2)
+	fargs = .3, system.star.radius, system.star.temperature
+	inner, outer = temp2function(299)(*fargs), temp2function(229)(*fargs)
+	radius = round(scale * (outer+inner)/2)
+	width = round(scale * (outer-inner)/2)
 	pygame.draw.circle(orbit_map, (0, 32, 0), center, radius, width)
 	# planets
 	for _, planet in system.bodies:
