@@ -533,15 +533,15 @@ def advplt(galaxy):
 	plt.boxplot(types, labels=labels)
 	plt.yscale('log')
 	plt.xlabel('Moons')
-	plt.ylabel('Mass')
+	plt.ylabel('Mass (kg)')
 	plt.title('Moon Count')
 
 	plt.subplot(2, 3, 5)
 	plt.scatter(*zip(*mass_vs_density))
 	plt.xscale('log')
 	plt.yscale('log')
-	plt.xlabel('Mass')
-	plt.ylabel('Density')
+	plt.xlabel('Mass (kg)')
+	plt.ylabel('Density (kg/m^3)')
 	plt.title('Planet Mass vs. Density')
 
 	plt.subplot(2, 3, 6)
