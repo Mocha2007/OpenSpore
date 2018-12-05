@@ -23,7 +23,9 @@ def getclass(mass: float) -> str:
 		return 'A'
 	if mass < 16:
 		return 'B'
-	return 'O'
+	if mass < 100: # approximation - ~half of stars above this are WR
+		return 'O'
+	return 'WR'
 
 
 class Star:

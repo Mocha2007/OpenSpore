@@ -5,6 +5,7 @@ from system import System, Planet
 from constants import chemstate, water
 
 colorMap = {
+	'WR': Color(216, 143, 255),
 	'O': Color(0, 128, 255),
 	'B': Color(128, 192, 255),
 	'A': Color(255, 255, 255),
