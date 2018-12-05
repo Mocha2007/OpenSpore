@@ -265,6 +265,13 @@ def showsystem():
 				t += 'Mass: '+str(round(planet.mass/common.m_j, 3))+' M_J'
 			t += '\nRadius: '+str(round(planet.radius/1000))+' km'
 			t += '\nTemperature: '+str(round(planet.temp))+' K'
+			t += '\n(k) Show Climates'
+			if pygame.key.get_pressed()[pygame.K_k]:
+				water_string = 'Atm. H2O '+('present' if common.atmos_water(planet) else 'absent')
+				t_k = ['Climates', str(list(map(int, common.temprange(planet)))), water_string]
+				for j in sorted(list(common.possible_koppen(planet))):
+					t_k.append('\t' + j)
+				common.text('\n'.join(t_k), screen, (ful[0] - 150, ful[1] + 310, ful[0]+1, 0), darkColor, lightColor)
 			if shift():
 				t += '\nDensity: '+str(round(common.density(planet.mass, planet.radius)))+' kg/m^3'
 				t += '\nESI: '+str(round(common.esi2(planet), 3))

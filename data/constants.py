@@ -350,3 +350,63 @@ def getmb(a: (float, float), b: (float, float)) -> (float, float):
 	m = rise/run
 	b = a[1] - m*a[0]
 	return m, b
+
+
+def temprange(p) -> (float, float):
+	if p.atm is None:
+		return p.temp, p.temp
+	ratios = .63, 1/(5*p.atm+2)+1 # based on Earth and Mars
+	return ratios[0]*p.temp, ratios[1]*p.temp
+
+
+def atmos_water(p) -> bool:
+	return ('H2O' in p.atmosphere) and (water.melt < temprange(p)[1])
+
+
+def possible_koppen(p) -> set:
+	t_min, t_max = temprange(p)
+	haswater = atmos_water(p)
+	climates = set()
+	# A
+	if 291 < t_max:
+		climates = climates.union({'Am', 'As'})
+		if haswater:
+			climates.add('Af')
+	# B
+	if 291 < t_max:
+		climates.add('BWh')
+		if haswater:
+			climates.add('BSh')
+	if 283 < t_max and t_min < 291: # need max otherwise it'll include snowballs
+		climates.add('BWk')
+		if haswater:
+			climates.add('BSk')
+	# C
+	if 283 < t_max and t_min < 291:
+		if 295 < t_max:
+			climates.add('Cfa')
+			if haswater:
+				climates.union({'Cwa', 'Csa'})
+		climates = climates.union({'Cfb', 'Cfc'})
+		if haswater:
+			climates.union({'Cwb', 'Cwc', 'Csb', 'Csc'})
+	# D
+	if 283 < t_max and t_min < 273:
+		if 295 < t_max:
+			climates.add('Dfa')
+			if haswater:
+				climates.union({'Dwa', 'Dsa'})
+		climates = climates.union({'Dfb', 'Dfc'})
+		if haswater:
+			climates.union({'Dwb', 'Dwc', 'Dsb', 'Dsc'})
+		if t_min < 235:
+			climates.add('Dfd')
+			if haswater:
+				climates.union({'Dwd', 'Dsd'})
+	# ET
+	if 273 < t_max and t_min < 283:
+		climates.add('ET')
+	# EF
+	if t_min < 273:
+		climates.add('EF')
+	return climates
