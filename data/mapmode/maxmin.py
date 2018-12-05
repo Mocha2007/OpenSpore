@@ -3,7 +3,7 @@ from math import log
 sys.path.append('./data')
 from color import Color
 from system import System, Planet
-from constants import m_browndwarf, m_rock
+from constants import grey, m_browndwarf, m_rock
 
 
 def m2u(mass: float) -> float:
@@ -18,6 +18,8 @@ def m2c(minimum: float, maximum: float) -> Color:
 
 
 def main(system: System) -> Color:
+	if system.bodies == []:
+		return grey
 	maximum = 0
 	minimum = m_browndwarf
 	for _, p in system.bodies:
