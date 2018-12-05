@@ -153,6 +153,17 @@ lifechems = (
 	ammonia
 )
 
+planet_types = {
+	2: 'Rocky',
+	1: 'Hell',
+	0.5: 'Desert',
+	0.1: 'Toxic',
+	0: 'Terra',
+	-1: 'Snowball',
+	-2: 'Gas Giant',
+	-3: 'Ice Giant'
+}
+
 
 # functions
 def delta(a: tuple, b: tuple) -> tuple:
@@ -469,7 +480,7 @@ def advplt(galaxy):
 		else:
 			type_to_count[typeof] = 1
 		for _, planet in system.bodies:
-			typeof = gettype(planet)
+			typeof = planet_types[gettype(planet)]
 			if typeof in bwplt:
 				bwplt[typeof].append(esi2(planet))
 			else:
