@@ -489,11 +489,12 @@ def advplt(galaxy):
 				type_to_count2[typeof] += 1
 			else:
 				type_to_count2[typeof] = 1
-			resource = planet.resources[0] if planet.resources else None
-			if resource in type_to_count3:
-				type_to_count3[resource] += 1
-			else:
-				type_to_count3[resource] = 1
+			if planet.resources:
+				resource = planet.resources[0]
+				if resource in type_to_count3:
+					type_to_count3[resource] += 1
+				else:
+					type_to_count3[resource] = 1
 			mass_vs_density.append((planet.mass, density(planet.mass, planet.radius)))
 			# t vs moons
 			mooncount = len(planet.bodies)
@@ -516,7 +517,7 @@ def advplt(galaxy):
 	plt.subplot(2, 3, 3)
 	labels, types = zip(*type_to_count3.items())
 	plt.pie(types, labels=list(map(lambda r: r.name if r else 'None', labels)), autopct='%1.1f%%')
-	plt.title('Resources')
+	plt.title('Resources (Excludes None)')
 
 	plt.subplot(2, 3, 4)
 	labels, types = zip(*moons_vs_mass.items())
