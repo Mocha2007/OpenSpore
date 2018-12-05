@@ -25,6 +25,7 @@ g = 6.67408e-11
 hour = 60 * 60
 day = 24 * hour
 year = 365.2425 * day
+planet_form_time = 1e6 * year # liberal estimate; prolly higher
 g_earth = 9.807
 m_earth = 5.97237e24
 # m_airless = 1.3e23 # must be less than titan
