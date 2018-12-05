@@ -43,7 +43,7 @@ def main(**data):
 	t = data['system'].star.type
 	# h = spore_ishab(data['body'], data['system'].star)
 	h = water.melt < data['body'].temp < water.boil
-	if t in 'OBA':
+	if t in ('WR', 'O', 'B', 'A'):
 		if h:
 			return [bluespice]
 		return [choice([bluespice]*20 + [greenspice]*30 + [pinkspice]*35 + [purplespice]*15)]
