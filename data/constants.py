@@ -468,6 +468,10 @@ def print_orbit(system, **kwargs):
 	pygame.image.save(orbit_map, 'orbit_map.png')
 
 
+def mapping_prettify(mapping: dict) -> (tuple, tuple):
+	return zip(*sorted(mapping.items(), key=lambda x: x[0], reverse=True))
+
+
 def advplt(galaxy):
 	import matplotlib.pyplot as plt
 	sys.path.append('./surface/data')
@@ -510,17 +514,17 @@ def advplt(galaxy):
 				moons_vs_mass[mooncount] = [planet.mass]
 
 	plt.subplot(2, 3, 1)
-	labels, types = zip(*type_to_count.items())
-	plt.pie(types, labels=labels, autopct='%1.1f%%')
+	labels, types = mapping_prettify(type_to_count)
+	plt.pie(types, labels=labels, autopct='%1.1f%%') # , startangle=90
 	plt.title('Stellar Classes')
 
 	plt.subplot(2, 3, 2)
-	labels, types = zip(*type_to_count2.items())
+	labels, types = mapping_prettify(type_to_count2)
 	plt.pie(types, labels=labels, autopct='%1.1f%%')
 	plt.title('Planet Classes')
 
 	plt.subplot(2, 3, 3)
-	labels, types = zip(*type_to_count3.items())
+	labels, types = mapping_prettify(type_to_count3)
 	plt.pie(types, labels=list(map(lambda r: r.name if r else 'None', labels)), autopct='%1.1f%%')
 	plt.title('Resources (Excludes None)')
 
