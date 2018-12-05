@@ -11,6 +11,7 @@ for _, name_list in names.items():
 				sets[char].add(name)
 			else:
 				sets[char] = {name}
+# print(len(sets['.']), 'neutral starnames')
 
 
 def main(star) -> str:
