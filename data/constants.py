@@ -461,7 +461,7 @@ def advplt(galaxy):
 	type_to_count3 = {}
 	moons_vs_mass = {}
 	mass_vs_density = []
-	bwplt = []
+	bwplt = {}
 	for _, system in galaxy.stars:
 		typeof = system.star.type
 		if typeof in type_to_count:
@@ -469,8 +469,11 @@ def advplt(galaxy):
 		else:
 			type_to_count[typeof] = 1
 		for _, planet in system.bodies:
-			bwplt.append(esi2(planet))
 			typeof = gettype(planet)
+			if typeof in bwplt:
+				bwplt[typeof].append(esi2(planet))
+			else:
+				bwplt[typeof] = [esi2(planet)]
 			if typeof in type_to_count2:
 				type_to_count2[typeof] += 1
 			else:
@@ -521,7 +524,9 @@ def advplt(galaxy):
 	plt.title('Planet Mass vs. Density')
 
 	plt.subplot(2, 3, 6)
-	plt.boxplot([bwplt])
+	labels, types = zip(*bwplt.items())
+	plt.boxplot(types, labels=labels)
+	plt.xlabel('Type')
 	plt.ylabel('ESI')
 	plt.title('Planet ESI')
 
