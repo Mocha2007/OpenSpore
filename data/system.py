@@ -146,6 +146,4 @@ class System: # no type annotation since function can't be annotated
 				if limit < attempt.orbit.sma:
 					contents.append((i, attempt))
 					break
-				else:
-					sma = limit
 		self.bodies = contents
