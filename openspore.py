@@ -505,6 +505,12 @@ while 1:
 		g = sim.main(g)
 		if int(time()) % 2 == 0:
 			common.text('>>> x1 >>>', screen, (-1, 20, 0, 0), darkColor, lightColor)
+	if pressed[pygame.K_o]:
+		# orbital diagram saving
+		common.print_orbit(focusSystem)
+		screen = pygame.display.set_mode(size)
+	if pressed[pygame.K_ESCAPE]:
+		exit()
 	# focusSystem is of type System
 	showsystem()
 	# infobox

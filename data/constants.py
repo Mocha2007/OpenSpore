@@ -410,3 +410,43 @@ def possible_koppen(p) -> set:
 	if t_min < 273:
 		climates.add('EF')
 	return climates
+
+
+def temp2function(temp: float):
+	# albedo, stellar radius, stellar temp -> semimajor axis
+	return lambda a, r, t: t**2 * (1-a)**.5 * r/2/temp**2
+
+
+def print_orbit(system, **kwargs):
+	sys.path.append('./data/surface')
+	from planettype import planet as planet_color
+	from starclass import main as star_color
+	white = 255, 255, 255
+	size = 1024
+	if 'size' in kwargs:
+		assert type(kwargs['size']) == int
+		size = kwargs['size']
+	center = size//2, size//2
+	scale = size / system.bodies[-1][1].orbit.sma # pixels per au
+	scale *= .5 # only 50% filled cause radius
+	orbit_map = pygame.display.set_mode((size, size))
+	orbit_map.fill((0, 0, 0))
+	# star
+	radius = round(scale * system.star.radius)
+	pygame.draw.circle(orbit_map, star_color(system).rgb(), center, radius)
+	# hab zone
+	# hab = scale * au * system.star.luminosity**.5
+	hab = scale * temp2function(255)(.3, system.star.radius, system.star.temperature)
+	inner, outer = hab*.725, hab*1.24
+	radius = round((outer+inner)/2)
+	width = round((outer-inner)/2)
+	pygame.draw.circle(orbit_map, (0, 32, 0), center, radius, width)
+	# planets
+	for _, planet in system.bodies:
+		radius = round(scale * planet.orbit.sma)
+		p_color = planet_color(planet).rgb()
+		pygame.draw.circle(orbit_map, p_color, center, radius, 1)
+		name = font.render(planet.name, 1, p_color)
+		name_pos = center[0]-int(radius*.7), center[1]-int(radius*.7)
+		orbit_map.blit(name, name_pos)
+	pygame.image.save(orbit_map, 'orbit_map.png')
