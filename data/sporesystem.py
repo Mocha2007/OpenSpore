@@ -1,6 +1,6 @@
 from random import random, randint, uniform
 from system import Moon, atm, pmass, pradius
-from constants import m2r, temp2, m_gg, m_j, m_rock, r_j
+from constants import au, m2r, temp2, m_gg, m_j, m_rock, r_j, t_sun, r_sun, planet_form_time
 from orbit import rporbit
 from life import lifegen
 from civ import civgen
@@ -45,9 +45,17 @@ class System:
 	def __init__(self, star, planetnamegen, moonnamegen, resourcegen):
 		self.name = star.name
 		self.star = star
-		contents = []
-		sma = star.mass**2 / 3
-		for i in range(randint(1, 5)):
-			sma *= uniform(1.38, 2.02)  # e/v u/s
-			contents.append((i, Planet(self, sma, lambda: planetnamegen(star.name, i), moonnamegen, resourcegen)))
-		self.bodies = contents
+		# too young to form planets?
+		if star.lifespan < planet_form_time:
+			self.bodies = []
+		else:
+			contents = []
+			sma = au * (star.temperature/t_sun)**2 * star.radius/r_sun / 5 # 3 too low
+			limit = star.radius * 4.5 # WD 1202-024 B (est.)
+			while sma < limit:
+				sma *= 2
+			for i in range(randint(1, 5)):
+				attempt = Planet(self, sma, lambda: planetnamegen(star.name, i), moonnamegen, resourcegen)
+				contents.append((i, attempt))
+				sma *= uniform(1.38, 2.02)  # e/v u/s
+			self.bodies = contents
