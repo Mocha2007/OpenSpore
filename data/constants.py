@@ -468,8 +468,8 @@ def print_orbit(system, **kwargs):
 	pygame.image.save(orbit_map, 'orbit_map.png')
 
 
-def mapping_prettify(mapping: dict) -> (tuple, tuple):
-	return zip(*sorted(mapping.items(), key=lambda x: x[0], reverse=True))
+def mapping_prettify(mapping: dict, reverse: bool) -> (tuple, tuple):
+	return zip(*sorted(mapping.items(), key=lambda x: x[0], reverse=reverse))
 
 
 def advplt(galaxy):
@@ -514,22 +514,22 @@ def advplt(galaxy):
 				moons_vs_mass[mooncount] = [planet.mass]
 
 	plt.subplot(2, 3, 1)
-	labels, types = mapping_prettify(type_to_count)
+	labels, types = mapping_prettify(type_to_count, True)
 	plt.pie(types, labels=labels, autopct='%1.1f%%') # , startangle=90
 	plt.title('Stellar Classes')
 
 	plt.subplot(2, 3, 2)
-	labels, types = mapping_prettify(type_to_count2)
+	labels, types = mapping_prettify(type_to_count2, True)
 	plt.pie(types, labels=labels, autopct='%1.1f%%')
 	plt.title('Planet Classes')
 
 	plt.subplot(2, 3, 3)
-	labels, types = mapping_prettify(type_to_count3)
+	labels, types = mapping_prettify(type_to_count3, True)
 	plt.pie(types, labels=list(map(lambda r: r.name if r else 'None', labels)), autopct='%1.1f%%')
 	plt.title('Resources (Excludes None)')
 
 	plt.subplot(2, 3, 4)
-	labels, types = zip(*moons_vs_mass.items())
+	labels, types = zip(*sorted(moons_vs_mass.items(), key=lambda x: int(str(x[0])[:2])))
 	plt.boxplot(types, labels=labels)
 	plt.yscale('log')
 	plt.xlabel('Moons')
@@ -545,7 +545,7 @@ def advplt(galaxy):
 	plt.title('Planet Mass vs. Density')
 
 	plt.subplot(2, 3, 6)
-	labels, types = zip(*bwplt.items())
+	labels, types = mapping_prettify(bwplt, False)
 	plt.boxplot(types, labels=labels)
 	plt.xlabel('Type')
 	plt.ylabel('ESI')
