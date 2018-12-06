@@ -488,6 +488,7 @@ def advplt(galaxy):
 			type_to_count[typeof] += 1
 		else:
 			type_to_count[typeof] = 1
+		mass_vs_density.append((system.star.mass, density(system.star.mass, system.star.radius)))
 		for _, planet in system.bodies:
 			typeof = planet_types[gettype(planet)]
 			if typeof in bwplt:
@@ -542,7 +543,7 @@ def advplt(galaxy):
 	plt.yscale('log')
 	plt.xlabel('Mass (kg)')
 	plt.ylabel('Density (kg/m^3)')
-	plt.title('Planet Mass vs. Density')
+	plt.title('Body Mass vs. Density')
 
 	plt.subplot(2, 3, 6)
 	labels, types = mapping_prettify(bwplt, False)
