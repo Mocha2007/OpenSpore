@@ -1,6 +1,9 @@
 from random import random, randint, uniform
 from system import Moon, atm, pmass, pradius
 from constants import m2r, temp2, m_gg, m_j, m_rock, r_j
+from orbit import rporbit
+from life import lifegen
+from civ import civgen
 
 
 class Planet:
@@ -9,7 +12,7 @@ class Planet:
 		# radius
 		self.radius = pradius(self.mass)
 		# pressure
-		self.sma = sma
+		self.orbit = rporbit(system.star, sma)
 		self.temp = temp2(system.star, self)
 		self.atmosphere = atm(self)
 		if self.atmosphere and self.mass < m_gg:
@@ -34,6 +37,8 @@ class Planet:
 			'body': self
 		}
 		self.resources = resourcegen(**data)
+		self.life = lifegen(self)
+		self.civ = civgen(self)
 
 
 class System:
