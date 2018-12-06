@@ -26,6 +26,7 @@ hour = 60 * 60
 day = 24 * hour
 year = 365.2425 * day
 planet_form_time = 1e6 * year # liberal estimate; prolly higher
+universe_age = 13.799e9 * year
 g_earth = 9.807
 m_earth = 5.97237e24
 # m_airless = 1.3e23 # must be less than titan
@@ -484,6 +485,7 @@ def advplt(galaxy):
 	type_to_count = {}
 	type_to_count2 = {}
 	type_to_count3 = {}
+	type_to_count4 = {}
 	moons_vs_mass = {}
 	mass_vs_density = []
 	bwplt = {}
@@ -491,8 +493,10 @@ def advplt(galaxy):
 		typeof = system.star.type
 		if typeof in type_to_count:
 			type_to_count[typeof] += 1
+			type_to_count4[typeof].append(system.star.age)
 		else:
 			type_to_count[typeof] = 1
+			type_to_count4[typeof] = [system.star.age]
 		mass_vs_density.append((system.star.mass, density(system.star.mass, system.star.radius)))
 		for _, planet in system.bodies:
 			typeof = planet_types[gettype(planet)]
@@ -519,12 +523,12 @@ def advplt(galaxy):
 			else:
 				moons_vs_mass[mooncount] = [planet.mass]
 
-	plt.subplot(2, 4, 1)
+	plt.subplot(2, 5, 1)
 	labels, types = mapping_prettify(type_to_count, True)
 	plt.pie(types, labels=labels, autopct='%1.1f%%') # , startangle=90
 	plt.title('Stellar Classes')
 
-	plt.subplot(2, 4, 2)
+	plt.subplot(2, 5, 2)
 	type_to_countb = dict(type_to_count)
 	for i in ('WR', 'L', 'T', 'Y'):
 		try:
@@ -535,17 +539,7 @@ def advplt(galaxy):
 	plt.pie(types, labels=labels, autopct='%1.1f%%') # , startangle=90
 	plt.title('Main Sequence Stars')
 
-	plt.subplot(2, 4, 3)
-	labels, types = mapping_prettify(type_to_count2, True)
-	plt.pie(types, labels=labels, autopct='%1.1f%%')
-	plt.title('Planet Classes')
-
-	plt.subplot(2, 4, 4)
-	labels, types = mapping_prettify(type_to_count3, True)
-	plt.pie(types, labels=list(map(lambda r: r.name if r else 'None', labels)), autopct='%1.1f%%')
-	plt.title('Resources (Excludes None)')
-
-	plt.subplot(2, 4, 5)
+	plt.subplot(2, 5, 3)
 	type_to_countc = {'Main Sequence': 0, 'Brown Dwarf': 0, 'Giant': 0}
 	for i, j in type_to_count.items():
 		if i == 'WR':
@@ -558,7 +552,25 @@ def advplt(galaxy):
 	plt.pie(types, labels=labels, autopct='%1.1f%%') # , startangle=90
 	plt.title('Stars Superclass')
 
-	plt.subplot(2, 4, 6)
+	plt.subplot(2, 5, 4)
+	labels, types = mapping_prettify(type_to_count2, True)
+	plt.pie(types, labels=labels, autopct='%1.1f%%')
+	plt.title('Planet Classes')
+
+	plt.subplot(2, 5, 5)
+	labels, types = mapping_prettify(type_to_count3, True)
+	plt.pie(types, labels=list(map(lambda r: r.name if r else 'None', labels)), autopct='%1.1f%%')
+	plt.title('Resources (Excludes None)')
+
+	plt.subplot(2, 5, 6)
+	labels, types = mapping_prettify(type_to_count4, False)
+	plt.boxplot(types, labels=labels)
+	plt.yscale('log')
+	plt.xlabel('Type')
+	plt.ylabel('Age (s)')
+	plt.title('Age by Type')
+
+	plt.subplot(2, 5, 8)
 	labels, types = zip(*sorted(moons_vs_mass.items(), key=lambda x: int(str(x[0])[:2])))
 	plt.boxplot(types, labels=labels)
 	plt.yscale('log')
@@ -566,7 +578,7 @@ def advplt(galaxy):
 	plt.ylabel('Mass (kg)')
 	plt.title('Moon Count')
 
-	plt.subplot(2, 4, 7)
+	plt.subplot(2, 5, 9)
 	plt.scatter(*zip(*mass_vs_density))
 	plt.xscale('log')
 	plt.yscale('log')
@@ -574,7 +586,7 @@ def advplt(galaxy):
 	plt.ylabel('Density (kg/m^3)')
 	plt.title('Body Mass vs. Density')
 
-	plt.subplot(2, 4, 8)
+	plt.subplot(2, 5, 10)
 	labels, types = mapping_prettify(bwplt, False)
 	plt.boxplot(types, labels=labels)
 	plt.xlabel('Type')

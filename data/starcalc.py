@@ -1,6 +1,7 @@
-from constants import t_sun, r_sun, m_sun, m_star, m_j
+from constants import t_sun, r_sun, m_sun, m_star, m_j, universe_age
 from time import time
 from system import pradius
+from random import uniform
 
 
 def getclass(mass: float) -> str:
@@ -45,6 +46,7 @@ class Star:
 			self.radius = r_sun*mass**0.96
 		self.temperature = t_sun*mass**.54
 		self.lifespan = 3.97310184e17*mass**-2.5162
+		self.age = uniform(0, min(self.lifespan, universe_age))
 		self.id = time()
 		self.mass *= m_sun
 		self.name = namegen(self)
