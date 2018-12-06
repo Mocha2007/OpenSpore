@@ -10,7 +10,11 @@ def main() -> float:
 	# ie. 33%
 	if .4 < random(): # the float is the chance of becoming a brown dwarf (kinda)
 		# star will fall approximately within normal distribution
-		n = 13
+		n = 10
+		# 13 -> .777 .818 .784
+		# 12 -> .783 .778 .789
+		# 11 -> .744 .779 .800 .774 .783
+		# 10 -> .755 .733 .767 .747 .731
 	else:
 		# star will have an ~80% chance of being a brown dwarf
 		n = 80
