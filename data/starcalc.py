@@ -7,8 +7,9 @@ def getclass(mass: float) -> str:
 	if mass < m_star/m_sun: # Brown Dwarfs
 		if mass < 30 * m_j/m_sun: # forgot; but less than 2MASS 1237+6526
 			return 'Y'
-		if mass < 63 * m_j/m_sun:
+		if mass < 57 * m_j/m_sun:
 			# between 62.1 m_j (LHS 6343 C) and 75 m_j (SDSS J1416+1348 A)
+			# ... but based on a better database I found the limit appears to be around 57
 			return 'T'
 		return 'L'
 	if mass < .45:
