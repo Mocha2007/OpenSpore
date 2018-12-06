@@ -424,9 +424,14 @@ def possible_koppen(p) -> set:
 	return climates
 
 
-def temp2function(temp: float):
+def cansnow(p) -> bool:
+	t_min, t_max = temprange(p)
+	return t_min < 273 < t_max and atmos_water(p)
+
+
+def temp2function(temperature: float):
 	# albedo, stellar radius, stellar temp -> semimajor axis
-	return lambda a, r, t: t**2 * (1-a)**.5 * r/2/temp**2
+	return lambda a, r, t: t**2 * (1-a)**.5 * r/2/temperature**2
 
 
 def print_orbit(system, **kwargs):
