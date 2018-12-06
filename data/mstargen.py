@@ -8,7 +8,7 @@ def main() -> float:
 	# https://www.centauri-dreams.org/2017/07/07/how-many-brown-dwarfs-in-the-milky-way/
 	# "For every ten stars there are five brown dwarfs"
 	# ie. 33%
-	if .4 < random(): # the float is the chance of becoming a brown dwarf (kinda)
+	if .3 < random(): # the float is the chance of becoming a brown dwarf (kinda)
 		# star will fall approximately within normal distribution
 		n = 10
 		# 13 -> .777 .818 .784

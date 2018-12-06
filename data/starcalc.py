@@ -20,7 +20,7 @@ def getclass(mass: float) -> str:
 		return 'G'
 	if mass < 1.4:
 		return 'F'
-	if mass < 2.1:
+	if mass < 2.8: # was 2.1 but Gamma Ursae Majoris is nearly 3 so
 		return 'A'
 	if mass < 16:
 		return 'B'
