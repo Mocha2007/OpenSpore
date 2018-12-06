@@ -141,12 +141,13 @@ class System: # no type annotation since function can't be annotated
 			self.bodies = []
 		else:
 			contents = []
-			sma = au * (star.temperature/t_sun)**2 * star.radius/r_sun / 5 # 3 too low
-			limit = star.radius * 4.5 # WD 1202-024 B (est.)
-			while sma < limit:
-				sma *= 2
-			for i in range(randint(1, 9)):
-				attempt = Planet(self, sma, lambda: planetnamegen(star.name, i), moonnamegen, resourcegen)
-				contents.append((i, attempt))
-				sma *= uniform(1.38, 2.02)  # e/v u/s
+			sma = star.planetmin
+			if sma:
+				limit = star.radius * 4.5 # WD 1202-024 B (est.)
+				while sma < limit:
+					sma *= 2
+				for i in range(randint(1, 9)):
+					attempt = Planet(self, sma, lambda: planetnamegen(star.name, i), moonnamegen, resourcegen)
+					contents.append((i, attempt))
+					sma *= uniform(1.38, 2.02)  # e/v u/s
 			self.bodies = contents

@@ -50,7 +50,7 @@ class System:
 			self.bodies = []
 		else:
 			contents = []
-			sma = au * (star.temperature/t_sun)**2 * star.radius/r_sun / 5 # 3 too low
+			sma = star.planetmin
 			limit = star.radius * 4.5 # WD 1202-024 B (est.)
 			while sma < limit:
 				sma *= 2

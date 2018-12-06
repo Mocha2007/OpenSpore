@@ -211,6 +211,10 @@ def density(mass: float, radius: float) -> float:
 	return mass/(4/3 * pi * radius**3)
 
 
+def density_to_radius(mass: float, density: float) -> float:
+	return (mass/density/(4/3*pi))**(1/3)
+
+
 # from -pi to pi
 def xyz2phitheta(xyz: (float, float, float)) -> (float, float):
 	x, y, z = xyz
@@ -447,6 +451,10 @@ def print_orbit(system, **kwargs):
 	center = size//2, size//2
 	orbit_map = pygame.display.set_mode((size, size))
 	orbit_map.fill((0, 0, 0))
+	# star name and type
+	color_for_star = star_color(system).rgb()
+	name = font.render(system.star.name+' - '+system.star.type, 1, color_for_star)
+	orbit_map.blit(name, (0, 0))
 	if system.bodies:
 		scale = system.bodies[-1][1].orbit.sma # pixels per au
 		scale = .5 * size/scale # only 50% filled cause radius
@@ -462,7 +470,7 @@ def print_orbit(system, **kwargs):
 		scale = .5 * size/scale # only 50% filled cause radius
 	# star
 	radius = round(scale * system.star.radius)
-	pygame.draw.circle(orbit_map, star_color(system).rgb(), center, radius)
+	pygame.draw.circle(orbit_map, color_for_star, center, radius)
 	# planets
 	for _, planet in system.bodies:
 		radius = round(scale * planet.orbit.sma)
@@ -497,7 +505,8 @@ def advplt(galaxy):
 		else:
 			type_to_count[typeof] = 1
 			type_to_count4[typeof] = [system.star.age]
-		mass_vs_density.append((system.star.mass, density(system.star.mass, system.star.radius)))
+		if len(typeof) == 1:
+			mass_vs_density.append((system.star.mass, density(system.star.mass, system.star.radius)))
 		for _, planet in system.bodies:
 			typeof = planet_types[gettype(planet)]
 			if typeof in bwplt:
@@ -530,7 +539,7 @@ def advplt(galaxy):
 
 	plt.subplot(2, 5, 2)
 	type_to_countb = dict(type_to_count)
-	for i in ('WR', 'L', 'T', 'Y'):
+	for i in ('WR', 'L', 'T', 'Y', 'WD', 'NS', 'BH'):
 		try:
 			del type_to_countb[i]
 		except KeyError:
@@ -540,14 +549,14 @@ def advplt(galaxy):
 	plt.title('Main Sequence Stars')
 
 	plt.subplot(2, 5, 3)
-	type_to_countc = {'Main Sequence': 0, 'Brown Dwarf': 0, 'Giant': 0}
+	type_to_countc = {'Main Sequence': 0, 'Brown Dwarf': 0, 'Other': 0}
 	for i, j in type_to_count.items():
-		if i == 'WR':
-			type_to_countc['Giant'] += j
-		elif i in 'LTY':
+		if i in 'LTY':
 			type_to_countc['Brown Dwarf'] += j
-		else:
+		elif i in 'OBAFGKM':
 			type_to_countc['Main Sequence'] += j
+		else:
+			type_to_countc['Other'] += j
 	labels, types = mapping_prettify(type_to_countc, True)
 	plt.pie(types, labels=labels, autopct='%1.1f%%') # , startangle=90
 	plt.title('Stars Superclass')
