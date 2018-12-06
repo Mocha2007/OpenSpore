@@ -559,12 +559,12 @@ def advplt(galaxy):
 			type_to_countc['Other'] += j
 	labels, types = mapping_prettify(type_to_countc, True)
 	plt.pie(types, labels=labels, autopct='%1.1f%%') # , startangle=90
-	plt.title('Stars Superclass')
+	plt.title('Star Superclass')
 
 	plt.subplot(2, 5, 4)
 	labels, types = mapping_prettify(type_to_count2, True)
 	plt.pie(types, labels=labels, autopct='%1.1f%%')
-	plt.title('Planet Classes')
+	plt.title('Planet Class')
 
 	plt.subplot(2, 5, 5)
 	labels, types = mapping_prettify(type_to_count3, True)
