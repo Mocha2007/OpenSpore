@@ -16,6 +16,7 @@ for _, name_list in names.items():
 
 def main(star) -> str:
 	sources = set(sets['.']) # gotta make it a new set
-	if star.type in sets:
-		sources = sources.union(sets[star.type])
+	star_type = star.type if len(star.type) == 1 else 'X'
+	if star_type in sets:
+		sources = sources.union(sets[star_type])
 	return choice(list(sources))
