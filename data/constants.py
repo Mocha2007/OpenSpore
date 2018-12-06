@@ -514,22 +514,46 @@ def advplt(galaxy):
 			else:
 				moons_vs_mass[mooncount] = [planet.mass]
 
-	plt.subplot(2, 3, 1)
+	plt.subplot(2, 4, 1)
 	labels, types = mapping_prettify(type_to_count, True)
 	plt.pie(types, labels=labels, autopct='%1.1f%%') # , startangle=90
 	plt.title('Stellar Classes')
 
-	plt.subplot(2, 3, 2)
+	plt.subplot(2, 4, 2)
+	type_to_countb = dict(type_to_count)
+	for i in ('WR', 'L', 'T', 'Y'):
+		try:
+			del type_to_countb[i]
+		except KeyError:
+			pass
+	labels, types = mapping_prettify(type_to_countb, True)
+	plt.pie(types, labels=labels, autopct='%1.1f%%') # , startangle=90
+	plt.title('Main Sequence Stars')
+
+	plt.subplot(2, 4, 3)
 	labels, types = mapping_prettify(type_to_count2, True)
 	plt.pie(types, labels=labels, autopct='%1.1f%%')
 	plt.title('Planet Classes')
 
-	plt.subplot(2, 3, 3)
+	plt.subplot(2, 4, 4)
 	labels, types = mapping_prettify(type_to_count3, True)
 	plt.pie(types, labels=list(map(lambda r: r.name if r else 'None', labels)), autopct='%1.1f%%')
 	plt.title('Resources (Excludes None)')
 
-	plt.subplot(2, 3, 4)
+	plt.subplot(2, 4, 5)
+	type_to_countc = {'Main Sequence': 0, 'Brown Dwarf': 0, 'Giant': 0}
+	for i, j in type_to_count.items():
+		if i == 'WR':
+			type_to_countc['Giant'] += j
+		elif i in 'LTY':
+			type_to_countc['Brown Dwarf'] += j
+		else:
+			type_to_countc['Main Sequence'] += j
+	labels, types = mapping_prettify(type_to_countc, True)
+	plt.pie(types, labels=labels, autopct='%1.1f%%') # , startangle=90
+	plt.title('Stars Superclass')
+
+	plt.subplot(2, 4, 6)
 	labels, types = zip(*sorted(moons_vs_mass.items(), key=lambda x: int(str(x[0])[:2])))
 	plt.boxplot(types, labels=labels)
 	plt.yscale('log')
@@ -537,7 +561,7 @@ def advplt(galaxy):
 	plt.ylabel('Mass (kg)')
 	plt.title('Moon Count')
 
-	plt.subplot(2, 3, 5)
+	plt.subplot(2, 4, 7)
 	plt.scatter(*zip(*mass_vs_density))
 	plt.xscale('log')
 	plt.yscale('log')
@@ -545,7 +569,7 @@ def advplt(galaxy):
 	plt.ylabel('Density (kg/m^3)')
 	plt.title('Body Mass vs. Density')
 
-	plt.subplot(2, 3, 6)
+	plt.subplot(2, 4, 8)
 	labels, types = mapping_prettify(bwplt, False)
 	plt.boxplot(types, labels=labels)
 	plt.xlabel('Type')
