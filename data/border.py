@@ -24,7 +24,7 @@ def borderresourcegen(*_, **__):
 	return [borderResource]
 
 
-greystar = Star(1, border())
+greystar = Star(1, border)
 greystar.type = border()
 greysys = System(greystar, border, border, borderresourcegen)
 greysys.bodies = []
