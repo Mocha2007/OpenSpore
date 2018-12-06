@@ -47,7 +47,7 @@ class Star:
 		self.temperature = t_sun*mass**.54
 		self.planetmin = au * (self.temperature/t_sun)**2 * self.radius/r_sun / 5
 		self.lifespan = 3.97310184e17*mass**-2.5162
-		self.age = uniform(0, min(2*self.lifespan, universe_age))
+		self.age = uniform(3e11, min(2*self.lifespan, universe_age)) # 3e11 ~ 3ky
 		if self.lifespan < self.age:
 			# degenerate stars
 			if self.mass < 8:
