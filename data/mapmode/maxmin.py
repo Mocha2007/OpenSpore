@@ -18,7 +18,7 @@ def m2c(minimum: float, maximum: float) -> Color:
 
 
 def main(system: System) -> Color:
-	if system.bodies == []:
+	if not system.bodies:
 		return grey
 	maximum = 0
 	minimum = m_browndwarf
