@@ -420,8 +420,8 @@ open('openspore.log', 'a+').write('\nGENERATION END '+str(time()))
 
 # main
 
-delta = 0, 0
-deltaNew = 0, 0
+# delta = 0, 0
+# deltaNew = 0, 0
 middleRadius = 1
 focusSystem = g.stars[0][1]
 focusPlanet = 0
@@ -443,11 +443,9 @@ while 1:
 	drawradius(middleRadius)
 	drawradius(middleRadius*10)
 	# stars
-	displaylist = display.main(size, g, tuple(map(sum, zip(delta, deltaNew))), zoom)
+	displaylist = display.main(size, g, (0, 0), zoom) # tuple(map(sum, zip(delta, deltaNew)))
 	for element in displaylist:
-		colorOfStar = mapmode.main(element[1])
-		c = colorOfStar.r, colorOfStar.g, colorOfStar.b
-		pygame.draw.circle(screen, c, element[0], starRadius)
+		pygame.draw.circle(screen, mapmode.main(element[1]).rgb(), element[0], starRadius)
 	# window
 	events = pygame.event.get()
 	for event in events:
