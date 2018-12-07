@@ -579,7 +579,7 @@ def advplt(galaxy):
 	labels, types = mapping_prettify(type_to_countc, True)
 	plt.pie(types, labels=labels, autopct='%1.1f%%') # , startangle=90
 	plt.title('Brown Dwarfs')
-	
+
 	plt.subplot(2, 5, 7)
 	labels, types = mapping_prettify(type_to_count4, False)
 	plt.boxplot(types, labels=labels)
