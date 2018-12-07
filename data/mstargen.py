@@ -10,10 +10,10 @@ def main() -> float:
 	# "For every ten stars there are five brown dwarfs"
 	# ie. 33%
 	n = m_sun/m_star # min size ~ .075 solar masses
-	if .3 < random(): # the float is the chance of becoming a brown dwarf (kinda)
+	bd_chance = .25 # star will have an ~25% chance of being a brown dwarf
+	if bd_chance < random(): # main sequence
 		# star will fall approximately within normal distribution
-		e = 1.4
-	else:
-		# star will have an ~25% chance of being a brown dwarf
+		e = 1.5
+	else: # brown dwarfs
 		e = -.2
 	return 1/(n*random()**e)
