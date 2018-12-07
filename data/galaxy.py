@@ -6,6 +6,7 @@ from starcalc import Star
 from constants import dist
 
 # constants
+origin = 0, 0, 0
 galaxyRadius = 100
 minDistance = 3 # ly
 maxDistance = 10 # ly
@@ -16,7 +17,7 @@ tries = 10
 class Galaxy: # no type annotation since function can't be annotated
 	def __init__(self, stargen, starnamegen, planetnamegen, moonnamegen, SystemClass, resourcegen):
 		# generate home star
-		home = (0, 0, 0), SystemClass(Star(1, lambda x: 'Home'), planetnamegen, moonnamegen, resourcegen)
+		home = origin, SystemClass(Star(1, lambda x: 'Home'), planetnamegen, moonnamegen, resourcegen)
 		starList = [home]
 		# generate stars until ten failed placements in a row
 		failures = 0
@@ -29,15 +30,15 @@ class Galaxy: # no type annotation since function can't be annotated
 			# calculate proposed site
 			site = tuple(map(sum, zip(head[0], delta)))
 			# verify the site is not too far from the origin
-			if dist((0, 0, 0), site) > galaxyRadius:
+			if dist(origin, site) > galaxyRadius:
 				continue
 			# make sure z isn't too high or low
 			# if abs(site[2]) > maxZ:
 			# 	continue
 			# verify the site is not too close to another star
-			for star in starList:
-				if dist(star[0], site) < minDistance:
-					continue
+			# for star in starList:
+			# 	if dist(star[0], site) < minDistance:
+			# 		continue
 			newStar = Star(stargen(), starnamegen)
 			starList.append(
 				(site, SystemClass(newStar, planetnamegen, moonnamegen, resourcegen))
