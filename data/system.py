@@ -91,8 +91,11 @@ class Moon:
 		self.resources = []
 		self.sma = rporbit(planet, planet.radius*2) # todo
 		self.temp = planet.temp
-		self.atm = None # todo
-		self.atmosphere = [] # todo
+		self.atmosphere = [] # todo atm(self) - don't put this code in yet because useless and takes extra 100 ms to gen
+		if self.atmosphere:
+			self.atm = self.mass ** uniform(.11, .29)
+		else:
+			self.atm = None
 		data = {
 			'system': system,
 			'body': self
