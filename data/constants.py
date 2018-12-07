@@ -572,6 +572,15 @@ def advplt(galaxy):
 	plt.title('Resources (Excludes None)')
 
 	plt.subplot(2, 5, 6)
+	type_to_countc = {'L': 0, 'T': 0, 'Y': 0}
+	for i, j in type_to_count.items():
+		if i in 'LTY':
+			type_to_countc[i] += j
+	labels, types = mapping_prettify(type_to_countc, True)
+	plt.pie(types, labels=labels, autopct='%1.1f%%') # , startangle=90
+	plt.title('Brown Dwarfs')
+	
+	plt.subplot(2, 5, 7)
 	labels, types = mapping_prettify(type_to_count4, False)
 	plt.boxplot(types, labels=labels)
 	plt.yscale('log')
