@@ -21,7 +21,7 @@ def neithername(n: str):
 
 
 def aroundname(n: (str, str)):
-	return lambda name: n[0] + name + n[1]
+	return lambda name: n[0] + ' ' + name + ' ' + n[1]
 
 
 # type, string
