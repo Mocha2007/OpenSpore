@@ -1,4 +1,4 @@
-from random import choice, randint, random, seed, uniform
+from random import choice, randint, random, seed, shuffle, uniform
 from constants import log_uniform
 from resource import Resource
 from color import Color
@@ -20,15 +20,15 @@ goal_list = (
 # constants for description generator
 size_range = 1.2, 6.5 # chimp <> elephant, in meters
 sleep_range = .08, .83 # horses, bats
-textures = [
+textures = (
 	# name, is plural?
 	('fur', False),
 	('feathers', True),
 	('scales', True),
 	('skin', False),
 	('membrane', False),
-]
-values = [
+)
+values = (
 	# min, max
 	('independence', 'cooperation'),
 	('simplicity', 'elegance'),
@@ -36,7 +36,21 @@ values = [
 	('ignorance', 'knowledge'),
 	('disloyalty', 'loyalty'),
 	('chastity', 'romance'),
-]
+)
+colors = (
+	'black',
+	'blue',
+	'brown',
+	'cyan',
+	'green',
+	'grey',
+	'orange',
+	'pink',
+	'purple',
+	'red',
+	'white',
+	'yellow',
+)
 
 
 def r_goal() -> str:
@@ -130,7 +144,19 @@ class Civ:
 		sleep = uniform(*sleep_range)
 		# appearance
 		texture, texture_number = choice(textures)
-		color = choice(['brown', 'white', 'pink', 'red'])
+		palette = list(colors)
+		shuffle(palette)
+		chosen = []
+		limit = randint(1, 3)
+		for i in range(limit):
+			if 1 < limit == i+1:
+				if limit == 2:
+					chosen[0] += ' and '+palette.pop()
+				else:
+					chosen.append('and '+palette.pop())
+			else:
+				chosen.append(palette.pop())
+		color = ', '.join(chosen)
 		# todo Civ Philosophical Values
 		pro, con = choice(values)[::choice([1, -1])]
 		# compose
