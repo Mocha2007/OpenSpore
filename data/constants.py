@@ -1,5 +1,5 @@
 from math import atan2, ceil, e, log, pi
-from random import uniform
+from random import random, uniform
 import pygame
 import sys
 from random import choice
@@ -621,3 +621,13 @@ def log_uniform(a: float, b: float) -> float:
 	:return: value in that range, weighted logarithmically
 	"""
 	return e**uniform(log(a), log(b))
+
+
+def rbool(*args: float) -> bool:
+	"""
+	:param args: (optional) % chance of true
+	:return: bool
+	"""
+	if args:
+		return random() < args[0]
+	return choice([True, False])

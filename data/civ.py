@@ -1,5 +1,5 @@
 from random import choice, randint, random, seed, shuffle, uniform
-from constants import log_uniform
+from constants import log_uniform, rbool
 from resource import Resource
 from color import Color
 import sys
@@ -53,6 +53,29 @@ colors = (
 	'white',
 	'yellow',
 )
+wing_adj = (
+	'elegant',
+	'flowing',
+	'frightening',
+	'graceful',
+	'large',
+)
+
+
+def r_adj(adj_list, minimum: int, maximum: int) -> str:
+	palette = list(adj_list)
+	shuffle(palette)
+	chosen = []
+	limit = randint(minimum, maximum)
+	for i in range(limit):
+		if 1 < limit == i+1:
+			if limit == 2:
+				chosen[0] += ' and '+palette.pop()
+			else:
+				chosen.append('and '+palette.pop())
+		else:
+			chosen.append(palette.pop())
+	return ', '.join(chosen)
 
 
 def r_goal() -> str:
@@ -139,26 +162,15 @@ class Civ:
 		size = log_uniform(*size_range)
 		mass = uniform(18, 29) * size**3
 		# sexual dimorphism?
-		sexes = choice([True, False])
-		dimorphic = sexes and choice([True, False])
+		sexes = rbool()
+		dimorphic = sexes and rbool()
 		# Dinural? Nocturnal?
 		activity = choice(['dinural', 'nocturnal', 'crepuscular'])
 		sleep = uniform(*sleep_range)
 		# appearance
 		texture, texture_number = choice(textures)
-		palette = list(colors)
-		shuffle(palette)
-		chosen = []
-		limit = randint(1, 3)
-		for i in range(limit):
-			if 1 < limit == i+1:
-				if limit == 2:
-					chosen[0] += ' and '+palette.pop()
-				else:
-					chosen.append('and '+palette.pop())
-			else:
-				chosen.append(palette.pop())
-		color = ', '.join(chosen)
+		color = r_adj(colors, 1, 3)
+		winged = rbool(.2)
 		# todo Civ Philosophical Values
 		pro, con = choice(values)[::choice([1, -1])]
 		# compose
@@ -173,6 +185,8 @@ class Civ:
 			describe.append('The species is asexual.')
 		describe.append('Their sleep activity is '+activity+', and they sleep for '+str(round(sleep*100))+'% of the local day.')
 		describe.append('Their '+texture+(' are ' if texture_number else ' is ')+color+'.')
+		if winged:
+			describe.append('Their wings are '+r_adj(wing_adj, 1, 3)+'.')
 		# todo philo
 		describe.append('They value '+pro+' above all else, and despise '+con+'.')
 		return '\n\t'.join(describe)
