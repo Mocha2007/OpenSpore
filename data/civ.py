@@ -48,6 +48,8 @@ colors = (
 	'pink',
 	'purple',
 	'red',
+	'silver',
+	'tan',
 	'white',
 	'yellow',
 )
