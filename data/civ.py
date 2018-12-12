@@ -186,7 +186,7 @@ class Civ:
 		size = log_uniform(*size_range)
 		mass = uniform(18, 29) * size**3
 		# sexual dimorphism?
-		sexes = rbool()
+		sexes = rbool(.2)
 		dimorphic = sexes and rbool()
 		# Dinural? Nocturnal?
 		activity = choice(['dinural', 'nocturnal', 'crepuscular'])
