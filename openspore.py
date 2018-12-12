@@ -310,6 +310,8 @@ def showsystem():
 			t += '\n(l) Biodiversity: '+str(len(planet.life))+('+' if planet.civ else '')
 			if planet.civ:
 				t += '\n> ' + planet.civ.name
+				if pygame.key.get_pressed()[pygame.K_d]:
+					print(planet.civ.description())
 			# life info
 			if planet.life and pygame.key.get_pressed()[pygame.K_l]:
 				t_a = ['\tLifeforms']

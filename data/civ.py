@@ -1,5 +1,5 @@
-from random import choice, randint, random, seed
-from math import log
+from random import choice, randint, random, seed, uniform
+from constants import log_uniform
 from resource import Resource
 from color import Color
 import sys
@@ -17,6 +17,9 @@ goal_list = (
 	'resource',
 	'war'
 )
+# constants for description generator
+size_range = 1.2, 6.5 # chimp <> elephant, in meters
+sleep_range = .08, .83 # horses, bats
 
 
 def r_goal() -> str:
@@ -37,6 +40,7 @@ class Civ:
 		self.color = Color(0, randint(64, 255), randint(64, 255))
 		self.goal = r_goal() # AI's current project
 		self.diplo = {} # civ.id (float) -> state (str)
+		print(self.description())
 
 	def __add__(self, other):
 		assert type(other) in (float, int, Resource)
@@ -95,6 +99,36 @@ class Civ:
 		self.cash_hist = self.cash_hist[-100:]
 		self.inv_hist = self.inv_hist[-100:]
 		return self
+
+	def description(self) -> str:
+		seed(self.id)
+		# species size in m and kg
+		size = log_uniform(*size_range)
+		mass = uniform(18, 29) * size**3
+		# sexual dimorphism?
+		sexes = choice([True, False])
+		dimorphic = sexes and choice([True, False])
+		# Dinural? Nocturnal?
+		activity = choice(['dinural', 'nocturnal', 'crepuscular'])
+		sleep = uniform(*sleep_range)
+		# appearance
+		texture = choice(['fur', 'feathers', 'scales', 'skin', 'membrane'])
+		color = choice(['brown', 'white', 'pink', 'red'])
+		# todo Civ Philosophical Values
+		# compose
+		describe = [self.name,
+		'Their species has a size of {size} m and a mass of {mass} kg.'.format(mass=round(mass, 2), size=round(size, 2))]
+		if sexes:
+			if dimorphic:
+				describe.append('The species is sexually dimorphic.')
+			else:
+				describe.append('The species is divided into two virtually identical sexes.')
+		else:
+			describe.append('The species is asexual.')
+		describe.append('Their sleep activity is '+activity+', and they sleep for '+str(round(sleep*100))+'% of the local day.')
+		describe.append('Their '+texture+' is '+color+'.')
+		# todo philo
+		return '\n\t'.join(describe)
 
 
 def civgen(p):

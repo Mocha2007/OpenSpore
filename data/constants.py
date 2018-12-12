@@ -1,4 +1,4 @@
-from math import atan2, ceil, pi
+from math import atan2, ceil, e, log, pi
 from random import uniform
 import pygame
 import sys
@@ -612,3 +612,12 @@ def advplt(galaxy):
 	plt.title('Planet ESI')
 
 	plt.show()
+
+
+def log_uniform(a: float, b: float) -> float:
+	"""
+	:param a: minimum
+	:param b: maximum
+	:return: value in that range, weighted logarithmically
+	"""
+	return e**uniform(log(a), log(b))
