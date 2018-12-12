@@ -135,7 +135,7 @@ class Civ:
 		pro, con = choice(values)[::choice([1, -1])]
 		# compose
 		describe = [self.name,
-		'Their species has a size of {size} m and a mass of {mass} kg.'.format(mass=round(mass, 2), size=round(size, 2))]
+		'Their species has a size of {size} m and a mass of {mass} kg.'.format(mass=round(mass), size=round(size, 2))]
 		if sexes:
 			if dimorphic:
 				describe.append('The species is sexually dimorphic.')
