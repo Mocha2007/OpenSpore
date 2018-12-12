@@ -30,12 +30,12 @@ textures = [
 ]
 values = [
 	# min, max
-	('Independence', 'Cooperation'),
-	('Simplicity', 'Elegance'),
-	('Chaos', 'Harmony'),
-	('Ignorance', 'Knowledge'),
-	('Disloyalty', 'Loyalty'),
-	('Chastity', 'Romance'),
+	('independence', 'cooperation'),
+	('simplicity', 'elegance'),
+	('chaos', 'harmony'),
+	('ignorance', 'knowledge'),
+	('disloyalty', 'loyalty'),
+	('chastity', 'romance'),
 ]
 
 
