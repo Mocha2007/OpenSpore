@@ -18,7 +18,7 @@ goal_list = (
 	'war'
 )
 # constants for description generator
-size_range = 1.2, 6.5 # chimp <> elephant, in meters
+size_range = 1, 6.5 # dwarf <> elephant, in meters cf. chips, humans at 1.2 1.7
 sleep_range = .08, .83 # horses, bats
 textures = (
 	# name, is plural?
