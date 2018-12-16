@@ -1,0 +1,60 @@
+{
+	"elbow": {
+	  	"requires": ["upper arm"],
+	  	"range": [2, 2],
+	  	"weight": 1.0
+	},
+	"eye": {
+	  	"requires": ["head"],
+	  	"range": [2, 2],
+	  	"weight": 1.0
+	},
+	"finger": {
+	  	"requires": ["hand"],
+	  	"range": [2, 5],
+	 	"tags": ["grip"],
+	  	"weight": 1.0
+	},
+	"forearm": {
+	  	"requires": ["elbow"],
+	  	"range": [2, 2],
+	  	"weight": 1.0
+	},
+	"hand": {
+	  	"requires": ["wrist"],
+	  	"range": [2, 2],
+	  	"weight": 1.0
+	},
+	"head": {
+	 	"tags": ["root"]
+	},
+	"neck": {
+	  	"requires": ["head"],
+	  	"weight": 1.0
+	},
+	"shoulder": {
+	  	"requires": ["thorax"],
+	  	"range": [2, 2],
+	  	"weight": 0.5
+	},
+	"thorax": {
+	  	"requires": ["neck"],
+	  	"weight": 1.0
+	},
+	"upper arm": {
+	  	"requires": ["shoulder"],
+	  	"range": [2, 2],
+	 	"tags": ["grip"],
+	  	"weight": 1.0
+	},
+	"wing": {
+	  	"requires": ["thorax"],
+	  	"range": [2, 2],
+	  	"weight": 0.3
+	},
+	"wrist": {
+	  	"requires": ["forearm"],
+	  	"range": [2, 2],
+	  	"weight": 1.0
+	}
+}

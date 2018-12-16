@@ -2,6 +2,7 @@ from random import choice, randint, random, seed, shuffle, uniform
 from constants import log_uniform, rbool
 from resource import Resource
 from color import Color
+from creature import creature_gen # test
 import sys
 sys.path.append('./data/name')
 from civnamegen import main as name
@@ -214,6 +215,7 @@ class Civ:
 			describe.append('Their wings are '+r_adj(wing_adj, 1, 3)+'.')
 		# todo philo
 		describe.append('They value '+pro+' above all else, and despise '+con+'.')
+		describe.append(str(creature_gen(self.id)))
 		return '\n\t'.join(describe)
 
 
