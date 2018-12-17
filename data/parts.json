@@ -13,6 +13,7 @@
 	  	"plural": "antennae",
 	  	"requires": ["head"],
 	  	"range": [2, 2],
+	 	"tags": ["smell", "touch"],
 	  	"weight": 0.2
 	},
 	"elbow": {
@@ -35,7 +36,7 @@
 	"finger": {
 	  	"requires": ["hand"],
 	  	"range": [2, 5],
-	 	"tags": ["grip"],
+	 	"tags": ["grip", "touch"],
 	  	"weight": 1.0
 	},
 	"foot": {
@@ -52,6 +53,7 @@
 	"hand": {
 	  	"requires": ["wrist"],
 	  	"range": [2, 2],
+	  	"tags": ["touch"],
 	  	"weight": 1.0
 	},
 	"head": {
