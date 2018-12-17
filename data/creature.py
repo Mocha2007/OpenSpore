@@ -37,6 +37,11 @@ class Part:
 			self.requires = set(kwargs['requires'])
 		else:
 			self.requires = set()
+		# exclusions
+		if 'exclude' in kwargs:
+			self.exclude = set(kwargs['exclude'])
+		else:
+			self.exclude = set()
 		# connected to (if different from requirements)
 		if 'connect' in kwargs:
 			self.connect = kwargs['connect']
@@ -238,7 +243,11 @@ def creature_gen(creature_id: float, **kwargs) -> Creature:
 				checked.add(part.noun.read())
 			else:
 				continue
+			# if prereqs not satisfied
 			if not part.requires <= set([i.noun.read() for i in o.parts.keys()]):
+				continue
+			# if exclusions broken
+			if part.exclude and part.exclude <= set([i.noun.read() for i in o.parts.keys()]):
 				continue
 			# check if rngesus loves you
 			if random() < part.weight:
@@ -247,7 +256,7 @@ def creature_gen(creature_id: float, **kwargs) -> Creature:
 	# check prereqs
 	for part in o.parts:
 		# check prereqs
-		if not part.requires < set([part.noun.read() for part in o.parts]):
+		if not part.requires <= set([i.noun.read() for i in o.parts.keys()]):
 			del o.parts[part]
 	# add skin
 	for _ in range(randint(1, 2)):

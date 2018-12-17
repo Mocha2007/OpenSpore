@@ -169,6 +169,7 @@
 	"proboscis": {
 	  	"plural": "proboscides",
 	  	"requires": ["mouth"],
+	  	"exclude": ["beak"],
 	 	"tags": ["digestion"],
 	  	"weight": 0.05
 	},
@@ -228,6 +229,7 @@
 	},
 	"tusk": {
 	  	"requires": ["head"],
+	  	"exclude": ["horn"],
 	 	"range": [2, 2],
 	  	"tags": ["defense", "offense"],
 	  	"weight": 0.05
