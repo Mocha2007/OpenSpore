@@ -147,6 +147,10 @@
 	  	"range": [1, 2],
 	  	"weight": 1.0
 	},
+	"metapleural gland": {
+	  	"requires": ["thorax"],
+	  	"weight": 0.05
+	},
 	"mouth": {
 	  	"requires": ["head"],
 	 	"tags": ["eating", "tasting"],
