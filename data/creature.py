@@ -188,10 +188,17 @@ class Creature:
 		# compile set of tuple(tuple, str)
 		part_set = set()
 		for part, _ in self.parts.items():
+			# connections
 			if part.connect is not None:
 				part_tuple = part.noun, get_part_from_name(part.connect).noun
 				part_string = 'The {0} {0_be} connected to the {1}'
 				part_set.add((part_tuple, part_string))
+			# functions
+			if part.tags:
+				for tag in part.tags:
+					part_tuple = part.noun, Noun(tag)
+					part_string = 'The {0} {0_be} involved with {1}'
+					part_set.add((part_tuple, part_string))
 		return Description(part_dict, part_set)
 
 
