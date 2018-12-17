@@ -16,6 +16,16 @@
 	 	"tags": ["smell", "touch"],
 	  	"weight": 0.2
 	},
+	"beak": {
+	  	"requires": ["mouth"],
+	 	"tags": ["digestion", "offense"],
+	  	"weight": 0.2
+	},
+	"brain": {
+	  	"requires": ["head"],
+	 	"tags": ["thought"],
+	  	"weight": 1.0
+	},
 	"elbow": {
 	  	"requires": ["upper arm"],
 	  	"range": [2, 2],
@@ -50,6 +60,11 @@
 	  	"range": [2, 2],
 	  	"weight": 1.0
 	},
+	"gizzard": {
+	  	"requires": ["stomach"],
+	 	"tags": ["digestion"],
+	  	"weight": 0.5
+	},
 	"hand": {
 	  	"requires": ["wrist"],
 	  	"range": [2, 2],
@@ -59,19 +74,52 @@
 	"head": {
 	 	"tags": ["root"]
 	},
+	"heart": {
+	  	"requires": ["thorax"],
+	 	"tags": ["circulation"],
+	  	"weight": 1.0
+	},
 	"hip": {
 	  	"requires": ["waist"],
 	  	"range": [2, 2],
 	  	"weight": 0.5
+	},
+	"horn": {
+	  	"requires": ["head"],
+	 	"tags": ["defense", "offense"],
+	  	"range": [1, 2],
+	  	"weight": 0.2
+	},
+	"intestine": {
+	  	"requires": ["stomach"],
+	 	"tags": ["digestion"],
+	  	"weight": 1.0
+	},
+	"kidney": {
+	  	"requires": ["abdomen"],
+	 	"tags": ["blood filtration"],
+	  	"range": [1, 2],
+	  	"weight": 1.0
 	},
 	"knee": {
 	  	"requires": ["thigh"],
 	  	"range": [2, 2],
 	  	"weight": 1.0
 	},
+	"liver": {
+	  	"requires": ["abdomen"],
+	 	"tags": ["gland"],
+	  	"weight": 0.5
+	},
 	"lower leg": {
 	  	"requires": ["knee"],
 	  	"range": [2, 2],
+	  	"weight": 1.0
+	},
+	"lung": {
+	  	"requires": ["thorax"],
+	 	"tags": ["breathing"],
+	  	"range": [1, 2],
 	  	"weight": 1.0
 	},
 	"mouth": {
@@ -88,10 +136,57 @@
 	 	"tags": ["smell"],
 	  	"weight": 1.0
 	},
+	"pancreas": {
+	  	"requires": ["abdomen"],
+	 	"tags": ["gland"],
+	  	"weight": 1.0
+	},
+	"pincer": {
+	  	"requires": ["mouth"],
+	 	"tags": ["digestion", "offense"],
+	  	"range": [2, 2],
+	  	"weight": 0.2
+	},
+	"proboscis": {
+	  	"plural": "proboscides",
+	  	"requires": ["mouth"],
+	 	"tags": ["digestion"],
+	  	"weight": 0.2
+	},
+	"shell": {
+	  	"requires": ["thorax"],
+	  	"tags": ["defense"],
+	  	"weight": 0.2
+	},
 	"shoulder": {
 	  	"requires": ["thorax"],
 	  	"range": [2, 2],
 	  	"weight": 0.5
+	},
+	"spleen": {
+	  	"requires": ["abdomen"],
+	 	"tags": ["blood filtration"],
+	  	"weight": 1.0
+	},
+	"stinger": {
+	  	"requires": ["tail"],
+	  	"tags": ["offense"],
+	  	"weight": 0.2
+	},
+	"stomach": {
+	  	"requires": ["abdomen"],
+	 	"tags": ["digestion"],
+	  	"weight": 1.0
+	},
+	"tail": {
+	  	"requires": ["waist"],
+	  	"weight": 0.4
+	},
+	"tentacle": {
+	  	"requires": ["thorax"],
+	 	"tags": ["grip"],
+	  	"range": [2, 10, 2],
+	  	"weight": 0.2
 	},
 	"thigh": {
 	  	"requires": ["hip"],
@@ -107,6 +202,12 @@
 	  	"requires": ["foot"],
 	  	"range": [2, 5],
 	  	"weight": 1.0
+	},
+	"tusk": {
+	  	"requires": ["head"],
+	 	"range": [2, 2],
+	  	"tags": ["defense", "offense"],
+	  	"weight": 0.2
 	},
 	"upper arm": {
 	  	"requires": ["shoulder"],
