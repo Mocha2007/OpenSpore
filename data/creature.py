@@ -89,17 +89,26 @@ def creature_gen(creature_id: float, **kwargs) -> Creature:
 	else:
 		o = Creature(name, parts=vital)
 	# add parts
-	shuffle(parts)
-	for part in parts:
-		# check prereqs
-		# if not part.requires < set([part.name for part in o.parts]):
-		# 	continue
-		# check if vital
-		if part in vital:
-			continue
-		# check if rngesus loves you
-		if random() < part.weight:
-			o.parts[part] = choice(part.range)
+	checked = set([i.name for i in vital])
+	while checked != set([i.name for i in parts]):
+		for part in parts:
+			if part.name in checked: # no dupes!
+				continue
+			# check prereqs
+			all_are_checked = True
+			for prereq in part.requires: # if ANY prereq is unchecked
+				if prereq not in checked:
+					all_are_checked = False
+					break
+			if all_are_checked:
+				checked.add(part.name)
+			else:
+				continue
+			if not part.requires <= set([i.name for i in o.parts.keys()]):
+				continue
+			# check if rngesus loves you
+			if random() < part.weight:
+				o.parts[part] = choice(part.range)
 	# check prereqs
 	print(o.parts)
 	for part in o.parts:
