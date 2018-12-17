@@ -163,13 +163,14 @@
 	"pincer": {
 	  	"requires": ["mouth"],
 	 	"tags": ["digestion", "offense"],
+	  	"exclude": ["beak"],
 	  	"range": [2, 2],
 	  	"weight": 0.1
 	},
 	"proboscis": {
 	  	"plural": "proboscides",
 	  	"requires": ["mouth"],
-	  	"exclude": ["beak"],
+	  	"exclude": ["beak", "pincer"],
 	 	"tags": ["digestion"],
 	  	"weight": 0.05
 	},
@@ -180,7 +181,7 @@
 	},
 	"shoulder": {
 	  	"requires": ["thorax"],
-	  	"range": [2, 4, 2],
+	  	"range": [2, 2],
 	  	"weight": 0.5
 	},
 	"spleen": {
@@ -229,7 +230,7 @@
 	},
 	"tusk": {
 	  	"requires": ["head"],
-	  	"exclude": ["horn"],
+	  	"exclude": ["horn", "pincer", "proboscis"],
 	 	"range": [2, 2],
 	  	"tags": ["defense", "offense"],
 	  	"weight": 0.05
