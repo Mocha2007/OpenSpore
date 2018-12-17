@@ -4,6 +4,12 @@
 	  	"requires": ["thorax"],
 	  	"weight": 1.0
 	},
+	"adrenal gland": {
+	  	"requires": ["kidney"],
+	 	"tags": ["gland"],
+	  	"range": [1, 2],
+	  	"weight": 1.0
+	},
 	"ankle": {
 	  	"requires": ["lower leg"],
 	  	"range": [2, 2],
@@ -16,13 +22,22 @@
 	 	"tags": ["smell", "touch"],
 	  	"weight": 0.1
 	},
+	"appendix": {
+	  	"plural": "appendices",
+	  	"requires": ["intestine"],
+	  	"weight": 0.1
+	},
 	"beak": {
 	  	"requires": ["mouth"],
 	 	"tags": ["digestion", "offense"],
 	  	"weight": 0.1
 	},
+	"bladder": {
+	  	"requires": ["kidney"],
+	  	"weight": 0.8
+	},
 	"brain": {
-	  	"requires": ["head"],
+	  	"requires": ["head", "stomach"],
 	 	"tags": ["thought"],
 	  	"weight": 1.0
 	},
@@ -60,6 +75,11 @@
 	  	"range": [2, 2],
 	  	"weight": 1.0
 	},
+	"gallbladder": {
+	  	"requires": ["intestine", "liver"],
+	 	"tags": ["digestion"],
+	  	"weight": 0.9
+	},
 	"gizzard": {
 	  	"requires": ["stomach"],
 	 	"tags": ["digestion"],
@@ -77,6 +97,7 @@
 	"heart": {
 	  	"requires": ["thorax"],
 	 	"tags": ["circulation"],
+	  	"range": [1, 3],
 	  	"weight": 1.0
 	},
 	"hip": {
@@ -96,7 +117,7 @@
 	  	"weight": 1.0
 	},
 	"kidney": {
-	  	"requires": ["abdomen"],
+	  	"requires": ["abdomen", "brain"],
 	 	"tags": ["blood filtration"],
 	  	"range": [1, 2],
 	  	"weight": 1.0
@@ -107,7 +128,7 @@
 	  	"weight": 1.0
 	},
 	"liver": {
-	  	"requires": ["abdomen"],
+	  	"requires": ["abdomen", "kidney"],
 	 	"tags": ["gland"],
 	  	"weight": 0.5
 	},
@@ -140,6 +161,12 @@
 	  	"requires": ["abdomen"],
 	 	"tags": ["gland"],
 	  	"weight": 1.0
+	},
+	"parathyroid": {
+	  	"requires": ["thyroid"],
+	 	"tags": ["gland"],
+	  	"range": [3, 8],
+	  	"weight": 0.5
 	},
 	"pincer": {
 	  	"requires": ["mouth"],
@@ -196,6 +223,11 @@
 	"thorax": {
 	  	"plural": "thoraces",
 	  	"requires": ["neck"],
+	  	"weight": 1.0
+	},
+	"thyroid": {
+	  	"requires": ["neck"],
+	 	"tags": ["gland"],
 	  	"weight": 1.0
 	},
 	"toe": {

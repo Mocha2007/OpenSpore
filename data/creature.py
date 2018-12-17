@@ -2,6 +2,24 @@ from random import choice, random, seed
 from json import load
 
 parts_json = load(open('data/parts.json', encoding="utf-8"))
+""" 
+stomach [hydra+]
+	<- brain [acoelomorpha+]
+		<- kidney [nematode+]
+			<-? adrenal gland
+			<- bladder [crustacea, some chordates+]
+			<-? gizzard [some chordates+]
+			<- liver [vertebrata+]
+				<-? heart [amniote+]
+				<- gallbladder [most vertebrates+]
+			<- lung [vertebrata+]
+			<- pancreas [vertebrates+]
+			<- spleen [vertebrates excluding lamprey and hagfishes+]
+			<- thyroid [vertebrates+]
+				<- parathyroid [tetrapods+]
+	<-? intestine
+		<- appendix [most Euarchontoglires subset of Mammalia]
+"""
 
 
 class Part:
