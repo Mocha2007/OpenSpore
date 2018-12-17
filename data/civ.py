@@ -1,5 +1,5 @@
 from random import choice, randint, random, seed, shuffle, uniform
-from constants import log_uniform, rbool
+from constants import log_uniform, rbool, r_adj, r_polar_adj
 from resource import Resource
 from color import Color
 from creature import creature_gen # test
@@ -12,26 +12,16 @@ from civnamegen import main as name
 # 	-> inv: list of tuples of (item: Resource, count: int)
 #
 # Empires will have a 50% chance of generating on world with biodiversity 6
-goal_list = (
+goal_list = {
 	'$',
 	'colony',
 	'resource',
 	'war'
-)
+}
 # constants for description generator
 size_range = 1, 6.5 # dwarf <> elephant, in meters cf. chips, humans at 1.2 1.7
 sleep_range = .08, .83 # horses, bats
-textures = (
-	# name, is plural?
-	('fur', False),
-	('feathers', True),
-	('husk', False),
-	('scales', True),
-	('shell', False),
-	('skin', False),
-	('membrane', False),
-)
-values = (
+values = {
 	# min, max
 	('independence', 'cooperation'),
 	('simplicity', 'elegance'),
@@ -39,72 +29,11 @@ values = (
 	('ignorance', 'knowledge'),
 	('disloyalty', 'loyalty'),
 	('chastity', 'romance'),
-)
-feels = (
-	('soft', 'hard'),
-	('sticky', 'oily'),
-	('smooth', 'rough'),
-	('dry', 'wet'),
-)
-colors = (
-	'black',
-	'blue',
-	'brown',
-	'cyan',
-	'green',
-	'grey',
-	'orange',
-	'pink',
-	'purple',
-	'red',
-	'silver',
-	'tan',
-	'white',
-	'yellow',
-)
-wing_adj = (
-	'elegant',
-	'flowing',
-	'frightening',
-	'graceful',
-	'large',
-)
-
-
-def r_adj(adj_list, minimum: int, maximum: int) -> str:
-	palette = list(adj_list)
-	shuffle(palette)
-	chosen = []
-	limit = randint(minimum, maximum)
-	for i in range(limit):
-		if 1 < limit == i+1:
-			if limit == 2:
-				chosen[0] += ' and '+palette.pop()
-			else:
-				chosen.append('and '+palette.pop())
-		else:
-			chosen.append(palette.pop())
-	return ', '.join(chosen)
-
-
-def r_polar_adj(adj_list, minimum: int, maximum: int) -> str:
-	palette = list(adj_list)
-	shuffle(palette)
-	chosen = []
-	limit = randint(minimum, maximum)
-	for i in range(limit):
-		if 1 < limit == i+1:
-			if limit == 2:
-				chosen[0] += ' and '+choice(palette.pop())
-			else:
-				chosen.append('and '+choice(palette.pop()))
-		else:
-			chosen.append(choice(palette.pop()))
-	return ', '.join(chosen)
+}
 
 
 def r_goal() -> str:
-	return choice(goal_list)
+	return choice(list(goal_list))
 
 
 class Civ:
@@ -193,13 +122,8 @@ class Civ:
 		# Dinural? Nocturnal?
 		activity = choice(['dinural', 'nocturnal', 'crepuscular'])
 		sleep = uniform(*sleep_range)
-		# appearance
-		material_texture = r_polar_adj(feels, 1, 3)
-		texture, texture_number = choice(textures)
-		color = r_adj(colors, 1, 3)
-		winged = rbool(.2)
 		# todo Civ Philosophical Values
-		pro, con = choice(values)[::choice([1, -1])]
+		pro, con = choice(list(values))[::choice([1, -1])]
 		# compose
 		describe = [self.name,
 		'Their species has a size of {size} m and a mass of {mass} kg.'.format(mass=round(mass), size=round(size, 2))]
@@ -211,12 +135,13 @@ class Civ:
 		else:
 			describe.append('The species is asexual.')
 		describe.append('Their sleep activity is '+activity+', and they sleep for '+str(round(sleep*100))+'% of the local day.')
-		describe.append('Their '+material_texture+' '+texture+(' are ' if texture_number else ' is ')+color+'.')
-		if winged:
-			describe.append('Their wings are '+r_adj(wing_adj, 1, 3)+'.')
+		# describe.append('Their '+material_texture+' '+texture+(' are ' if texture_number else ' is ')+color+'.')
+		if self.creature.is_winged():
+			describe.append('They are winged.')
 		# todo philo
 		describe.append('They value '+pro+' above all else, and despise '+con+'.')
 		describe.append('Body Parts: '+', '.join(sorted(list([part.name+' x'+str(count) for part, count in self.creature.parts.items()]))))
+		describe.append('Skin: '+str(self.creature.skin))
 		describe.append('Tags: '+str(self.creature.list_tags()))
 		return '\n\t'.join(describe)
 

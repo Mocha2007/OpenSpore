@@ -1,5 +1,7 @@
-from random import choice, random, seed
+from random import choice, randint, random, seed
 from json import load
+from constants import r_adj, r_polar_adj
+from word import Noun
 
 parts_json = load(open('data/parts.json', encoding="utf-8"))
 """ 
@@ -57,8 +59,68 @@ class Part:
 	def __repr__(self) -> str:
 		return 'Part("'+self.name+'", **'+str(self.kwargs)+')'
 
-	def __str__(self) -> str:
-		return self.__repr__()
+
+textures = {
+	Noun('chitin', countable=False),
+	Noun('fur', countable=False),
+	Noun('feather', is_plural=True),
+	Noun('husk'),
+	Noun('membrane'),
+	Noun('scale', is_plural=True),
+	Noun('skin', countable=False),
+}
+feels = {
+	('soft', 'hard'),
+	('sticky', 'oily'),
+	('smooth', 'rough'),
+	('dry', 'wet'),
+}
+colors = {
+	'black',
+	'blue',
+	'brown',
+	'cyan',
+	'green',
+	'grey',
+	'orange',
+	'pink',
+	'purple',
+	'red',
+	'silver',
+	'tan',
+	'white',
+	'yellow',
+}
+
+
+class Material:
+	def __init__(self, material_type: Noun, material_textures: set, material_colors: set):
+		self.type = material_type
+		self.textures = material_textures
+		self.colors = material_colors
+
+	def __repr__(self):
+		return 'Material('+', '.join(map(str, [self.type, self.textures, self.colors]))+')'
+
+	def add_color(self, color: str):
+		self.colors.add(color)
+		return self
+
+	def add_texture(self, texture: str):
+		self.textures.add(texture)
+		return self
+
+
+class Skin:
+	def __init__(self, materials: set):
+		self.types = materials
+
+	def __add__(self, other):
+		self.types.add(other)
+		return self
+
+	def __repr__(self):
+		return 'Skin('+str(self.types)+')'
 
 
 class Creature:
@@ -79,12 +141,14 @@ class Creature:
 			self.tags = set(kwargs['tags'])
 		else:
 			self.tags = set()
+		# skin
+		if 'skin' in kwargs:
+			self.skin = set(kwargs['skin'])
+		else:
+			self.skin = Skin(set())
 
 	def __repr__(self) -> str:
 		return 'Creature("'+self.name+'", **'+str(self.kwargs)+')'
-
-	def __str__(self) -> str:
-		return self.__repr__()
 
 	def __add__(self, other: Part):
 		if other in self.parts:
@@ -99,6 +163,9 @@ class Creature:
 			if 'root' not in part.tags:
 				tags = tags.union(part.tags)
 		return tags
+
+	def is_winged(self) -> bool:
+		return 'wing' in [part.name for part in self.parts]
 
 
 parts = [Part(i[0], **i[1]) for i in parts_json.items()]
@@ -148,5 +215,10 @@ def creature_gen(creature_id: float, **kwargs) -> Creature:
 		# check prereqs
 		if not part.requires < set([part.name for part in o.parts]):
 			del o.parts[part]
+	# add skin
+	for _ in range(randint(1, 2)):
+		material_texture = r_polar_adj(feels, 1, 3)
+		color = r_adj(colors, 1, 3)
+		o.skin += Material(choice(list(textures)), material_texture, color)
 	# todo add tags (feature not implemented yet)
 	return o

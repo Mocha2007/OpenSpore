@@ -1,5 +1,5 @@
 from math import atan2, ceil, e, log, pi
-from random import random, uniform
+from random import randint, random, shuffle, uniform
 import pygame
 import sys
 from random import choice
@@ -631,3 +631,23 @@ def rbool(*args: float) -> bool:
 	if args:
 		return random() < args[0]
 	return choice([True, False])
+
+
+def r_adj(adj_list, minimum: int, maximum: int) -> set:
+	palette = list(adj_list)
+	shuffle(palette)
+	chosen = set()
+	limit = randint(minimum, maximum)
+	for i in range(limit):
+		chosen.add(palette.pop())
+	return chosen
+
+
+def r_polar_adj(adj_list, minimum: int, maximum: int) -> set:
+	palette = list(adj_list)
+	shuffle(palette)
+	chosen = set()
+	limit = randint(minimum, maximum)
+	for i in range(limit):
+		chosen.add(choice(palette.pop()))
+	return chosen
