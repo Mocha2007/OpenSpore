@@ -107,6 +107,13 @@ parts = [Part(i[0], **i[1]) for i in parts_json.items()]
 vital = {list(filter(lambda x: 'root' in x.tags, parts))[0]: 1}
 
 
+def get_part_from_name(name: str) -> Part:
+	for part in parts:
+		if part.name == name:
+			return part
+	raise KeyError
+
+
 def creature_gen(creature_id: float, **kwargs) -> Creature:
 	seed(creature_id)
 	name = str(creature_id)
@@ -134,9 +141,9 @@ def creature_gen(creature_id: float, **kwargs) -> Creature:
 				continue
 			# check if rngesus loves you
 			if random() < part.weight:
-				o.parts[part] = choice(part.range)
+				primary_prereq_count = o.parts[get_part_from_name(list(part.requires)[0])]
+				o.parts[part] = choice(part.range) * primary_prereq_count
 	# check prereqs
-	print(o.parts)
 	for part in o.parts:
 		# check prereqs
 		if not part.requires < set([part.name for part in o.parts]):

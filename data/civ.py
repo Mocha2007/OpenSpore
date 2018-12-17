@@ -216,7 +216,7 @@ class Civ:
 			describe.append('Their wings are '+r_adj(wing_adj, 1, 3)+'.')
 		# todo philo
 		describe.append('They value '+pro+' above all else, and despise '+con+'.')
-		describe.append('Body Parts: '+', '.join(sorted(list([part.name for part in self.creature.parts]))))
+		describe.append('Body Parts: '+', '.join(sorted(list([part.name+' x'+str(count) for part, count in self.creature.parts.items()]))))
 		describe.append('Tags: '+str(self.creature.list_tags()))
 		return '\n\t'.join(describe)
 

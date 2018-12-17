@@ -7,18 +7,16 @@
 	"adrenal gland": {
 	  	"requires": ["kidney"],
 	 	"tags": ["gland"],
-	  	"range": [1, 2],
 	  	"weight": 1.0
 	},
 	"ankle": {
 	  	"requires": ["lower leg"],
-	  	"range": [2, 2],
 	  	"weight": 1.0
 	},
 	"antenna": {
 	  	"plural": "antennae",
 	  	"requires": ["head"],
-	  	"range": [2, 2],
+	  	"range": [2, 4, 2],
 	 	"tags": ["smell", "touch"],
 	  	"weight": 0.1
 	},
@@ -43,7 +41,6 @@
 	},
 	"elbow": {
 	  	"requires": ["upper arm"],
-	  	"range": [2, 2],
 	  	"weight": 1.0
 	},
 	"ear": {
@@ -67,12 +64,10 @@
 	"foot": {
 	  	"plural": "feet",
 	  	"requires": ["ankle"],
-	  	"range": [2, 2],
 	  	"weight": 1.0
 	},
 	"forearm": {
 	  	"requires": ["elbow"],
-	  	"range": [2, 2],
 	  	"weight": 1.0
 	},
 	"gallbladder": {
@@ -87,7 +82,6 @@
 	},
 	"hand": {
 	  	"requires": ["wrist"],
-	  	"range": [2, 2],
 	  	"tags": ["touch"],
 	  	"weight": 1.0
 	},
@@ -124,7 +118,6 @@
 	},
 	"knee": {
 	  	"requires": ["thigh"],
-	  	"range": [2, 2],
 	  	"weight": 1.0
 	},
 	"liver": {
@@ -134,7 +127,6 @@
 	},
 	"lower leg": {
 	  	"requires": ["knee"],
-	  	"range": [2, 2],
 	  	"weight": 1.0
 	},
 	"lung": {
@@ -217,7 +209,6 @@
 	},
 	"thigh": {
 	  	"requires": ["hip"],
-	  	"range": [2, 2],
 	  	"weight": 1.0
 	},
 	"thorax": {
@@ -243,7 +234,6 @@
 	},
 	"upper arm": {
 	  	"requires": ["shoulder"],
-	  	"range": [2, 2],
 	 	"tags": ["grip"],
 	  	"weight": 1.0
 	},
@@ -258,7 +248,6 @@
 	},
 	"wrist": {
 	  	"requires": ["forearm"],
-	  	"range": [2, 2],
 	  	"weight": 1.0
 	}
 }
