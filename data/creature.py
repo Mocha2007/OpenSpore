@@ -81,6 +81,7 @@ textures = {
 	Noun('feather', is_plural=True),
 	Noun('husk'),
 	Noun('membrane'),
+	Noun('photophore', is_plural=True),
 	Noun('scale', is_plural=True),
 	Noun('skin', countable=False),
 }
