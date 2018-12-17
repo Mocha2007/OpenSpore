@@ -1,8 +1,8 @@
-from random import choice, randint, random, seed, shuffle, uniform
-from constants import log_uniform, rbool, r_adj, r_polar_adj
+from random import choice, randint, random, seed
+from math import log
 from resource import Resource
 from color import Color
-from creature import creature_gen # test
+from creature import creature_gen
 import sys
 sys.path.append('./data/name')
 from civnamegen import main as name
