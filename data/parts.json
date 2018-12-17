@@ -39,6 +39,11 @@
 	 	"tags": ["thought"],
 	  	"weight": 1.0
 	},
+	"claw": {
+	  	"requires": ["wrist"],
+	 	"tags": ["grip"],
+	  	"weight": 0.2
+	},
 	"elbow": {
 	  	"requires": ["upper arm"],
 	  	"weight": 1.0
@@ -87,6 +92,7 @@
 	},
 	"hand": {
 	  	"requires": ["wrist"],
+	  	"exclude": ["claw"],
 	  	"tags": ["touch"],
 	  	"weight": 1.0
 	},
