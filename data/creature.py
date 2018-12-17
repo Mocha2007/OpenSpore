@@ -19,8 +19,9 @@ class Part:
 			self.requires = set()
 		# plurality
 		if 'range' in kwargs:
-			kwargs['range'][1] += 1
-			r = kwargs['range']
+			range_range = list(kwargs['range'])
+			range_range[1] += 1
+			r = range_range
 		else:
 			r = 1, 2
 		self.range = range(*r)
@@ -57,9 +58,9 @@ class Creature:
 			self.parts = {}
 		# tags
 		if 'tags' in kwargs:
-			self.tags = kwargs['tags']
+			self.tags = set(kwargs['tags'])
 		else:
-			self.tags = []
+			self.tags = set()
 
 	def __repr__(self) -> str:
 		return 'Creature("'+self.name+'", **'+str(self.kwargs)+')'
@@ -73,6 +74,13 @@ class Creature:
 		else:
 			self.parts[other] = 1
 		return self
+
+	def list_tags(self) -> set:
+		tags = set()
+		for part in self.parts:
+			if 'root' not in part.tags:
+				tags = tags.union(part.tags)
+		return tags
 
 
 parts = [Part(i[0], **i[1]) for i in parts_json.items()]

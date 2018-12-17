@@ -1,18 +1,47 @@
 {
+	"abdomen": {
+	  	"plural": "abdomina",
+	  	"requires": ["thorax"],
+	  	"weight": 1.0
+	},
+	"ankle": {
+	  	"requires": ["lower leg"],
+	  	"range": [2, 2],
+	  	"weight": 1.0
+	},
+	"antenna": {
+	  	"plural": "antennae",
+	  	"requires": ["head"],
+	  	"range": [2, 2],
+	  	"weight": 0.2
+	},
 	"elbow": {
 	  	"requires": ["upper arm"],
 	  	"range": [2, 2],
 	  	"weight": 1.0
 	},
+	"ear": {
+	  	"requires": ["head"],
+	  	"range": [2, 2],
+	 	"tags": ["hearing"],
+	  	"weight": 1.0
+	},
 	"eye": {
 	  	"requires": ["head"],
 	  	"range": [2, 2],
+	 	"tags": ["sight"],
 	  	"weight": 1.0
 	},
 	"finger": {
 	  	"requires": ["hand"],
 	  	"range": [2, 5],
 	 	"tags": ["grip"],
+	  	"weight": 1.0
+	},
+	"foot": {
+	  	"plural": "feet",
+	  	"requires": ["ankle"],
+	  	"range": [2, 2],
 	  	"weight": 1.0
 	},
 	"forearm": {
@@ -28,8 +57,33 @@
 	"head": {
 	 	"tags": ["root"]
 	},
+	"hip": {
+	  	"requires": ["waist"],
+	  	"range": [2, 2],
+	  	"weight": 0.5
+	},
+	"knee": {
+	  	"requires": ["thigh"],
+	  	"range": [2, 2],
+	  	"weight": 1.0
+	},
+	"lower leg": {
+	  	"requires": ["knee"],
+	  	"range": [2, 2],
+	  	"weight": 1.0
+	},
+	"mouth": {
+	  	"requires": ["head"],
+	 	"tags": ["eating", "tasting"],
+	  	"weight": 1.0
+	},
 	"neck": {
 	  	"requires": ["head"],
+	  	"weight": 1.0
+	},
+	"nose": {
+	  	"requires": ["head"],
+	 	"tags": ["smell"],
 	  	"weight": 1.0
 	},
 	"shoulder": {
@@ -37,14 +91,29 @@
 	  	"range": [2, 2],
 	  	"weight": 0.5
 	},
+	"thigh": {
+	  	"requires": ["hip"],
+	  	"range": [2, 2],
+	  	"weight": 1.0
+	},
 	"thorax": {
+	  	"plural": "thoraces",
 	  	"requires": ["neck"],
+	  	"weight": 1.0
+	},
+	"toe": {
+	  	"requires": ["foot"],
+	  	"range": [2, 5],
 	  	"weight": 1.0
 	},
 	"upper arm": {
 	  	"requires": ["shoulder"],
 	  	"range": [2, 2],
 	 	"tags": ["grip"],
+	  	"weight": 1.0
+	},
+	"waist": {
+	  	"requires": ["abdomen"],
 	  	"weight": 1.0
 	},
 	"wing": {

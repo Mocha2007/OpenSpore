@@ -121,6 +121,7 @@ class Civ:
 		self.color = Color(0, randint(64, 255), randint(64, 255))
 		self.goal = r_goal() # AI's current project
 		self.diplo = {} # civ.id (float) -> state (str)
+		self.creature = creature_gen(self.id)
 		print(self.description())
 
 	def __add__(self, other):
@@ -215,7 +216,8 @@ class Civ:
 			describe.append('Their wings are '+r_adj(wing_adj, 1, 3)+'.')
 		# todo philo
 		describe.append('They value '+pro+' above all else, and despise '+con+'.')
-		describe.append(str(creature_gen(self.id)))
+		describe.append('Creature: '+str(self.creature))
+		describe.append('Tags: '+str(self.creature.list_tags()))
 		return '\n\t'.join(describe)
 
 
