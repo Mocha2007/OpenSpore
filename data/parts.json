@@ -77,6 +77,7 @@
 	},
 	"gill": {
 	  	"requires": ["neck"],
+	  	"exclude": ["beak"],
 	  	"weight": 0.2
 	},
 	"gizzard": {
@@ -168,21 +169,21 @@
 	"pincer": {
 	  	"requires": ["mouth"],
 	 	"tags": ["digestion", "offense"],
-	  	"exclude": ["beak"],
+	  	"exclude": ["beak", "gill"],
 	  	"range": [2, 2],
 	  	"weight": 0.1
 	},
 	"proboscis": {
 	  	"plural": "proboscides",
 	  	"requires": ["mouth"],
-	  	"exclude": ["beak", "pincer"],
+	  	"exclude": ["beak", "gill", "pincer"],
 	 	"tags": ["digestion"],
 	  	"weight": 0.05
 	},
 	"rumen": {
 	  	"plural": "rumina",
 	  	"requires": ["stomach"],
-	  	"exclude": ["gizzard"],
+	  	"exclude": ["antenna", "beak", "gill", "gizzard", "pincer", "proboscis"],
 	  	"weight": 0.1
 	},
 	"shell": {
@@ -241,7 +242,7 @@
 	},
 	"tusk": {
 	  	"requires": ["head"],
-	  	"exclude": ["horn", "pincer", "proboscis"],
+	  	"exclude": ["antenna", "horn", "pincer", "proboscis", "tentacle"],
 	 	"range": [2, 2],
 	  	"tags": ["defense", "offense"],
 	  	"weight": 0.05
