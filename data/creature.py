@@ -1,6 +1,6 @@
-from random import choice, randint, random, seed
+from random import choice, randint, random, seed, uniform
 from json import load
-from constants import r_adj, r_polar_adj
+from constants import log_uniform, r_adj, r_polar_adj, rbool
 from word import Noun
 
 parts_json = load(open('data/parts.json', encoding="utf-8"))
@@ -60,6 +60,9 @@ class Part:
 		return 'Part("'+self.name+'", **'+str(self.kwargs)+')'
 
 
+# constants for description generator
+size_range = 1, 6.5 # dwarf <> elephant, in meters cf. chips, humans at 1.2 1.7
+sleep_range = .08, .83 # horses, bats
 textures = {
 	Noun('chitin', countable=False),
 	Noun('fur', countable=False),
@@ -138,12 +141,17 @@ class Creature:
 			self.parts = {}
 		# tags
 		if 'tags' in kwargs:
-			self.tags = set(kwargs['tags'])
+			self.tags = kwargs['tags']
 		else:
 			self.tags = set()
+		# constants
+		if 'constants' in kwargs:
+			self.constants = kwargs['constants']
+		else:
+			self.constants = {}
 		# skin
 		if 'skin' in kwargs:
-			self.skin = set(kwargs['skin'])
+			self.skin = kwargs['skin']
 		else:
 			self.skin = Skin(set())
 
@@ -221,4 +229,22 @@ def creature_gen(creature_id: float, **kwargs) -> Creature:
 		color = r_adj(colors, 1, 3)
 		o.skin += Material(choice(list(textures)), material_texture, color)
 	# todo add tags (feature not implemented yet)
+	# species size in m and kg
+	size = log_uniform(*size_range)
+	mass = uniform(18, 29) * size**3
+	# sexual dimorphism?
+	sexes = rbool(.2)
+	dimorphic = sexes and rbool()
+	# Dinural? Nocturnal?
+	activity = choice(['dinural', 'nocturnal', 'crepuscular'])
+	sleep = uniform(*sleep_range)
+
+	o.constants = {
+		'size': size,
+		'mass': mass,
+		'sexes': sexes,
+		'dimorphic': dimorphic,
+		'activity': activity,
+		'sleep': sleep,
+	}
 	return o

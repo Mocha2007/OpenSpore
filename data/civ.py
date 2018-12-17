@@ -18,9 +18,6 @@ goal_list = {
 	'resource',
 	'war'
 }
-# constants for description generator
-size_range = 1, 6.5 # dwarf <> elephant, in meters cf. chips, humans at 1.2 1.7
-sleep_range = .08, .83 # horses, bats
 values = {
 	# min, max
 	('independence', 'cooperation'),
@@ -112,35 +109,29 @@ class Civ:
 		return self
 
 	def description(self) -> str:
-		seed(self.id)
-		# species size in m and kg
-		size = log_uniform(*size_range)
-		mass = uniform(18, 29) * size**3
-		# sexual dimorphism?
-		sexes = rbool(.2)
-		dimorphic = sexes and rbool()
-		# Dinural? Nocturnal?
-		activity = choice(['dinural', 'nocturnal', 'crepuscular'])
-		sleep = uniform(*sleep_range)
+		species = self.creature
 		# todo Civ Philosophical Values
 		pro, con = choice(list(values))[::choice([1, -1])]
 		# compose
 		describe = [self.name,
-		'Their species has a size of {size} m and a mass of {mass} kg.'.format(mass=round(mass), size=round(size, 2))]
-		if sexes:
-			if dimorphic:
+		'Their species has a size of {size} m and a mass of {mass} kg.'.format(
+			mass=round(species.constants['mass']), size=round(species.constants['size'], 2))]
+		if species.constants['sexes']:
+			if species.constants['dimorphic']:
 				describe.append('The species is sexually dimorphic.')
 			else:
 				describe.append('The species is divided into two virtually identical sexes.')
 		else:
 			describe.append('The species is asexual.')
-		describe.append('Their sleep activity is '+activity+', and they sleep for '+str(round(sleep*100))+'% of the local day.')
+		describe.append('Their sleep activity is '+species.constants['activity']+', and they sleep for ' +
+						str(round(species.constants['sleep']*100))+'% of the local day.')
 		# describe.append('Their '+material_texture+' '+texture+(' are ' if texture_number else ' is ')+color+'.')
 		if self.creature.is_winged():
 			describe.append('They are winged.')
 		# todo philo
 		describe.append('They value '+pro+' above all else, and despise '+con+'.')
-		describe.append('Body Parts: '+', '.join(sorted(list([part.name+' x'+str(count) for part, count in self.creature.parts.items()]))))
+		describe.append('Body Parts: ' +
+						', '.join(sorted(list([part.name+' x'+str(count) for part, count in self.creature.parts.items()]))))
 		describe.append('Skin: '+str(self.creature.skin))
 		describe.append('Tags: '+str(self.creature.list_tags()))
 		return '\n\t'.join(describe)
