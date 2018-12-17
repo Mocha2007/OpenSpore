@@ -37,6 +37,13 @@ class Part:
 			self.requires = set(kwargs['requires'])
 		else:
 			self.requires = set()
+		# connected to (if different from requirements)
+		if 'connect' in kwargs:
+			self.connect = kwargs['connect']
+		elif 'requires' in kwargs:
+			self.connect = kwargs['requires'][0]
+		else:
+			self.connect = None
 		# plurality
 		if 'range' in kwargs:
 			range_range = list(kwargs['range'])
@@ -216,7 +223,7 @@ def creature_gen(creature_id: float, **kwargs) -> Creature:
 				continue
 			# check if rngesus loves you
 			if random() < part.weight:
-				primary_prereq_count = o.parts[get_part_from_name(list(part.requires)[0])]
+				primary_prereq_count = o.parts[get_part_from_name(part.connect)]
 				o.parts[part] = choice(part.range) * primary_prereq_count
 	# check prereqs
 	for part in o.parts:

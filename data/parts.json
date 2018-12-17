@@ -71,7 +71,7 @@
 	  	"weight": 1.0
 	},
 	"gallbladder": {
-	  	"requires": ["intestine", "liver"],
+	  	"requires": ["liver", "intestine"],
 	 	"tags": ["digestion"],
 	  	"weight": 0.9
 	},
