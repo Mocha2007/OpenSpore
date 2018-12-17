@@ -14,12 +14,12 @@
 	  	"requires": ["head"],
 	  	"range": [2, 2],
 	 	"tags": ["smell", "touch"],
-	  	"weight": 0.2
+	  	"weight": 0.1
 	},
 	"beak": {
 	  	"requires": ["mouth"],
 	 	"tags": ["digestion", "offense"],
-	  	"weight": 0.2
+	  	"weight": 0.1
 	},
 	"brain": {
 	  	"requires": ["head"],
@@ -63,7 +63,7 @@
 	"gizzard": {
 	  	"requires": ["stomach"],
 	 	"tags": ["digestion"],
-	  	"weight": 0.5
+	  	"weight": 0.2
 	},
 	"hand": {
 	  	"requires": ["wrist"],
@@ -88,7 +88,7 @@
 	  	"requires": ["head"],
 	 	"tags": ["defense", "offense"],
 	  	"range": [1, 2],
-	  	"weight": 0.2
+	  	"weight": 0.05
 	},
 	"intestine": {
 	  	"requires": ["stomach"],
@@ -145,18 +145,18 @@
 	  	"requires": ["mouth"],
 	 	"tags": ["digestion", "offense"],
 	  	"range": [2, 2],
-	  	"weight": 0.2
+	  	"weight": 0.1
 	},
 	"proboscis": {
 	  	"plural": "proboscides",
 	  	"requires": ["mouth"],
 	 	"tags": ["digestion"],
-	  	"weight": 0.2
+	  	"weight": 0.05
 	},
 	"shell": {
 	  	"requires": ["thorax"],
 	  	"tags": ["defense"],
-	  	"weight": 0.2
+	  	"weight": 0.1
 	},
 	"shoulder": {
 	  	"requires": ["thorax"],
@@ -186,7 +186,7 @@
 	  	"requires": ["thorax"],
 	 	"tags": ["grip"],
 	  	"range": [2, 10, 2],
-	  	"weight": 0.2
+	  	"weight": 0.05
 	},
 	"thigh": {
 	  	"requires": ["hip"],
@@ -207,7 +207,7 @@
 	  	"requires": ["head"],
 	 	"range": [2, 2],
 	  	"tags": ["defense", "offense"],
-	  	"weight": 0.2
+	  	"weight": 0.05
 	},
 	"upper arm": {
 	  	"requires": ["shoulder"],
@@ -222,7 +222,7 @@
 	"wing": {
 	  	"requires": ["thorax"],
 	  	"range": [2, 2],
-	  	"weight": 0.3
+	  	"weight": 0.1
 	},
 	"wrist": {
 	  	"requires": ["forearm"],
