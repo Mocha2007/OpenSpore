@@ -1,4 +1,4 @@
-from random import choice, random, seed, shuffle
+from random import choice, random, seed
 from json import load
 
 parts_json = load(open('data/parts.json', encoding="utf-8"))
