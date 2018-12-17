@@ -75,6 +75,10 @@
 	 	"tags": ["digestion"],
 	  	"weight": 0.9
 	},
+	"gill": {
+	  	"requires": ["neck"],
+	  	"weight": 0.2
+	},
 	"gizzard": {
 	  	"requires": ["stomach"],
 	 	"tags": ["digestion"],
@@ -131,6 +135,7 @@
 	},
 	"lung": {
 	  	"requires": ["thorax"],
+	  	"exclude": ["gill"],
 	 	"tags": ["breathing"],
 	  	"range": [1, 2],
 	  	"weight": 1.0
@@ -179,7 +184,7 @@
 	  	"requires": ["stomach"],
 	  	"exclude": ["gizzard"],
 	  	"weight": 0.1
-	},,
+	},
 	"shell": {
 	  	"requires": ["thorax"],
 	  	"tags": ["defense"],
@@ -252,6 +257,7 @@
 	},
 	"wing": {
 	  	"requires": ["thorax"],
+	  	"exclude": ["gill", "horn", "rumen", "tentacle", "tusk"],
 	  	"range": [2, 2],
 	  	"weight": 0.1
 	},
