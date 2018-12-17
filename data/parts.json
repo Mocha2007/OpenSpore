@@ -96,7 +96,7 @@
 	},
 	"hip": {
 	  	"requires": ["waist"],
-	  	"range": [2, 2],
+	  	"range": [2, 4, 2],
 	  	"weight": 0.5
 	},
 	"horn": {
@@ -179,7 +179,7 @@
 	},
 	"shoulder": {
 	  	"requires": ["thorax"],
-	  	"range": [2, 2],
+	  	"range": [2, 4, 2],
 	  	"weight": 0.5
 	},
 	"spleen": {
