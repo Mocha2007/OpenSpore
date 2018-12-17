@@ -1,7 +1,7 @@
 from random import choice, randint, random, seed, uniform
 from json import load
 from constants import log_uniform, r_adj, r_polar_adj, rbool
-from word import Noun
+from word import Noun, Description
 
 parts_json = load(open('data/parts.json', encoding="utf-8"))
 """ 
@@ -27,11 +27,11 @@ stomach [hydra+]
 class Part:
 	def __init__(self, name: str, **kwargs):
 		self.kwargs = kwargs
-		self.name = name
 		if 'plural' in kwargs:
-			self.plural = kwargs['plural']
+			plural = kwargs['plural']
 		else:
-			self.plural = name+'s'
+			plural = name+'s'
+		self.noun = Noun(name, plural=plural)
 		# requirements
 		if 'requires' in kwargs:
 			self.requires = set(kwargs['requires'])
@@ -64,7 +64,7 @@ class Part:
 			self.weight = .5
 
 	def __repr__(self) -> str:
-		return 'Part("'+self.name+'", **'+str(self.kwargs)+')'
+		return 'Part("'+self.noun.read()+'", **'+str(self.kwargs)+')'
 
 
 # constants for description generator
@@ -180,7 +180,19 @@ class Creature:
 		return tags
 
 	def is_winged(self) -> bool:
-		return 'wing' in [part.name for part in self.parts]
+		return 'wing' in [part.noun.read() for part in self.parts]
+
+	def description(self) -> str:
+		# compile part -> int dict
+		part_dict = {i.noun: j for i, j in self.parts.items()}
+		# compile set of tuple(tuple, str)
+		part_set = set()
+		for part, _ in self.parts.items():
+			if part.connect is not None:
+				part_tuple = part.noun, get_part_from_name(part.connect).noun
+				part_string = 'The {0} {0_be} connected to the {1}'
+				part_set.add((part_tuple, part_string))
+		return Description(part_dict, part_set)
 
 
 parts = [Part(i[0], **i[1]) for i in parts_json.items()]
@@ -191,9 +203,9 @@ vital = {list(filter(lambda x: 'root' in x.tags, parts))[0]: 1}
 
 def get_part_from_name(name: str) -> Part:
 	for part in parts:
-		if part.name == name:
+		if part.noun.read() == name:
 			return part
-	raise KeyError
+	raise KeyError(name)
 
 
 def creature_gen(creature_id: float, **kwargs) -> Creature:
@@ -204,10 +216,10 @@ def creature_gen(creature_id: float, **kwargs) -> Creature:
 	else:
 		o = Creature(name, parts=vital)
 	# add parts
-	checked = set([i.name for i in vital])
-	while checked != set([i.name for i in parts]):
+	checked = set([i.noun.read() for i in vital])
+	while checked != set([i.noun.read() for i in parts]):
 		for part in parts:
-			if part.name in checked: # no dupes!
+			if part.noun.read() in checked: # no dupes!
 				continue
 			# check prereqs
 			all_are_checked = True
@@ -216,10 +228,10 @@ def creature_gen(creature_id: float, **kwargs) -> Creature:
 					all_are_checked = False
 					break
 			if all_are_checked:
-				checked.add(part.name)
+				checked.add(part.noun.read())
 			else:
 				continue
-			if not part.requires <= set([i.name for i in o.parts.keys()]):
+			if not part.requires <= set([i.noun.read() for i in o.parts.keys()]):
 				continue
 			# check if rngesus loves you
 			if random() < part.weight:
@@ -228,7 +240,7 @@ def creature_gen(creature_id: float, **kwargs) -> Creature:
 	# check prereqs
 	for part in o.parts:
 		# check prereqs
-		if not part.requires < set([part.name for part in o.parts]):
+		if not part.requires < set([part.noun.read() for part in o.parts]):
 			del o.parts[part]
 	# add skin
 	for _ in range(randint(1, 2)):

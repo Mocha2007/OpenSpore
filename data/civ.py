@@ -131,9 +131,10 @@ class Civ:
 		# todo philo
 		describe.append('They value '+pro+' above all else, and despise '+con+'.')
 		describe.append('Body Parts: ' +
-						', '.join(sorted(list([part.name+' x'+str(count) for part, count in self.creature.parts.items()]))))
+						', '.join(sorted(list([part.noun.read()+' x'+str(count) for part, count in self.creature.parts.items()]))))
 		describe.append('Skin: '+str(self.creature.skin))
 		describe.append('Tags: '+str(self.creature.list_tags()))
+		describe.append('Description: '+self.creature.description().read())
 		return '\n\t'.join(describe)
 
 

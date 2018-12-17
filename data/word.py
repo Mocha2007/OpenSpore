@@ -17,6 +17,11 @@ class Noun:
 			self.always_plural = kwargs['always_plural']
 		else:
 			self.always_plural = False
+		# article
+		if 'article' in kwargs:
+			self.article = kwargs['article']
+		else:
+			self.article = 'a' if self.word[0] in 'aeiou' else 'an'
 		# plural form
 		if self.always_singular or self.always_plural:
 			self.plural = word
@@ -37,8 +42,55 @@ class Noun:
 	def __repr__(self) -> str:
 		return 'Noun("'+self.word+'", **'+str(self.kwargs)+')'
 
-	def read(self) -> str:
+	def number(self) -> bool:
 		if self.always_singular or not self.is_plural:
-			return self.word
+			return False
 		else:
-			return self.plural
+			return True
+
+	def read(self) -> str:
+		return self.plural if self.number() else self.word
+
+	def get_be(self):
+		return 'are' if self.number() else 'is'
+
+	def get_existential(self, **kwargs):
+		n = kwargs['n'] if 'n' in kwargs else 1
+		proper = kwargs['proper'] if 'proper' in kwargs else False
+		be = 'is' if n == 1 else 'are'
+		fstring = 'there '+be+' {0} {1}'
+		if proper:
+			fstring = fstring[0].upper()+fstring[1:]+'.'
+		word = self.word if n == 1 else self.plural
+		return fstring.format(n, word)
+
+
+class Description:
+	def __init__(self, objects: dict, relationships: set):
+		"""
+		:param objects: a dict mapping Parts to ints (how many)
+		:param relationships: a set of tuple(tuple, str), first tuple is which parts, str is the relationship
+		"""
+		self.objects = objects
+		self.relationships = relationships
+
+	def read(self) -> str:
+		o = []
+		# list the characters
+		for object_, count in self.objects.items():
+			assert type(object_) == Noun
+			o.append(object_.get_existential(n=count, proper=True))
+		# list the relations
+		for relation in self.relationships:
+			parts_tuple, relation_str = relation
+			special = {}
+			for i in range(len(parts_tuple)):
+				part = parts_tuple[i]
+				assert type(part) == Noun
+				# a/an?
+				special[str(i)+'_article'] = part.article
+				# is/are?
+				special[str(i)+'_be'] = part.get_be()
+			s = relation_str.format(*[i.read() for i in parts_tuple], **special)
+			o.append(s+'.')
+		return ' '.join(o)
