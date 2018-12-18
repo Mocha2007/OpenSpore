@@ -3,6 +3,8 @@ from math import log
 from resource import Resource
 from color import Color
 from creature import creature_gen
+from history import history_gen
+from constants import format_year
 import sys
 sys.path.append('./data/name')
 from civnamegen import main as name
@@ -49,6 +51,7 @@ class Civ:
 		self.diplo = {} # civ.id (float) -> state (str)
 		self.creature = creature_gen(self.id)
 		print(self.description())
+		print(self.read_history())
 
 	def __add__(self, other):
 		assert type(other) in (float, int, Resource)
@@ -136,6 +139,15 @@ class Civ:
 		describe.append('Tags: '+str(self.creature.list_tags()))
 		describe.append('Description: '+self.creature.description().read())
 		return '\n\t'.join(describe)
+
+	def history(self) -> dict:
+		return history_gen(self.home, civ=self)
+
+	def read_history(self) -> str:
+		o = []
+		for date, event in sorted(self.history().items(), key=lambda x: x[0]):
+			o.append(format_year(date)+': '+event.name)
+		return '\n'.join(o)
 
 
 def civgen(p):

@@ -26,6 +26,7 @@ hour = 60 * 60
 day = 24 * hour
 year = 365.2425 * day
 planet_form_time = 1e6 * year # liberal estimate; prolly higher
+earth_age = 4.54e9 * year
 universe_age = 13.799e9 * year
 g_earth = 9.807
 m_earth = 5.97237e24
@@ -651,3 +652,7 @@ def r_polar_adj(adj_list, minimum: int, maximum: int) -> set:
 	for i in range(limit):
 		chosen.add(choice(palette.pop()))
 	return chosen
+
+
+def format_year(seconds: float) -> str:
+	return "{:,}".format(int(seconds/year))+' years'

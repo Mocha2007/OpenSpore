@@ -1,8 +1,9 @@
 {
-	"example": [
+	"_": [
 		{
 			"name": "Name of the Event",
-			"frequency": 5,
+			"desc": "Description of the Event",
+			"frequency": 0,
 			"requires": ["Emergence of Life"],
 			"types": {
 				"type 1": 1,
@@ -12,6 +13,14 @@
 				"one_time_event"
 			],
 			"notes":"types, desc, and notes optional. frequency is how many times it would happen on earth, on average. corresponding probs are autocalced. type numbers are dimensionless weights, acceptable iff their sum is a nonzero real."
+		},
+		{
+			"name": "Formation of the Planet",
+			"frequency": 0
+		},
+		{
+			"name": "Now",
+			"frequency": 0
 		}
 	],
 	"bio": [
@@ -19,13 +28,13 @@
 			"name": "Emergence of Life",
 			"desc": "The breath of life was first breathed into a cell this era.",
 			"frequency": 20,
-			"tags": ["one_time_event", "required_for_civ", "required_for_life"]
+			"tags": ["one_time_event", "required_for_life"]
 		},
 		{
 			"name": "Emergence of Sexual Reproduction",
 			"desc": "The first cells had fun together in this era.",
 			"frequency": 1.5,
-			"requires": ["Emergence of Life"],
+			"requires": ["Multicellular Life"],
 			"tags": ["one_time_event", "required_for_sex"]
 		},
 		{
@@ -33,10 +42,10 @@
 			"desc": "A few cells have begun to form colonies.",
 			"frequency": 19,
 			"requires": ["Emergence of Life"],
-			"tags": ["one_time_event"]
+			"tags": ["one_time_event", "required_for_civ"]
 		},
 		{
-			"name": "Like_Cambrian",
+			"name": "Taxa Explosion",
 			"desc": "The abrupt emergence of numerous taxa during this era is noted.",
 			"frequency": 1.2,
 			"requires": ["Emergence of Life"]
@@ -76,7 +85,7 @@
 			"name": "Geomagnetic Reversal",
 			"desc": "The poles abruptly switched places in this era.",
 			"frequency": 21600,
-			"tags": ["show_last 10"],
+			"tags": ["limit 10"],
 			"notes": "208.3 ky avg"
 		}
 	]
