@@ -1,0 +1,83 @@
+{
+	"example": [
+		{
+			'name': 'Name of the Event',
+			'frequency': 5,
+			'requires': ['Emergence of Life'],
+			'types': {
+				'type 1': 1,
+				'type 2': 9
+			},
+			'tags': [
+				'one_time_event'
+			],
+			'notes':'types, desc, and notes optional. frequency is how many times it would happen on earth, on average. corresponding probs are autocalced. type numbers are dimensionless weights, acceptable iff their sum is a nonzero real.'
+		}
+	],
+	"bio": [
+		{
+			'name': 'Emergence of Life',
+			'desc': 'The breath of life was first breathed into a cell this era.',
+			'frequency': 20,
+			'tags': ['one_time_event', 'required_for_civ', 'required_for_life']
+		},
+		{
+			'name': 'Emergence of Sexual Reproduction',
+			'desc': 'The first cells had fun together in this era.',
+			'frequency': 1.5,
+			'requires': ['Emergence of Life'],
+			'tags': ['one_time_event', 'required_for_sex']
+		},
+		{
+			'name': 'Multicellular Life',
+			'desc': 'A few cells have begun to form colonies.',
+			'frequency': 19,
+			'requires': ['Emergence of Life'],
+			'tags': ['one_time_event']
+		},
+		{
+			'name': 'Like_Cambrian',
+			'desc': 'The abrupt emergence of numerous taxa during this era is noted.',
+			'frequency': 1.2,
+			'requires': ['Emergence of Life']
+		},
+		{
+			'name': 'Life on Land',
+			'desc': 'The first living things have taken root on the land.',
+			'frequency': 1.3,
+			'requires': ['Emergence of Life'],
+			'tags': ['one_time_event']
+		}
+	],
+	"geo": [
+		{
+			'name': 'Mass-Extinction Event',
+			'desc': 'An abrupt decrease in taxa is noted in the geologic record.',
+			'frequency': 5,
+			'requires': ['Emergence of Life'],
+			'types': {
+				'Megaeruption': 11,
+				'Abrupt Climate Change': 12,
+				'Asteroid Impact': 1
+			},
+			'notes':'https://en.wikipedia.org/wiki/Extinction_event#Most_widely_supported_explanations'
+		},
+		{
+			'name': 'Snowball World',
+			'desc': 'Most if not all of the world was frozen over briefly.',
+			'frequency': 7
+		},
+		{
+			'name': 'Formation of Supercontinent',
+			'desc': 'Briefly, all continents became one.',
+			'frequency': 11
+		},
+		{
+			'name': 'Geomagnetic Reversal',
+			'desc': 'The poles abruptly switched places in this era.',
+			'frequency': 21600,
+			'tags': ['show_last 10'],
+			'notes': '208.3 ky avg'
+		}
+	]
+}
