@@ -31,18 +31,25 @@
 			"tags": ["one_time_event", "required_for_life"]
 		},
 		{
-			"name": "Emergence of Sexual Reproduction",
-			"desc": "The first cells had fun together in this era.",
-			"frequency": 1.5,
-			"requires": ["Multicellular Life"],
-			"tags": ["one_time_event", "required_for_sex"]
-		},
-		{
 			"name": "Multicellular Life",
 			"desc": "A few cells have begun to form colonies.",
 			"frequency": 19,
 			"requires": ["Emergence of Life"],
 			"tags": ["one_time_event", "required_for_civ"]
+		},
+		{
+			"name": "Photosynthesis",
+			"desc": "A few cells have begun to form colonies.",
+			"frequency": 5,
+			"requires": ["Emergence of Life"],
+			"tags": ["one_time_event"]
+		},
+		{
+			"name": "Emergence of Sexual Reproduction",
+			"desc": "The first cells had fun together in this era.",
+			"frequency": 1.5,
+			"requires": ["Multicellular Life"],
+			"tags": ["one_time_event", "required_for_sex"]
 		},
 		{
 			"name": "Taxa Explosion",
