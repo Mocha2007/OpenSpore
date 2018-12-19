@@ -39,7 +39,7 @@
 		},
 		{
 			"name": "Photosynthesis",
-			"desc": "A few cells have begun to form colonies.",
+			"desc": "A few cells have begun to convert CO2 into O2.",
 			"frequency": 5,
 			"requires": ["Emergence of Life"],
 			"tags": ["one_time_event"]
