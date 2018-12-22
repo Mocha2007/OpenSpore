@@ -12,7 +12,7 @@
 			"tags": [
 				"one_time_event"
 			],
-			"notes":"types, desc, and notes optional. frequency is how many times it would happen on earth, on average. corresponding probs are autocalced. type numbers are dimensionless weights, acceptable iff their sum is a nonzero real."
+			"notes":"types, desc, and notes optional. frequency is how many times it would happen on earth, on average. corresponding probs are autocalced. type numbers are dimensionless integer weights."
 		},
 		{
 			"name": "Formation of the Planet",
@@ -87,6 +87,24 @@
 			"name": "Formation of Supercontinent",
 			"desc": "Briefly, all continents became one.",
 			"frequency": 11
+		},
+		{
+			"name": "New Orogeny",
+			"desc": "A new mountain range formed this era.",
+			"frequency": 95,
+			"notes": "95 terran orogenies"
+		},
+		{
+			"name": "Major Impact",
+			"desc": "A crater this age formed.",
+			"frequency": 369,
+			"types": {
+				"100 m Impactor": 100,
+				"1 km Impactor": 61,
+				"10 km Impactor": 3
+			},
+			"tags": ["limit 166"],
+			"notes": "164 craters with 1.25 km <= d, crater diameter ~= 12.5 * impactor diameter"
 		},
 		{
 			"name": "Geomagnetic Reversal",

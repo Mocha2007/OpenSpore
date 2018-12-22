@@ -145,8 +145,12 @@ class Civ:
 
 	def read_history(self) -> str:
 		o = []
-		for date, event in sorted(self.history().items(), key=lambda x: x[0]):
+		for date, eventinstance in sorted(self.history().items(), key=lambda x: x[0]):
+			event = eventinstance.event
+			eventtype = eventinstance.type
 			o.append(format_year(date)+': '+event.name)
+			if eventtype:
+				o.append('\t-> '+eventtype)
 		return '\n'.join(o)
 
 

@@ -1,5 +1,5 @@
 from json import load
-from random import random
+from random import choice, random, seed
 from constants import earth_age, format_year
 
 events_json = load(open('data/history.json', encoding="utf-8"))
@@ -33,11 +33,24 @@ class Event:
 		return False
 
 
+class EventInstance:
+	def __init__(self, event: Event, event_type: str):
+		self.event = event
+		self.type = event_type
+
+
 events = {i: [Event(**k) for k in j] for i, j in events_json.items()}
 # print(events) # debug
 
 # a history is a DICT of int(time) -> Event.
 resolution = 10**13 # ~300 ky
+
+
+def construct_types(types: dict) -> list:
+	o = []
+	for i, j in types.items():
+		o += [i]*j
+	return o
 
 
 def frequency_to_probability(frequency: float) -> float:
@@ -51,6 +64,7 @@ def history_gen(planet, **kwargs) -> dict:
 	:param kwargs: optional civ=Civ for filter
 	:return: a "history" (dict mapping int to Event)
 	"""
+	seed(planet)
 	if 'civ' in kwargs:
 		requirements = {'required_for_civ', 'required_for_life'}
 		if kwargs['civ'].creature.constants['sexes']:
@@ -64,7 +78,7 @@ def history_gen(planet, **kwargs) -> dict:
 		kwargs['fails'] = 0
 	bonus = 2**kwargs['fails']
 	# now the bigboi
-	history = {0: events['_'][1]}
+	history = {0: EventInstance(events['_'][1], '')}
 	collected_tags = set()
 	age = int(planet.orbit.primary.age)
 	for sim_time in range(1, age, resolution):
@@ -76,18 +90,22 @@ def history_gen(planet, **kwargs) -> dict:
 				if event.limit and event.limit * earth_age / event.frequency < age - sim_time:
 					continue
 				# one time only set?
-				if 'one_time_event' in event.tags and event in set(history.values()):
+				if 'one_time_event' in event.tags and event in map(lambda x: x.event, set(history.values())):
 					continue
 				# prereq set?
-				if not event.requires <= set([i.name for i in history.values()]):
+				if not event.requires <= set([i.event.name for i in history.values()]):
 					continue
 				# then check event
 				this_bonus = bonus if event.is_requirement() else 1
 				if random()/this_bonus < frequency_to_probability(event.frequency):
 					# add event
-					history[sim_time] = event
+					if event.types:
+						event_type = choice(construct_types(event.types))
+					else:
+						event_type = ''
+					history[sim_time] = EventInstance(event, event_type)
 					collected_tags = collected_tags.union(event.tags)
-	history[age] = events['_'][2]
+	history[age] = EventInstance(events['_'][2], '')
 	# all parameters satisfied?
 	if requirements <= collected_tags:
 		# print('succ')
