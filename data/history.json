@@ -70,7 +70,7 @@
 			"name": "Mass-Extinction Event",
 			"desc": "An abrupt decrease in taxa is noted in the geologic record.",
 			"frequency": 5,
-			"requires": ["Emergence of Life"],
+			"requires": ["Multicellular Life"],
 			"types": {
 				"Megaeruption": 11,
 				"Abrupt Climate Change": 12,
