@@ -1,5 +1,5 @@
 {
-	"components": {
+	"parts": {
 		"crew": {
 			"needs": {"food": 1, "oxygen": 2, "water": 1},
 			"produces": {"carbon dioxide": 1, "biowaste": 1},
