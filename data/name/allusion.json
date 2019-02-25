@@ -53,13 +53,29 @@
 	"Pimblokto": ".",
 	"Urf": "G"
   },
+  "Myth": {
+	"Alfheim": ".",
+	"Atlantis": ".",
+	"Arcadia": ".",
+	"Asgard": ".",
+	"Avalon": ".",
+	"Eden": ".",
+	"El Dorado": ".",
+	"Elysium": ".",
+	"Jotunheim": ".",
+	"Muspelheim": ".",
+	"Niflheim": ".",
+	"Svartalfheim": ".",
+	"Thule": ".",
+	"Valhalla": ".",
+	"Vanaheim": "."
+  },
   "Namei": {
 	"Namei": "K"
   },
   "Names": {
 	"Asimov": ".",
 	"Clarke": ".",
-	"Demian": "G",
 	"Elon": ".",
 	"Heinlein": ".",
 	"Musk": ".",
@@ -107,6 +123,11 @@
 	"Sagan": ".",
 	"Tesla": ".",
 	"Tombaugh": "."
+  },
+  "SotE": {
+	"Beavaria": "G",
+	"Calandiel": "G",
+	"Demian": "G"
   },
   "Spore": {
 	"Grox": "."

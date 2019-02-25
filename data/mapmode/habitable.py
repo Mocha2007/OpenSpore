@@ -2,7 +2,7 @@ import sys
 sys.path.append('./data')
 from color import Color
 from system import System, Planet
-from constants import ishab, m_gg, p_hab, water
+from constants import ishab, m_gg, p_hab
 
 colorMap = {
 	True: Color(0, 192, 0),

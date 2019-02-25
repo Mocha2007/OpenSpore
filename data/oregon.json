@@ -1,0 +1,52 @@
+{
+	"parts": {
+		"crew": {
+			"needs": {"food": 1, "oxygen": 2, "water": 1},
+			"produces": {"carbon dioxide": 1, "biowaste": 1},
+			"tags": ["vital"]
+		},
+		"generator": {
+			"needs": {"hydrogen": 1, "oxygen": 8},
+			"produces": {"energy": 1, "water": 1}
+		},
+		"hull": {},
+		"hydroelectrolyzer": {
+			"needs": {"water": 1, "energy": 1},
+			"produces": {"hydrogen": 1, "oxygen": 8}
+		},
+		"hydroponics": {
+			"needs": {"energy": 1, "nitrogen": 1, "carbon dioxide": 0.5, "water": 1},
+			"produces": {"food": 1, "oxygen": 1}
+		},
+		"reclamator": {
+			"needs": {"biowaste": 1, "energy": 1},
+			"produces": {"nitrogen": 1, "water": 1}
+		},
+		"sensors": {
+			"needs": {"energy": 1}
+		},
+		"thrusters": {
+			"needs": {"hydrogen": 1, "oxygen": 8}
+		},
+		"weapons": {
+			"needs": {"energy": 1}
+		}
+	},
+	"qualities": [
+		"terrible",
+		"poor",
+		"average",
+		"good",
+		"great"
+	],
+	"resources": [
+		"biowaste",
+		"carbon dioxide",
+		"energy",
+		"food",
+		"hydrogen",
+		"nitrogen",
+		"oxygen",
+		"water"
+	]
+}

@@ -27,7 +27,7 @@ def rho(p) -> float:
 
 
 def temp(p) -> float:
-	return p.temperature if type(p) == Star else p.temp
+	return p.temperature if isinstance(p, Star) else p.temp
 
 
 def p_rgb(p) -> (int, int, int):

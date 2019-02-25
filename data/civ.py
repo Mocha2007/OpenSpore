@@ -55,7 +55,7 @@ class Civ:
 
 	def __add__(self, other):
 		assert type(other) in (float, int, Resource)
-		if type(other) == Resource:
+		if isinstance(other, Resource):
 			if other in self.inv:
 				self.inv[other] += 1
 			else:
@@ -66,7 +66,7 @@ class Civ:
 
 	def __sub__(self, other):
 		assert type(other) in (float, int, Resource)
-		if type(other) == Resource:
+		if isinstance(other, Resource):
 			self.inv[other] -= 1
 		else:
 			assert other <= self.cash
