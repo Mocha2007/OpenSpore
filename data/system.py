@@ -1,6 +1,6 @@
 from random import random, randint, uniform
 from math import e, exp, log, log10
-from constants import au, m2r, temp2, m_earth, m_browndwarf, m_gg, m_j, m_rock, r_j, r_sun, t_sun, soi, soi_moon, planet_form_time
+from constants import au, m2r, temp2, m_earth, m_browndwarf, m_gg, m_j, m_rock, r_j, r_sun, soi, soi_moon, planet_form_time
 from constants import atmchems, c_e, c_j # for atm
 from constants import getmb # for pradius
 from orbit import rporbit

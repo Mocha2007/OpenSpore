@@ -8,7 +8,7 @@ def d2h(x: int) -> str:
 class Color:
 	"""For fucking with color in python"""
 	def __init__(self, r: int, g: int, b: int):
-		assert type(r+g+b) == int
+		assert isinstance(r+g+b, int)
 		assert max(r, g, b) <= 255 and min(r, g, b) >= 0
 		self.r = r
 		self.g = g
