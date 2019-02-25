@@ -4,7 +4,7 @@ from constants import log_uniform, r_adj, r_polar_adj, rbool
 from word import Noun, Description
 
 parts_json = load(open('data/parts.json', encoding="utf-8"))
-""" 
+"""
 stomach [hydra+]
 	<- brain [acoelomorpha+]
 		<- kidney [nematode+]

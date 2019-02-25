@@ -8,16 +8,16 @@ class Chem:
 		self.name = data['name']
 		try:
 			self.triple = data['triple']
-			assert type(self.triple) == tuple
+			assert isinstance(self.triple, tuple)
 			self.critical = data['critical']
-			assert type(self.critical) == tuple
+			assert isinstance(self.critical, tuple)
 		except IndexError:
 			pass
 		self.melt = data['melt']
-		assert type(self.melt) == float
+		assert isinstance(self.melt, float)
 		self.freeze = self.melt
 		self.boil = data['boil']
-		assert type(self.boil) == float
+		assert isinstance(self.boil, float)
 
 	# get current state
 	def state(self, t: float) -> str:

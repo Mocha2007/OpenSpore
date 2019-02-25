@@ -78,15 +78,14 @@ class Description:
 		o = []
 		# list the characters
 		for object_, count in self.objects.items():
-			assert type(object_) == Noun
+			assert isinstance(object_, Noun)
 			o.append(object_.get_existential(n=count, proper=True))
 		# list the relations
 		for relation in self.relationships:
 			parts_tuple, relation_str = relation
 			special = {}
-			for i in range(len(parts_tuple)):
-				part = parts_tuple[i]
-				assert type(part) == Noun
+			for i, part in enumerate(parts_tuple):
+				assert isinstance(part, Noun)
 				# a/an?
 				special[str(i)+'_article'] = part.article
 				# is/are?

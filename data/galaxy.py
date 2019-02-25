@@ -47,8 +47,7 @@ class Galaxy: # no type annotation since function can't be annotated
 		self.stars = starList
 
 	def rotate(self, times: int):
-		if type(times) != int:
-			return ValueError
+		assert isinstance(times, int)
 		times %= 4
 		if times == 0:
 			return self
@@ -63,8 +62,7 @@ class Galaxy: # no type annotation since function can't be annotated
 		return self.rotate(times-1)
 
 	def vrotate(self, times: int):
-		if type(times) != int:
-			return ValueError
+		assert isinstance(times, int)
 		times %= 4
 		if times == 0:
 			return self

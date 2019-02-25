@@ -1,6 +1,6 @@
 from json import load
 from random import choice, random, seed
-from constants import earth_age, format_year
+from constants import earth_age # , format_year
 
 events_json = load(open('data/history.json', encoding="utf-8"))
 

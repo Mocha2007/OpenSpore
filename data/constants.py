@@ -177,8 +177,8 @@ def delta(a: tuple, b: tuple) -> tuple:
 
 def dist(a: tuple, b: tuple) -> float:
 	s = 0
-	for i in range(len(a)):
-		s += (a[i]-b[i])**2
+	for i, ai in enumerate(a):
+		s += (ai-b[i])**2
 	return s**.5
 
 
@@ -235,8 +235,8 @@ def text(t: str, screen: pygame.Surface, rect: (int, int, int, int), backcolor: 
 	pygame.draw.rect(screen, backcolor, rectborder)
 	pygame.draw.rect(screen, forecolor, rectborder, 1)
 	t = t.split('\n')
-	for i in range(len(t)):
-		tlabel = font.render(t[i], 1, (255, 255, 255))
+	for i, ti in enumerate(t):
+		tlabel = font.render(ti, 1, (255, 255, 255))
 		screen.blit(tlabel, (coords[0]+10, coords[1]+i*20))
 		if i: # draw line above
 			pygame.draw.line(screen, forecolor, (coords[0]+10, coords[1]+20*i), (coords[0]+width-10, coords[1]+20*i))
@@ -447,7 +447,7 @@ def print_orbit(system, **kwargs):
 	# set up size
 	size = 1024
 	if 'size' in kwargs:
-		assert type(kwargs['size']) == int
+		assert isinstance(kwargs['size'], int)
 		size = kwargs['size']
 	center = size//2, size//2
 	orbit_map = pygame.display.set_mode((size, size))
@@ -639,7 +639,7 @@ def r_adj(adj_list, minimum: int, maximum: int) -> set:
 	shuffle(palette)
 	chosen = set()
 	limit = randint(minimum, maximum)
-	for i in range(limit):
+	for _ in range(limit):
 		chosen.add(palette.pop())
 	return chosen
 
@@ -649,7 +649,7 @@ def r_polar_adj(adj_list, minimum: int, maximum: int) -> set:
 	shuffle(palette)
 	chosen = set()
 	limit = randint(minimum, maximum)
-	for i in range(limit):
+	for _ in range(limit):
 		chosen.add(choice(palette.pop()))
 	return chosen
 

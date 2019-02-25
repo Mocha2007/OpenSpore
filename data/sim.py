@@ -27,5 +27,4 @@ def main(g: Galaxy) -> Galaxy:
 		# now, add to histories
 		civ = civ.update_hist()
 		# now, refresh money
-		pass # nothing to do for now
 	return g

@@ -1,4 +1,3 @@
-from random import random, choice
 import sys
 sys.path.append('./data')
 from starcalc import Star
@@ -13,7 +12,6 @@ class Galaxy: # no type annotation since function can't be annotated
 		home = (0, 0, 0), SystemClass(Star(1, 'Home'), planetnamegen, moonnamegen)
 		starList = [home]
 		# generate stars until ten failed placements in a row
-		failures = 0
 		for x in range(galaxyWidth):
 			for y in range(galaxyWidth):
 				for z in range(galaxyWidth):

@@ -1,4 +1,3 @@
-from sys import exit
 from importlib.machinery import SourceFileLoader
 from math import ceil, log10, pi
 from time import time
@@ -106,6 +105,13 @@ plot = SourceFileLoader('plot', 'data/plot.py').load_module()
 
 # load sim module
 sim = SourceFileLoader('sim', 'data/sim.py').load_module()
+
+# defaults
+# delta = 0, 0
+# deltaNew = 0, 0
+middleRadius = 1
+focusPlanet = 0
+frames = [0, 1]
 
 
 def shift() -> bool:
@@ -414,6 +420,7 @@ refresh()
 open('openspore.log', 'a+').write('\nGENERATION START '+str(time()))
 start_time = time()
 g = galaxy.Galaxy(stargen.main, starnamegen.main, planetnamegen.main, moonnamegen.main, systemclass.System, resgen.main)
+focusSystem = g.stars[0][1]
 print(time()-start_time, 's')
 open('openspore.log', 'a+').write('\nGENERATION END '+str(time()))
 # plotting + reset
@@ -421,13 +428,6 @@ open('openspore.log', 'a+').write('\nGENERATION END '+str(time()))
 # screen = pygame.display.set_mode(size)
 
 # main
-
-# delta = 0, 0
-# deltaNew = 0, 0
-middleRadius = 1
-focusSystem = g.stars[0][1]
-focusPlanet = 0
-frames = [0, 1]
 while 1:
 	# blank
 	screen.fill((0, 0, 0))

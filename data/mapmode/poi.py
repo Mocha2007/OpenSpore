@@ -5,7 +5,7 @@ from system import System, Planet
 from constants import grey, m_earth, m_gg, m_ig, m_j, ishab, t_earth
 from toxic import istox
 sys.path.append('./data/surface')
-from continental import gettype, typecolor
+from continental import typecolor
 
 # WARNING this module is super laggy; I get 14 fps from this!!!
 
@@ -57,15 +57,15 @@ def poi(p: Planet) -> str:
 	# Mesoplanet
 	if p.mass < 3.3011e23:
 		return 'Mesoplanet'
+	return ''
 	# the following are currently impossible and thus temporarily blocked for performance
-	return ''
 	# Carbon Planet
-	if p.mass < m_gg:
-		carbon = sum(map(lambda x: x[1], filter(lambda x: 'C' in x[0], p.atmosphere.items())))
-		oxygen = sum(map(lambda x: x[1], filter(lambda x: 'O' in x[0], p.atmosphere.items())))
-		if carbon > oxygen:
-				return 'Carbon Planet'
-	return ''
+	# if p.mass < m_gg:
+	# 	carbon = sum(map(lambda x: x[1], filter(lambda x: 'C' in x[0], p.atmosphere.items())))
+	# 	oxygen = sum(map(lambda x: x[1], filter(lambda x: 'O' in x[0], p.atmosphere.items())))
+	# 	if carbon > oxygen:
+	# 			return 'Carbon Planet'
+	# return ''
 
 
 def main(system: System) -> Color:
