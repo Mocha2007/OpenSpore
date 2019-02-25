@@ -1,6 +1,6 @@
 from random import random, randint, uniform
 from system import Moon, atm, pmass, pradius
-from constants import au, m2r, temp2, m_gg, planet_form_time
+from constants import temp2, m_gg, planet_form_time
 from orbit import rporbit
 from life import lifegen
 from civ import civgen
