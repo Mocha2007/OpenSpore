@@ -59,10 +59,14 @@ def body(g: Galaxy, xaxis, yaxis, **options) -> Points:
 		options['ylog'] = False
 	if 'point' not in options:
 		options['point'] = '.'
+	if 'ignore_degenerate' not in options:
+		options['ignore_degenerate'] = False
 	# set construction
 	array = []
 	# star
 	for _, system in g.stars:
+		if options['ignore_degenerate'] and 1 < len(system.star.type):
+			continue
 		coords = [xaxis(system.star), yaxis(system.star)]
 		# log plotting
 		if options['xlog']:

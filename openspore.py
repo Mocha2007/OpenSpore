@@ -424,7 +424,7 @@ focusSystem = g.stars[0][1]
 print(time()-start_time, 's')
 open('openspore.log', 'a+').write('\nGENERATION END '+str(time()))
 # plotting + reset
-# plot.body(g, plot.mass, plot.rho, xlog=True, ylog=True, point='.')
+# plot.body(g, plot.mass, plot.rho, xlog=True, ylog=True, point='.', ignore_degenerate=True)
 # screen = pygame.display.set_mode(size)
 
 # main
